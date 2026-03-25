@@ -1,0 +1,153 @@
+{
+  "project_name": "Assk Studio",
+  "theme": "light",
+  "typography": {
+    "headings": {
+      "font_family": "Anton, sans-serif",
+      "style": "uppercase, tracking-tight, leading-none, massive scales (text-6xl to text-[10vw])",
+      "usage": "Use strictly for Hero, Section Titles, and major CTAs. Never for paragraphs."
+    },
+    "body": {
+      "font_family": "Futura, 'League Spartan', 'Jost', sans-serif",
+      "style": "tracking-wide, geometric, highly legible, sharp",
+      "usage": "Use for all paragraphs, product descriptions, pricing, and small ui labels."
+    }
+  },
+  "colors": {
+    "primary": "#0047FF",
+    "background": "#FFFFFF",
+    "text": "#0047FF",
+    "border": "#0047FF",
+    "accent": "#0047FF",
+    "forbidden_colors": [
+      "#000000",
+      "#111111",
+      "gray",
+      "slate",
+      "red",
+      "green",
+      "teal",
+      "gradients"
+    ],
+    "rules": "CRITICAL: The ENTIRE site is strictly 2 colors. Pure White (#FFFFFF) and Electric Cobalt Blue (#0047FF). No greys for borders, no black text. Even subtle backgrounds must just be white with blue borders, or solid blue with white text."
+  },
+  "visual_enhancers": {
+    "style": "Swiss Brutalism / Neo-Brutalism",
+    "borders": "Sharp edges, 2px or 4px solid #0047FF borders on all major containers, images, and buttons to give a 'blueprint' feel.",
+    "shadows": "Hard solid shadows only: shadow-[6px_6px_0_0_#0047FF] or shadow-[4px_4px_0_0_#0047FF]. NO BLURRY SHADOWS (e.g. no shadow-lg or shadow-md).",
+    "corners": "rounded-none everywhere. Absolute sharpness. Do not use border-radius.",
+    "backgrounds": "No gradients, no glassmorphism. Pure flat #FFFFFF or #0047FF backgrounds only."
+  },
+  "components": {
+    "buttons": "Large padding (px-8 py-4), bg-[#0047FF] text-white font-['Anton'] uppercase text-xl hover:bg-white hover:text-[#0047FF] border-2 border-transparent hover:border-[#0047FF] transition-colors. Add solid hard shadows for primary CTAs.",
+    "cards": "border-2 border-[#0047FF] p-6 bg-white hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#0047FF] transition-all duration-200. Used for Pricing, Services, and Shop items.",
+    "navigation": "Sticky top top-0 z-50 border-b-2 border-[#0047FF] bg-white text-[#0047FF] flex justify-between uppercase font-['Anton'] py-4 px-6 or px-12. No transparent backgrounds over content.",
+    "marquee": "Use `react-fast-marquee` for massive text 'LAISSE TA MARQUE' scrolling across the screen. Can be bg-[#0047FF] with text-white, or outline text in blue."
+  },
+  "grids": {
+    "bento_strategy": "Tetris/Swiss grid with thick 2px #0047FF borders acting as dividers. Make the grid lines visible.",
+    "spacing": "Generous paddings (p-12, p-24) within sections. Dense typography but massive negative space between distinct blocks.",
+    "alignment": "Left-aligned heavy text. No centered slop, except for the absolute main hero if stylistically justified. Asymmetry is preferred."
+  },
+  "layouts": {
+    "hero": "Massive H1 'LAISSE TA MARQUE' filling the screen. Place the provided character logo prominently (maybe oversized and clipping off the edge, or perfectly centered). Marquee tape running diagonally or across the bottom.",
+    "services": "Grid of services (Pôle Graphisme vs Pôle 3D & Toys). Each service is a sharp card with clear pricing. High density text for details, massive numbers for price.",
+    "shop": "E-commerce grid (LE DROP ASSK). Product images inside sharp #0047FF borders with solid shadow. Clean typography for title and price.",
+    "portfolio": "Masonry or strict grid of portfolio images. On hover, images get a #0047FF border and slightly translate up.",
+    "contact": "Brutalist forms. Inputs must have border-2 border-[#0047FF] rounded-none bg-white text-[#0047FF] placeholder-[#0047FF]/50. Massive Submit button.",
+    "admin": "Dashboard with same pure brutalist UI. No rounded corners, high contrast #0047FF vs White."
+  },
+  "motion": {
+    "animations": "Lenis smooth scroll is strongly recommended. Marquees using react-fast-marquee. Hover states snap immediately or use fast crisp transitions (duration-200 ease-out).",
+    "interactions": "Hover lifts card with solid shadow (-translate-y-1 shadow-[4px_4px_0px_#0047FF]). Elements should feel mechanical and solid, not floaty."
+  },
+  "accessibility": {
+    "contrast": "Perfect contrast ratio (Cobalt Blue on Pure White).",
+    "focus": "focus:outline-none focus:ring-4 focus:ring-[#0047FF] focus:ring-offset-2 focus:ring-offset-white",
+    "testing": "All interactive elements must have data-testid. e.g., data-testid='hero-cta-button', data-testid='add-to-cart-button'."
+  },
+  "media": {
+    "image_treatment": "Images should be sharp, housed in border-2 border-[#0047FF] containers. Images can be fully colored since the rest of the UI is strictly 2 colors, allowing the portfolio/toys to pop.",
+    "3d_libraries": "Since this is a 3D studio, if applicable, you could use Three.js/R3F for a spinning 3D version of their logo or a toy in the hero, but only if easily implementable. Otherwise, heavily rely on the provided 2D assets and high impact typography."
+  },
+  "image_urls": {
+    "logo": [
+      {
+        "url": "https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png",
+        "description": "Assk Studio main logo - Blue Character with Heart"
+      }
+    ],
+    "portfolio": [
+      {
+        "url": "https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/5aa6967f-7966-4a4d-9fe2-bbc35bd5b5ef_car_202x158.png",
+        "description": "COACHELLA 3D Project"
+      },
+      {
+        "url": "https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/904c84f8-385a-430e-be45-62c43fee432f_car_202x158.png",
+        "description": "LIBERTY VAN 3D Project"
+      },
+      {
+        "url": "https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/441ef420-a492-4f5f-a672-d1c2974ac4b3_car_202x158.jpg",
+        "description": "CLUB FOOTBALL Graphic Design"
+      },
+      {
+        "url": "https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/a28abccd-9456-4ec6-b19f-76b7565554f7_car_202x158.png",
+        "description": "IRIS Project"
+      },
+      {
+        "url": "https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/b1fa2401-ea74-4d91-898b-b0c7d6084cfe_rwc_385x125x1146x896x1146.png",
+        "description": "KATES AGENCY Graphic Design"
+      },
+      {
+        "url": "https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/50797ea8-e6b3-45b8-978c-7be51f47d50e_rwc_331x0x3837x3000x3837.png",
+        "description": "BLENDED WORLDS Abstract 3D"
+      },
+      {
+        "url": "https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/4047834e-e027-4e9c-858c-b288c54f8d6d_car_202x158.png",
+        "description": "MANGA POSTERS Graphic Design"
+      }
+    ],
+    "shop": [
+      {
+        "url": "https://images.unsplash.com/photo-1596708688812-32b0edc764e5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzN8MHwxfHNlYXJjaHwxNXx8ZGVzaWduZXIlMjB0b3l8ZW58MHx8fHwxNzA4NjE0MTc4fDA&ixlib=rb-4.0.3&q=85",
+        "description": "Art Toy 'Blue Edition' Placeholder"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1661570323628-06de800328c7?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Posters A3 Placeholder"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "T-Shirt Placeholder"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Hoodie Placeholder"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "CRITICAL: USE EXACTLY TWO COLORS FOR THE ENTIRE UI. Electric Cobalt Blue (#0047FF) and Pure White (#FFFFFF). DO NOT use gray, black, or any other color for text, borders, backgrounds, or shadows. Modify standard Shadcn tailwind configurations to enforce this.",
+    "Import fonts: Add 'Anton' (Headings) and 'Futura' or 'League Spartan' (Body) from Google Fonts.",
+    "Use raw HTML/Tailwind for marketing and portfolio views for maximum creative layout freedom. Use Shadcn strictly for complex interactive components (Forms, Checkout, Admin Dropdowns) but customize them heavily to remove their default generic look.",
+    "BORDERS: Give almost every section, card, and image container a `border-2 border-[#0047FF]` to create a Swiss Brutalist / Blueprint feel.",
+    "SHADOWS: Replace all soft drop shadows with solid, unblurred offsets. Example: `shadow-[6px_6px_0px_0px_#0047FF]`.",
+    "NO ROUNDED CORNERS: Override all border radii to `rounded-none` to maintain the aggressive, sharp brutalist identity.",
+    "Install and integrate `lucide-react` for icons, set their stroke color exclusively to #0047FF.",
+    "Install `react-fast-marquee` for the 'LAISSE TA MARQUE' running text band in the Hero and Shop sections."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "You MUST NOT apply universal transition. Eg: `transition: all`. Always add transitions for specific interactive elements like button, input excluding transforms.",
+    "You MUST NOT center align the app container, ie do not add `.App { text-align: center; }` in the css file.",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Main agent relies on these image URLs. Missing categories (especially sponsor logos) = main agent will use placeholder text which is FORBIDDEN.",
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
+    "Components MUST use named exports (export const ComponentName = ...). Pages MUST use default exports (export default function PageName() {...}).",
+    "Use `sonner` for toasts. Sonner components are located in `/app/src/components/ui/sonner.tsx`."
+  ]
+}
