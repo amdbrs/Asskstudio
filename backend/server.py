@@ -642,14 +642,14 @@ async def seed_data():
     ]
     await db.products.insert_many(products)
     
-    # Seed portfolio
+    # Seed portfolio with larger images
     portfolio_items = [
         {
             'id': str(uuid.uuid4()),
             'title': 'COACHELLA César 2024',
             'description': 'Identité visuelle soirée Coachella',
             'category': '3D',
-            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/5aa6967f-7966-4a4d-9fe2-bbc35bd5b5ef_car_202x158.png',
+            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/5aa6967f-7966-4a4d-9fe2-bbc35bd5b5ef.png?h=6d82cee841e694f77bc94a983e97a770',
             'link': 'https://amdbrs.com/coachella-2',
             'created_at': datetime.now(timezone.utc).isoformat()
         },
@@ -658,7 +658,7 @@ async def seed_data():
             'title': 'LIBERTY VAN',
             'description': 'Location de Vans dans l\'Allier 03',
             'category': 'Graphisme',
-            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/904c84f8-385a-430e-be45-62c43fee432f_car_202x158.png',
+            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/904c84f8-385a-430e-be45-62c43fee432f.png?h=5c7646442ab09e86e84b4ef717794f55',
             'link': 'https://amdbrs.com/liberty-van',
             'created_at': datetime.now(timezone.utc).isoformat()
         },
@@ -667,7 +667,7 @@ async def seed_data():
             'title': 'CLUB FOOTBALL LAFOREST',
             'description': 'Logo et t-shirts pour le club',
             'category': 'Graphisme',
-            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/441ef420-a492-4f5f-a672-d1c2974ac4b3_car_202x158.jpg',
+            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/441ef420-a492-4f5f-a672-d1c2974ac4b3.jpg?h=d5aee46ebbf49ee81d4d2935aee9daa2',
             'link': 'https://amdbrs.com/club-football-laforest',
             'created_at': datetime.now(timezone.utc).isoformat()
         },
@@ -676,7 +676,7 @@ async def seed_data():
             'title': 'IRIS',
             'description': 'Identité visuelle marque prêt-à-porter',
             'category': 'Graphisme',
-            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/a28abccd-9456-4ec6-b19f-76b7565554f7_car_202x158.png',
+            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/a28abccd-9456-4ec6-b19f-76b7565554f7.png?h=292e2a921b21180a35acac756fe5cdbb',
             'link': 'https://amdbrs.com/iris',
             'created_at': datetime.now(timezone.utc).isoformat()
         },
@@ -685,7 +685,7 @@ async def seed_data():
             'title': 'KATES AGENCY',
             'description': 'Logo agence au pair aux États-Unis',
             'category': 'Graphisme',
-            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/b1fa2401-ea74-4d91-898b-b0c7d6084cfe_rwc_385x125x1146x896x1146.png',
+            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/b1fa2401-ea74-4d91-898b-b0c7d6084cfe.png?h=5d9232a31656e6cb1b89b2d5d80aea6f',
             'link': 'https://amdbrs.com/kates-agency',
             'created_at': datetime.now(timezone.utc).isoformat()
         },
@@ -694,7 +694,7 @@ async def seed_data():
             'title': 'BLENDED WORLDS',
             'description': 'Alliance numérique et réel',
             'category': '3D',
-            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/50797ea8-e6b3-45b8-978c-7be51f47d50e_rwc_331x0x3837x3000x3837.png',
+            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/50797ea8-e6b3-45b8-978c-7be51f47d50e.png?h=45508908a078ccb3ac83c5128a33e8ea',
             'link': 'https://amdbrs.com/blended-worlds',
             'created_at': datetime.now(timezone.utc).isoformat()
         },
@@ -703,7 +703,7 @@ async def seed_data():
             'title': 'MANGA POSTERS',
             'description': 'Posters de personnages manga',
             'category': 'Graphisme',
-            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/4047834e-e027-4e9c-858c-b288c54f8d6d_car_202x158.png',
+            'image_url': 'https://cdn.myportfolio.com/15e484f1-e9ad-4dc9-8c4b-cd378379b66e/4047834e-e027-4e9c-858c-b288c54f8d6d.png?h=d6b58408df0b9477bec8fbda2bfd588f',
             'link': 'https://amdbrs.com/brook-one-piece',
             'created_at': datetime.now(timezone.utc).isoformat()
         }

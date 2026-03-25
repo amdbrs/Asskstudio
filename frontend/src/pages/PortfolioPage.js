@@ -95,11 +95,15 @@ export default function PortfolioPage() {
                   data-testid={`portfolio-item-${item.id}`}
                 >
                   {/* Image */}
-                  <div className="relative aspect-[4/3] overflow-hidden border-b-2 border-[#0047FF]">
+                  <div className="relative aspect-[4/3] overflow-hidden border-b-2 border-[#0047FF] bg-[#0047FF]/10">
                     <img
                       src={item.image_url}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`;
+                      }}
                     />
                     <div className="absolute inset-0 bg-[#0047FF]/0 group-hover:bg-[#0047FF]/20 transition-colors duration-300" />
                     {item.link && (

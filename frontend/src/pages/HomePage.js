@@ -11,25 +11,21 @@ const services2D = [
   {
     name: 'Pack Logo Signature',
     price: '350',
-    oldPrice: '450',
     description: 'Logo professionnel + déclinaisons'
   },
   {
     name: 'Identité Visuelle Complète',
     price: '750',
-    oldPrice: '950',
     description: 'Logo, charte graphique, supports'
   },
   {
     name: 'Papeterie & Édition',
     price: '150',
-    oldPrice: null,
     description: 'Cartes de visite, flyers, brochures'
   },
   {
     name: 'Site Web Vitrine',
     price: '950',
-    oldPrice: '1200',
     description: 'Design + développement responsive'
   }
 ];
@@ -38,19 +34,16 @@ const services3D = [
   {
     name: 'Modélisation 3D (ZBrush)',
     price: '200',
-    oldPrice: '300',
     description: 'Création de personnages et objets'
   },
   {
     name: 'Impression Résine 4K',
     price: '50',
-    oldPrice: '80',
     description: 'Prototypage haute définition'
   },
   {
     name: 'Pack Art Toy Custom',
     price: '390',
-    oldPrice: '550',
     description: 'Design + modélisation + impression'
   }
 ];
@@ -69,13 +62,14 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="relative min-h-[90vh] bg-[#0047FF] flex items-center overflow-hidden">
-        {/* Background Logo */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-20">
+        {/* Background Image */}
+        <div className="absolute inset-0">
           <img
-            src={LOGO_URL}
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2000&auto=format&fit=crop"
             alt=""
-            className="h-[80vh] w-auto"
+            className="w-full h-full object-cover opacity-30 mix-blend-overlay"
           />
+          <div className="absolute inset-0 bg-[#0047FF]/60" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-24">
@@ -176,11 +170,6 @@ export default function HomePage() {
                         <span className="font-anton text-3xl text-[#0047FF]">
                           {service.price} €
                         </span>
-                        {service.oldPrice && (
-                          <span className="block font-futura text-[#0047FF]/50 line-through">
-                            {service.oldPrice} €
-                          </span>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -218,11 +207,6 @@ export default function HomePage() {
                         <span className="font-anton text-3xl text-[#0047FF]">
                           {service.price} €
                         </span>
-                        {service.oldPrice && (
-                          <span className="block font-futura text-[#0047FF]/50 line-through">
-                            {service.oldPrice} €
-                          </span>
-                        )}
                       </div>
                     </div>
                   </div>

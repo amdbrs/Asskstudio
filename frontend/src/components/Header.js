@@ -39,9 +39,6 @@ export const Header = () => {
                 alt="Assk Studio"
                 className="h-12 w-auto"
               />
-              <span className="font-anton text-2xl text-[#0047FF] hidden sm:block">
-                ASSK
-              </span>
             </Link>
 
             {/* Desktop Navigation */}
