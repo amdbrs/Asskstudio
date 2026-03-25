@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
-import { ArrowRight, Palette, Box, ShoppingBag, Mail, Phone, Instagram, Send, ExternalLink } from 'lucide-react';
+import { ArrowRight, Palette, Box, ShoppingBag, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Monitor, Printer, Star } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { useCart } from '@/context/CartContext';
@@ -10,16 +10,16 @@ import { toast } from 'sonner';
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const services2D = [
-  { name: 'Pack Logo Signature', price: '350', description: 'Logo professionnel + déclinaisons', image: 'https://images.unsplash.com/photo-1626785774625-0b1c2c4eab67?w=400&h=300&fit=crop' },
-  { name: 'Identité Visuelle Complète', price: '750', description: 'Logo, charte graphique, supports', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop' },
-  { name: 'Papeterie & Édition', price: '150', description: 'Cartes de visite, flyers, brochures', image: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=400&h=300&fit=crop' },
-  { name: 'Site Web Vitrine', price: '950', description: 'Design + développement responsive', image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=400&h=300&fit=crop' }
+  { name: 'Pack Logo Signature', price: '350', description: 'Logo professionnel + déclinaisons', icon: 'PenTool' },
+  { name: 'Identité Visuelle Complète', price: '750', description: 'Logo, charte graphique, supports', icon: 'Layers' },
+  { name: 'Papeterie & Édition', price: '150', description: 'Cartes de visite, flyers, brochures', icon: 'FileText' },
+  { name: 'Site Web Vitrine', price: '950', description: 'Design + développement responsive', icon: 'Monitor' }
 ];
 
 const services3D = [
-  { name: 'Modélisation 3D (ZBrush)', price: '200', description: 'Création de personnages et objets', image: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=400&h=300&fit=crop' },
-  { name: 'Impression Résine 4K', price: '50', description: 'Prototypage haute définition', image: 'https://images.unsplash.com/photo-1631733830814-a85d80f5efb5?w=400&h=300&fit=crop' },
-  { name: 'Pack Art Toy Custom', price: '390', description: 'Design + modélisation + impression', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop' }
+  { name: 'Modélisation 3D (ZBrush)', price: '200', description: 'Création de personnages et objets', icon: 'Box' },
+  { name: 'Impression Résine 4K', price: '50', description: 'Prototypage haute définition', icon: 'Printer' },
+  { name: 'Pack Art Toy Custom', price: '390', description: 'Design + modélisation + impression', icon: 'Star' }
 ];
 
 export default function HomePage() {
@@ -133,20 +133,23 @@ export default function HomePage() {
                 <h3 className="font-anton text-3xl text-[#0047FF]">PÔLE GRAPHISME</h3>
               </div>
               <div className="space-y-4">
-                {services2D.map((service, index) => (
-                  <div key={index} className="border-2 border-[#0047FF] bg-white service-card overflow-hidden" data-testid={`service-2d-${index}`}>
-                    <div className="flex">
-                      <img src={service.image} alt={service.name} className="w-32 h-24 object-cover border-r-2 border-[#0047FF] hidden sm:block" />
-                      <div className="flex-1 p-4 flex justify-between items-start">
-                        <div>
-                          <h4 className="font-anton text-xl text-[#0047FF]">{service.name}</h4>
-                          <p className="font-futura text-[#0047FF]/70 text-sm mt-1">{service.description}</p>
+                {services2D.map((service, index) => {
+                  const IconComponent = { PenTool, Layers, FileText, Monitor }[service.icon];
+                  return (
+                    <div key={index} className="border-2 border-[#0047FF] bg-white service-card overflow-hidden" data-testid={`service-2d-${index}`}>
+                      <div className="flex items-center p-4">
+                        <div className="w-12 h-12 border-2 border-[#0047FF] flex items-center justify-center mr-4 flex-shrink-0">
+                          {IconComponent && <IconComponent className="w-6 h-6 text-[#0047FF]" />}
                         </div>
-                        <span className="font-anton text-2xl sm:text-3xl text-[#0047FF] ml-4">{service.price} €</span>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-anton text-lg text-[#0047FF]">{service.name}</h4>
+                          <p className="font-futura text-[#0047FF]/70 text-sm">{service.description}</p>
+                        </div>
+                        <span className="font-anton text-2xl text-[#0047FF] ml-4 flex-shrink-0">{service.price} €</span>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -159,20 +162,23 @@ export default function HomePage() {
                 <h3 className="font-anton text-3xl text-[#0047FF]">PÔLE 3D & TOYS</h3>
               </div>
               <div className="space-y-4">
-                {services3D.map((service, index) => (
-                  <div key={index} className="border-2 border-[#0047FF] bg-white service-card overflow-hidden" data-testid={`service-3d-${index}`}>
-                    <div className="flex">
-                      <img src={service.image} alt={service.name} className="w-32 h-24 object-cover border-r-2 border-[#0047FF] hidden sm:block" />
-                      <div className="flex-1 p-4 flex justify-between items-start">
-                        <div>
-                          <h4 className="font-anton text-xl text-[#0047FF]">{service.name}</h4>
-                          <p className="font-futura text-[#0047FF]/70 text-sm mt-1">{service.description}</p>
+                {services3D.map((service, index) => {
+                  const IconComponent = { Box, Printer, Star }[service.icon];
+                  return (
+                    <div key={index} className="border-2 border-[#0047FF] bg-white service-card overflow-hidden" data-testid={`service-3d-${index}`}>
+                      <div className="flex items-center p-4">
+                        <div className="w-12 h-12 border-2 border-[#0047FF] flex items-center justify-center mr-4 flex-shrink-0">
+                          {IconComponent && <IconComponent className="w-6 h-6 text-[#0047FF]" />}
                         </div>
-                        <span className="font-anton text-2xl sm:text-3xl text-[#0047FF] ml-4">{service.price} €</span>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-anton text-lg text-[#0047FF]">{service.name}</h4>
+                          <p className="font-futura text-[#0047FF]/70 text-sm">{service.description}</p>
+                        </div>
+                        <span className="font-anton text-2xl text-[#0047FF] ml-4 flex-shrink-0">{service.price} €</span>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -233,7 +239,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolio.slice(0, 6).map((item) => (
+            {portfolio.slice(0, 3).map((item) => (
               <a key={item.id} href={item.link || '#'} target={item.link ? '_blank' : '_self'} rel="noopener noreferrer" className="border-2 border-[#0047FF] bg-white portfolio-item group block" data-testid={`home-portfolio-${item.id}`}>
                 <div className="relative aspect-[4/3] overflow-hidden border-b-2 border-[#0047FF] bg-[#0047FF]/10">
                   <img src={item.image_url} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`; }} />
