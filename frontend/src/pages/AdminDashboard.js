@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { toast } from 'sonner';
+import { ImageUpload } from '@/components/ImageUpload';
 
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -244,14 +245,13 @@ const ProductsManagement = () => {
               className="px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura outline-none"
               required
             />
-            <input
-              type="url"
-              placeholder="URL de l'image"
-              value={formData.image_url}
-              onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-              className="px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura outline-none md:col-span-2"
-              required
-            />
+            <div className="md:col-span-2">
+              <label className="font-futura text-sm text-[#0047FF] block mb-2">Image du produit</label>
+              <ImageUpload
+                value={formData.image_url}
+                onChange={(url) => setFormData({ ...formData, image_url: url })}
+              />
+            </div>
             <textarea
               placeholder="Description"
               value={formData.description}
@@ -456,20 +456,19 @@ const PortfolioManagement = () => {
               className="px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura outline-none"
               required
             />
-            <input
-              type="url"
-              placeholder="URL de l'image"
-              value={formData.image_url}
-              onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-              className="px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura outline-none"
-              required
-            />
+            <div className="md:col-span-2">
+              <label className="font-futura text-sm text-[#0047FF] block mb-2">Image du projet</label>
+              <ImageUpload
+                value={formData.image_url}
+                onChange={(url) => setFormData({ ...formData, image_url: url })}
+              />
+            </div>
             <input
               type="url"
               placeholder="Lien externe (optionnel)"
               value={formData.link}
               onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-              className="px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura outline-none"
+              className="px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura outline-none md:col-span-2"
             />
             <textarea
               placeholder="Description"

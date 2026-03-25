@@ -6,31 +6,24 @@ import { toast } from 'sonner';
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 
 export default function AdminLoginPage() {
-  const [isRegister, setIsRegister] = useState(false);
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, register } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!email || !password || (isRegister && !name)) {
+    if (!email || !password) {
       toast.error('Veuillez remplir tous les champs');
       return;
     }
 
     setLoading(true);
     try {
-      if (isRegister) {
-        await register(name, email, password);
-        toast.success('Compte créé avec succès');
-      } else {
-        await login(email, password);
-        toast.success('Connexion réussie');
-      }
+      await login(email, password);
+      toast.success('Connexion réussie');
       navigate('/admin/dashboard');
     } catch (error) {
       toast.error(error.message);
@@ -52,7 +45,7 @@ export default function AdminLoginPage() {
             />
           </Link>
           <h1 className="font-anton text-3xl text-white mt-4">
-            {isRegister ? 'CRÉER UN COMPTE' : 'ADMINISTRATION'}
+            ADMINISTRATION
           </h1>
         </div>
 
@@ -62,22 +55,6 @@ export default function AdminLoginPage() {
           className="bg-white border-2 border-white p-8 shadow-[8px_8px_0_0_rgba(255,255,255,0.3)]"
           data-testid="admin-login-form"
         >
-          {isRegister && (
-            <div className="mb-6">
-              <label className="font-futura text-sm text-[#0047FF] block mb-2">
-                Nom
-              </label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura focus:shadow-[4px_4px_0_0_#0047FF] outline-none"
-                placeholder="Admin"
-                data-testid="admin-name-input"
-              />
-            </div>
-          )}
-
           <div className="mb-6">
             <label className="font-futura text-sm text-[#0047FF] block mb-2">
               Email
@@ -112,16 +89,7 @@ export default function AdminLoginPage() {
             className="w-full py-4 bg-[#0047FF] text-white font-anton text-xl uppercase border-2 border-[#0047FF] shadow-[6px_6px_0_0_#0047FF] hover:bg-white hover:text-[#0047FF] transition-colors duration-200 disabled:opacity-50"
             data-testid="admin-submit-button"
           >
-            {loading ? 'CHARGEMENT...' : isRegister ? 'CRÉER LE COMPTE' : 'SE CONNECTER'}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setIsRegister(!isRegister)}
-            className="w-full mt-4 py-2 font-futura text-[#0047FF] hover:underline"
-            data-testid="toggle-auth-mode"
-          >
-            {isRegister ? 'Déjà un compte ? Se connecter' : 'Pas de compte ? Créer un compte'}
+            {loading ? 'CHARGEMENT...' : 'SE CONNECTER'}
           </button>
         </form>
 

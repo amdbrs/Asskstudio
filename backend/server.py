@@ -188,35 +188,82 @@ async def get_current_admin(credentials: HTTPAuthorizationCredentials = Depends(
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
+# ==================== FILE UPLOAD ====================
+
+import base64
+from pathlib import Path
+
+UPLOAD_DIR = ROOT_DIR / 'uploads'
+UPLOAD_DIR.mkdir(exist_ok=True)
+
+class ImageUpload(BaseModel):
+    filename: str
+    data: str  # Base64 encoded image
+
+@api_router.post("/upload/image")
+async def upload_image(upload: ImageUpload, admin = Depends(get_current_admin)):
+    try:
+        # Decode base64 image
+        image_data = base64.b64decode(upload.data.split(',')[1] if ',' in upload.data else upload.data)
+        
+        # Generate unique filename
+        ext = Path(upload.filename).suffix or '.png'
+        unique_filename = f"{uuid.uuid4()}{ext}"
+        file_path = UPLOAD_DIR / unique_filename
+        
+        # Save file
+        with open(file_path, 'wb') as f:
+            f.write(image_data)
+        
+        # Return URL
+        return {"url": f"/api/uploads/{unique_filename}", "filename": unique_filename}
+    except Exception as e:
+        logger.error(f"Upload error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to upload image")
+
+from fastapi.responses import FileResponse
+
+@api_router.get("/uploads/{filename}")
+async def get_upload(filename: str):
+    file_path = UPLOAD_DIR / filename
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="File not found")
+    return FileResponse(file_path)
+
 # ==================== ADMIN ROUTES ====================
 
 @api_router.post("/admin/register", response_model=Dict[str, Any])
 async def register_admin(data: AdminCreate):
-    existing = await db.admins.find_one({'email': data.email})
-    if existing:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    
-    admin_id = str(uuid.uuid4())
-    admin_doc = {
-        'id': admin_id,
-        'email': data.email,
-        'name': data.name,
-        'password': hash_password(data.password),
-        'created_at': datetime.now(timezone.utc).isoformat()
-    }
-    await db.admins.insert_one(admin_doc)
-    token = create_token(admin_id, data.email)
-    return {
-        'token': token,
-        'admin': {
-            'id': admin_id,
-            'email': data.email,
-            'name': data.name
-        }
-    }
+    # Registration disabled for security
+    raise HTTPException(status_code=403, detail="Registration is disabled. Please contact the administrator.")
 
 @api_router.post("/admin/login", response_model=Dict[str, Any])
 async def login_admin(data: AdminLogin):
+    # Create default admin if none exists
+    admin_count = await db.admins.count_documents({})
+    if admin_count == 0:
+        default_admin = {
+            'id': str(uuid.uuid4()),
+            'email': 'admin@assk.studio',
+            'name': 'Admin ASSK',
+            'password': hash_password('Assk2024!'),
+            'created_at': datetime.now(timezone.utc).isoformat()
+        }
+        await db.admins.insert_one(default_admin)
+        logger.info("Default admin created: admin@assk.studio / Assk2024!")
+        
+        # If trying to login with default credentials, return success
+        if data.email == 'admin@assk.studio' and data.password == 'Assk2024!':
+            token = create_token(default_admin['id'], default_admin['email'])
+            return {
+                'token': token,
+                'admin': {
+                    'id': default_admin['id'],
+                    'email': default_admin['email'],
+                    'name': default_admin['name']
+                }
+            }
+    
     admin = await db.admins.find_one({'email': data.email}, {'_id': 0})
     if not admin or not verify_password(data.password, admin['password']):
         raise HTTPException(status_code=401, detail="Invalid credentials")
