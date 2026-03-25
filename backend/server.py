@@ -79,6 +79,8 @@ class ProductCreate(BaseModel):
     image_url: str
     stock: int = 10
     active: bool = True
+    is_digital: bool = False
+    download_url: Optional[str] = None
 
 class ProductUpdate(BaseModel):
     name: Optional[str] = None
@@ -88,6 +90,8 @@ class ProductUpdate(BaseModel):
     image_url: Optional[str] = None
     stock: Optional[int] = None
     active: Optional[bool] = None
+    is_digital: Optional[bool] = None
+    download_url: Optional[str] = None
 
 class ProductResponse(BaseModel):
     id: str
@@ -98,6 +102,8 @@ class ProductResponse(BaseModel):
     image_url: str
     stock: int
     active: bool
+    is_digital: bool = False
+    download_url: Optional[str] = None
     created_at: str
 
 class PortfolioCreate(BaseModel):
@@ -640,17 +646,20 @@ async def seed_data():
     if existing > 0:
         return {"message": "Data already seeded"}
     
-    # Seed products
+    # Seed products (physical + digital)
     products = [
+        # Physical products
         {
             'id': str(uuid.uuid4()),
             'name': 'Art Toy "Blue Edition"',
             'description': 'Figurine collector édition limitée 15cm, résine haute qualité',
             'price': 65.00,
             'category': 'toys',
-            'image_url': 'https://images.unsplash.com/photo-1596708688812-32b0edc764e5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzN8MHwxfHNlYXJjaHwxNXx8ZGVzaWduZXIlMjB0b3l8ZW58MHx8fHwxNzA4NjE0MTc4fDA&ixlib=rb-4.0.3&q=85',
+            'image_url': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop',
             'stock': 20,
             'active': True,
+            'is_digital': False,
+            'download_url': None,
             'created_at': datetime.now(timezone.utc).isoformat()
         },
         {
@@ -659,9 +668,11 @@ async def seed_data():
             'description': 'Impression haute qualité format A3, papier 250g mat',
             'price': 25.00,
             'category': 'prints',
-            'image_url': 'https://images.unsplash.com/photo-1661570323628-06de800328c7?crop=entropy&cs=srgb&fm=jpg&q=85',
+            'image_url': 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=600&fit=crop',
             'stock': 50,
             'active': True,
+            'is_digital': False,
+            'download_url': None,
             'created_at': datetime.now(timezone.utc).isoformat()
         },
         {
@@ -670,9 +681,11 @@ async def seed_data():
             'description': 'T-shirt 100% coton bio, sérigraphie artisanale',
             'price': 35.00,
             'category': 'clothing',
-            'image_url': 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?crop=entropy&cs=srgb&fm=jpg&q=85',
+            'image_url': 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop',
             'stock': 30,
             'active': True,
+            'is_digital': False,
+            'download_url': None,
             'created_at': datetime.now(timezone.utc).isoformat()
         },
         {
@@ -681,9 +694,91 @@ async def seed_data():
             'description': 'Hoodie premium brodé, 80% coton 20% polyester',
             'price': 75.00,
             'category': 'clothing',
-            'image_url': 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?crop=entropy&cs=srgb&fm=jpg&q=85',
+            'image_url': 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop',
             'stock': 15,
             'active': True,
+            'is_digital': False,
+            'download_url': None,
+            'created_at': datetime.now(timezone.utc).isoformat()
+        },
+        # Digital products - Mockups
+        {
+            'id': str(uuid.uuid4()),
+            'name': 'Pack Mockups iPhone Pro',
+            'description': '12 mockups iPhone haute résolution, fichiers PSD éditables, scènes variées',
+            'price': 19.00,
+            'category': 'mockups',
+            'image_url': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=600&fit=crop',
+            'stock': 999,
+            'active': True,
+            'is_digital': True,
+            'download_url': None,
+            'created_at': datetime.now(timezone.utc).isoformat()
+        },
+        {
+            'id': str(uuid.uuid4()),
+            'name': 'Pack Mockups Branding',
+            'description': '25 mockups pour identité visuelle: cartes, papeterie, packaging. Fichiers PSD',
+            'price': 29.00,
+            'category': 'mockups',
+            'image_url': 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=600&h=600&fit=crop',
+            'stock': 999,
+            'active': True,
+            'is_digital': True,
+            'download_url': None,
+            'created_at': datetime.now(timezone.utc).isoformat()
+        },
+        {
+            'id': str(uuid.uuid4()),
+            'name': 'Pack Mockups T-Shirts',
+            'description': '15 mockups t-shirts et hoodies, modèles variés, haute qualité 4K',
+            'price': 15.00,
+            'category': 'mockups',
+            'image_url': 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=600&fit=crop',
+            'stock': 999,
+            'active': True,
+            'is_digital': True,
+            'download_url': None,
+            'created_at': datetime.now(timezone.utc).isoformat()
+        },
+        # Digital products - Creative Packs
+        {
+            'id': str(uuid.uuid4()),
+            'name': 'Kit Créatif "Street Art"',
+            'description': 'Textures graffiti, brushes Procreate, palettes de couleurs urbaines',
+            'price': 25.00,
+            'category': 'packs',
+            'image_url': 'https://images.unsplash.com/photo-1561070791-36c11767b26a?w=600&h=600&fit=crop',
+            'stock': 999,
+            'active': True,
+            'is_digital': True,
+            'download_url': None,
+            'created_at': datetime.now(timezone.utc).isoformat()
+        },
+        {
+            'id': str(uuid.uuid4()),
+            'name': 'Pack Textures Premium',
+            'description': '50 textures haute résolution: béton, métal, papier froissé, grain film',
+            'price': 35.00,
+            'category': 'packs',
+            'image_url': 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=600&h=600&fit=crop',
+            'stock': 999,
+            'active': True,
+            'is_digital': True,
+            'download_url': None,
+            'created_at': datetime.now(timezone.utc).isoformat()
+        },
+        {
+            'id': str(uuid.uuid4()),
+            'name': 'Bundle Complet Créatifs',
+            'description': 'Tous les mockups + tous les packs créatifs. Mises à jour à vie incluses',
+            'price': 89.00,
+            'category': 'packs',
+            'image_url': 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=600&h=600&fit=crop',
+            'stock': 999,
+            'active': True,
+            'is_digital': True,
+            'download_url': None,
             'created_at': datetime.now(timezone.utc).isoformat()
         }
     ]

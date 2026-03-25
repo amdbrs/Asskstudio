@@ -1,4 +1,4 @@
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Download } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
 
@@ -22,12 +22,18 @@ export const ProductCard = ({ product }) => {
           alt={product.name}
           className="w-full h-full object-cover"
         />
-        {product.stock <= 5 && product.stock > 0 && (
+        {product.is_digital && (
+          <span className="absolute top-2 left-2 bg-[#0047FF] text-white font-futura text-xs px-2 py-1 flex items-center gap-1">
+            <Download className="w-3 h-3" />
+            DIGITAL
+          </span>
+        )}
+        {!product.is_digital && product.stock <= 5 && product.stock > 0 && (
           <span className="absolute top-2 left-2 bg-[#0047FF] text-white font-futura text-xs px-2 py-1">
             Plus que {product.stock} !
           </span>
         )}
-        {product.stock === 0 && (
+        {!product.is_digital && product.stock === 0 && (
           <span className="absolute top-2 left-2 bg-white text-[#0047FF] border-2 border-[#0047FF] font-futura text-xs px-2 py-1">
             Rupture de stock
           </span>
@@ -49,11 +55,11 @@ export const ProductCard = ({ product }) => {
           </span>
           <button
             onClick={handleAddToCart}
-            disabled={product.stock === 0}
+            disabled={!product.is_digital && product.stock === 0}
             className="flex items-center gap-2 px-4 py-2 bg-[#0047FF] text-white font-futura font-semibold border-2 border-[#0047FF] hover:bg-white hover:text-[#0047FF] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             data-testid={`add-to-cart-${product.id}`}
           >
-            <ShoppingBag className="w-4 h-4" />
+            {product.is_digital ? <Download className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
             AJOUTER
           </button>
         </div>

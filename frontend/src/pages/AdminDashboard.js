@@ -98,7 +98,9 @@ const ProductsManagement = () => {
     category: '',
     image_url: '',
     stock: '10',
-    active: true
+    active: true,
+    is_digital: false,
+    download_url: ''
   });
   const { token } = useAuth();
 
@@ -176,7 +178,9 @@ const ProductsManagement = () => {
       category: product.category,
       image_url: product.image_url,
       stock: product.stock.toString(),
-      active: product.active
+      active: product.active,
+      is_digital: product.is_digital || false,
+      download_url: product.download_url || ''
     });
     setShowForm(true);
   };
@@ -191,7 +195,9 @@ const ProductsManagement = () => {
       category: '',
       image_url: '',
       stock: '10',
-      active: true
+      active: true,
+      is_digital: false,
+      download_url: ''
     });
   };
 
@@ -269,6 +275,24 @@ const ProductsManagement = () => {
               />
               Produit actif
             </label>
+            <label className="flex items-center gap-2 font-futura text-[#0047FF]">
+              <input
+                type="checkbox"
+                checked={formData.is_digital}
+                onChange={(e) => setFormData({ ...formData, is_digital: e.target.checked, stock: e.target.checked ? '999' : '10' })}
+                className="w-5 h-5 border-2 border-[#0047FF]"
+              />
+              Produit digital (téléchargeable)
+            </label>
+            {formData.is_digital && (
+              <input
+                type="url"
+                placeholder="URL de téléchargement (optionnel)"
+                value={formData.download_url}
+                onChange={(e) => setFormData({ ...formData, download_url: e.target.value })}
+                className="px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura outline-none md:col-span-2"
+              />
+            )}
           </div>
           <div className="flex gap-4 mt-6">
             <button
