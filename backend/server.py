@@ -553,9 +553,12 @@ async def get_order(order_id: str, admin = Depends(get_current_admin)):
         raise HTTPException(status_code=404, detail="Order not found")
     return OrderResponse(**order)
 
+class OrderStatusUpdate(BaseModel):
+    status: str
+
 @api_router.put("/orders/{order_id}/status")
-async def update_order_status(order_id: str, status: str, admin = Depends(get_current_admin)):
-    result = await db.orders.update_one({'id': order_id}, {'$set': {'status': status}})
+async def update_order_status(order_id: str, data: OrderStatusUpdate, admin = Depends(get_current_admin)):
+    result = await db.orders.update_one({'id': order_id}, {'$set': {'status': data.status}})
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Order not found")
     return {"message": "Order status updated"}
