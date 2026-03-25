@@ -1,34 +1,87 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Marquee styles */
+.marquee-container {
+    overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Product card hover */
+.product-card {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0px 0px #0047FF;
 }
 
-.App-link {
-    color: #61dafb;
+/* Portfolio grid hover */
+.portfolio-item {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.portfolio-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0px 0px #0047FF;
+}
+
+/* Service card */
+.service-card {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0px 0px #0047FF;
+}
+
+/* Button hover */
+.btn-brutal {
+    transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+
+.btn-brutal:hover {
+    background-color: #FFFFFF;
+    color: #0047FF;
+}
+
+/* Input focus */
+.input-brutal:focus {
+    outline: none;
+    box-shadow: 4px 4px 0px 0px #0047FF;
+}
+
+/* Cart badge animation */
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.cart-badge {
+    animation: bounce 0.3s ease-out;
+}
+
+/* Page transitions */
+.page-enter {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.page-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+/* Admin sidebar */
+.admin-nav-item {
+    transition: background-color 0.2s ease-out;
+}
+
+.admin-nav-item:hover {
+    background-color: #0047FF;
+    color: #FFFFFF;
+}
+
+.admin-nav-item.active {
+    background-color: #0047FF;
+    color: #FFFFFF;
 }
