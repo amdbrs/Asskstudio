@@ -1,94 +1,65 @@
 import { Link } from 'react-router-dom';
-import { Instagram, Mail, Phone } from 'lucide-react';
+import { Instagram, Mail, Phone, ArrowUpRight } from 'lucide-react';
 
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 
 export const Footer = () => {
   return (
-    <footer
-      className="bg-[#0047FF] text-white border-t-4 border-[#0047FF]"
-      data-testid="main-footer"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <footer className="bg-white border-t border-[#0047FF]/10" data-testid="main-footer">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & Tagline */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <img
-                src={LOGO_URL}
-                alt="Assk Studio"
-                className="h-16 w-auto brightness-0 invert"
-              />
-              <span className="font-anton text-3xl">ASSK STUDIO</span>
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-3 mb-4">
+              <img src={LOGO_URL} alt="Assk Studio" className="h-12 w-auto" />
+              <span className="font-anton text-2xl text-[#0047FF]">ASSK STUDIO</span>
             </div>
-            <p className="font-futura text-white/80">
-              Studio créatif spécialisé en graphisme, 3D et art toys.
+            <p className="font-futura text-[#0047FF]/60 max-w-sm">
+              Studio créatif spécialisé en graphisme, modélisation 3D et création d'art toys uniques.
             </p>
+            <div className="flex gap-3 mt-6">
+              <a href="https://instagram.com/amau.psd" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-[#0047FF]/10 flex items-center justify-center hover:bg-[#0047FF] hover:text-white text-[#0047FF] transition-all duration-300">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="mailto:amaurydebarros1607@gmail.com" className="w-10 h-10 bg-[#0047FF]/10 flex items-center justify-center hover:bg-[#0047FF] hover:text-white text-[#0047FF] transition-all duration-300">
+                <Mail className="w-5 h-5" />
+              </a>
+            </div>
           </div>
 
           {/* Navigation */}
           <div>
-            <h3 className="font-anton text-xl mb-4">NAVIGATION</h3>
-            <nav className="flex flex-col gap-2">
-              <Link
-                to="/"
-                className="font-futura hover:underline"
-                data-testid="footer-link-studio"
-              >
-                Studio
-              </Link>
-              <Link
-                to="/shop"
-                className="font-futura hover:underline"
-                data-testid="footer-link-shop"
-              >
-                Shop
-              </Link>
-              <Link
-                to="/realisations"
-                className="font-futura hover:underline"
-                data-testid="footer-link-realisations"
-              >
-                Réalisations
-              </Link>
-              <Link
-                to="/contact"
-                className="font-futura hover:underline"
-                data-testid="footer-link-contact"
-              >
-                Contact
-              </Link>
+            <h3 className="font-anton text-lg text-[#0047FF] mb-4">Navigation</h3>
+            <nav className="space-y-3">
+              {[
+                { name: 'Accueil', path: '/' },
+                { name: 'Shop', path: '/shop' },
+                { name: 'Réalisations', path: '/realisations' },
+                { name: 'Contact', path: '/contact' }
+              ].map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="group flex items-center gap-2 font-futura text-[#0047FF]/60 hover:text-[#0047FF] transition-colors duration-200"
+                >
+                  {link.name}
+                  <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-200" />
+                </Link>
+              ))}
             </nav>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="font-anton text-xl mb-4">CONTACT</h3>
-            <div className="flex flex-col gap-3">
-              <a
-                href="mailto:amaurydebarros1607@gmail.com"
-                className="flex items-center gap-2 font-futura hover:underline"
-                data-testid="footer-email"
-              >
-                <Mail className="w-5 h-5" />
+            <h3 className="font-anton text-lg text-[#0047FF] mb-4">Contact</h3>
+            <div className="space-y-3">
+              <a href="mailto:amaurydebarros1607@gmail.com" className="block font-futura text-[#0047FF]/60 hover:text-[#0047FF] transition-colors duration-200 text-sm">
                 amaurydebarros1607@gmail.com
               </a>
-              <a
-                href="tel:+33665097008"
-                className="flex items-center gap-2 font-futura hover:underline"
-                data-testid="footer-phone"
-              >
-                <Phone className="w-5 h-5" />
+              <a href="tel:+33665097008" className="block font-futura text-[#0047FF]/60 hover:text-[#0047FF] transition-colors duration-200 text-sm">
                 06 65 09 70 08
               </a>
-              <a
-                href="https://instagram.com/amau.psd"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 font-futura hover:underline"
-                data-testid="footer-instagram"
-              >
-                <Instagram className="w-5 h-5" />
+              <a href="https://instagram.com/amau.psd" target="_blank" rel="noopener noreferrer" className="block font-futura text-[#0047FF]/60 hover:text-[#0047FF] transition-colors duration-200 text-sm">
                 @amau.psd
               </a>
             </div>
@@ -96,9 +67,12 @@ export const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 pt-8 border-t-2 border-white/30 text-center">
-          <p className="font-futura text-white/80">
-            Assk Studio © 2024 — Laisse ta marque.
+        <div className="mt-16 pt-8 border-t border-[#0047FF]/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="font-futura text-[#0047FF]/40 text-sm">
+            © 2024 Assk Studio. Tous droits réservés.
+          </p>
+          <p className="font-anton text-[#0047FF]/60 text-sm">
+            LAISSE TA MARQUE.
           </p>
         </div>
       </div>

@@ -20,33 +20,16 @@ body {
 
 .font-anton {
     font-family: 'Anton', sans-serif;
+    letter-spacing: 0.02em;
 }
 
 .font-futura {
     font-family: 'League Spartan', sans-serif;
 }
 
-/* Brutalist shadows */
-.shadow-brutal {
-    box-shadow: 6px 6px 0px 0px #0047FF;
-}
-
-.shadow-brutal-sm {
-    box-shadow: 4px 4px 0px 0px #0047FF;
-}
-
-.shadow-brutal-white {
-    box-shadow: 6px 6px 0px 0px #FFFFFF;
-}
-
-/* Hover transitions */
-.hover-lift {
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-}
-
-.hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 8px 8px 0px 0px #0047FF;
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
 }
 
 /* Selection */
@@ -55,7 +38,7 @@ body {
     color: #FFFFFF;
 }
 
-/* Scrollbar */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -66,11 +49,123 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: #0047FF;
+    border-radius: 4px;
 }
 
-/* Form inputs brutalist style */
-input, textarea, select {
-    font-family: 'League Spartan', sans-serif;
+::-webkit-scrollbar-thumb:hover {
+    background: #0035cc;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes ping-slow {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-ping-slow {
+    animation: ping-slow 3s ease-in-out infinite;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-1000 { animation-delay: 1000ms; }
+
+/* Hover effects */
+.hover-lift {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+}
+
+/* Link underline effect */
+.link-underline {
+    position: relative;
+}
+
+.link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #0047FF;
+    transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+    width: 100%;
+}
+
+/* Glassmorphism */
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Gradient text */
+.gradient-text {
+    background: linear-gradient(135deg, #0047FF 0%, #0080FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Focus styles */
+input:focus, textarea:focus, select:focus {
+    outline: none;
 }
 
 @layer base {
@@ -100,7 +195,7 @@ input, textarea, select {
 
 @layer base {
     * {
-        @apply border-[#0047FF];
+        @apply border-[#0047FF]/20;
     }
     body {
         @apply bg-white text-[#0047FF];

@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '@/context/CartContext';
 import CartDrawer from './CartDrawer';
 
@@ -8,14 +8,23 @@ const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { cartCount, setIsCartOpen } = useCart();
   const location = useLocation();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navLinks = [
-    { name: 'STUDIO', path: '/' },
-    { name: 'SHOP', path: '/shop' },
-    { name: 'RÉALISATIONS', path: '/realisations' },
-    { name: 'CONTACT', path: '/contact' }
+    { name: 'Studio', path: '/' },
+    { name: 'Shop', path: '/shop' },
+    { name: 'Réalisations', path: '/realisations' },
+    { name: 'Contact', path: '/contact' }
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -23,7 +32,11 @@ export const Header = () => {
   return (
     <>
       <header
-        className="sticky top-0 z-50 bg-white border-b-2 border-[#0047FF]"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled 
+            ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,71,255,0.1)]' 
+            : 'bg-transparent'
+        }`}
         data-testid="main-header"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
@@ -31,14 +44,17 @@ export const Header = () => {
             {/* Logo */}
             <Link
               to="/"
-              className="flex items-center gap-3"
+              className="flex items-center gap-3 group"
               data-testid="logo-link"
             >
               <img
                 src={LOGO_URL}
                 alt="Assk Studio"
-                className="h-12 w-auto"
+                className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
               />
+              <span className="font-anton text-xl text-[#0047FF] hidden sm:block">
+                ASSK
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -47,67 +63,70 @@ export const Header = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`font-anton text-lg tracking-wide transition-colors duration-200 ${
+                  className={`relative font-futura font-medium text-sm uppercase tracking-wider transition-colors duration-200 ${
                     isActive(link.path)
-                      ? 'text-[#0047FF] border-b-2 border-[#0047FF]'
-                      : 'text-[#0047FF] hover:opacity-70'
+                      ? 'text-[#0047FF]'
+                      : 'text-[#0047FF]/60 hover:text-[#0047FF]'
                   }`}
                   data-testid={`nav-${link.name.toLowerCase()}`}
                 >
                   {link.name}
+                  {isActive(link.path) && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#0047FF]" />
+                  )}
                 </Link>
               ))}
             </nav>
 
             {/* Cart & Mobile Menu */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 border-2 border-[#0047FF] bg-white text-[#0047FF] hover:bg-[#0047FF] hover:text-white transition-colors duration-200"
+                className="relative w-10 h-10 flex items-center justify-center bg-[#0047FF] text-white hover:bg-[#0035cc] transition-colors duration-200"
                 data-testid="cart-button"
               >
-                <ShoppingBag className="w-6 h-6" />
+                <ShoppingBag className="w-5 h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-[#0047FF] text-white text-xs font-bold w-5 h-5 flex items-center justify-center cart-badge">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-white text-[#0047FF] text-xs font-bold flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}
               </button>
 
               <button
-                className="md:hidden p-2 border-2 border-[#0047FF] text-[#0047FF]"
+                className="md:hidden w-10 h-10 flex items-center justify-center border border-[#0047FF]/20 text-[#0047FF] hover:bg-[#0047FF] hover:text-white transition-colors duration-200"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 data-testid="mobile-menu-button"
               >
                 {mobileMenuOpen ? (
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 ) : (
-                  <Menu className="w-6 h-6" />
+                  <Menu className="w-5 h-5" />
                 )}
               </button>
             </div>
           </div>
+        </div>
 
-          {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <nav className="md:hidden py-4 border-t-2 border-[#0047FF]">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`block py-3 font-anton text-lg ${
-                    isActive(link.path)
-                      ? 'text-[#0047FF] bg-white'
-                      : 'text-[#0047FF]'
-                  }`}
-                  data-testid={`mobile-nav-${link.name.toLowerCase()}`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
-          )}
+        {/* Mobile Navigation */}
+        <div className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-80' : 'max-h-0'}`}>
+          <nav className="bg-white border-t border-[#0047FF]/10 px-4 py-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block py-3 font-futura font-medium transition-colors duration-200 ${
+                  isActive(link.path)
+                    ? 'text-[#0047FF]'
+                    : 'text-[#0047FF]/60'
+                }`}
+                data-testid={`mobile-nav-${link.name.toLowerCase()}`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
         </div>
       </header>
       <CartDrawer />
