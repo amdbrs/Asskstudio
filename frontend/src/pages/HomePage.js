@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
-import { ArrowRight, Palette, Box, ShoppingBag, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Monitor, Printer, Star, Check, X, Download, ChevronRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Palette, Box, ShoppingBag, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Monitor, Printer, Star, Check, Download, Sparkles, Globe, Layout, Code } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { useCart } from '@/context/CartContext';
@@ -10,11 +10,16 @@ import { toast } from 'sonner';
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 
-const services2D = [
+const servicesGraphisme = [
   { name: 'Pack Logo Signature', price: '350', description: 'Logo professionnel + déclinaisons', icon: PenTool },
   { name: 'Identité Visuelle Complète', price: '750', description: 'Logo, charte graphique, supports', icon: Layers },
-  { name: 'Papeterie & Édition', price: '150', description: 'Cartes de visite, flyers, brochures', icon: FileText },
-  { name: 'Site Web Vitrine', price: '950', description: 'Design + développement responsive', icon: Monitor }
+  { name: 'Papeterie & Édition', price: '150', description: 'Cartes de visite, flyers, brochures', icon: FileText }
+];
+
+const servicesWeb = [
+  { name: 'Site Vitrine', price: '950', description: 'Landing page ou site one-page responsive', icon: Layout },
+  { name: 'Site Web 5-10 pages', price: '1800', description: 'Site complet multi-pages, SEO optimisé', icon: Globe },
+  { name: 'E-commerce', price: '2500', description: 'Boutique en ligne avec paiement sécurisé', icon: Code }
 ];
 
 const services3D = [
@@ -24,10 +29,10 @@ const services3D = [
 ];
 
 const whyUs = [
-  { title: 'Design Sur-Mesure', desc: 'Chaque projet est unique, créé spécifiquement pour votre marque' },
-  { title: 'Prix Transparents', desc: 'Pas de surprises, vous connaissez le coût dès le départ' },
-  { title: 'Support Continu', desc: 'On ne disparaît pas après livraison, on vous accompagne' },
-  { title: 'Qualité Premium', desc: 'Impressions haute définition et finitions soignées' }
+  { title: 'Design Sur-Mesure', desc: 'Chaque projet est unique, créé pour votre marque' },
+  { title: 'Prix Transparents', desc: 'Pas de surprises, tarifs clairs dès le départ' },
+  { title: 'Support Continu', desc: 'Accompagnement même après livraison' },
+  { title: 'Qualité Premium', desc: 'Finitions soignées, résultats pro' }
 ];
 
 // Animated counter hook
@@ -58,6 +63,33 @@ const useCountUp = (end, duration = 2000, start = 0) => {
   }, [isVisible, end, duration, start]);
 
   return { count, ref };
+};
+
+// Service Card Component
+const ServiceCard = ({ service, index }) => {
+  const IconComponent = service.icon;
+  return (
+    <article 
+      className="group p-4 sm:p-6 border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-300 cursor-pointer" 
+      data-testid={`service-${index}`}
+      itemScope 
+      itemType="https://schema.org/Service"
+    >
+      <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 border border-[#0047FF]/20 flex items-center justify-center group-hover:bg-[#0047FF] group-hover:border-[#0047FF] transition-all duration-300 flex-shrink-0">
+          <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-[#0047FF] group-hover:text-white transition-colors duration-300" aria-hidden="true" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h4 className="font-anton text-base sm:text-lg text-[#0047FF]" itemProp="name">{service.name}</h4>
+          <p className="font-futura text-[#0047FF]/60 text-xs sm:text-sm" itemProp="description">{service.description}</p>
+        </div>
+        <div className="text-right flex-shrink-0">
+          <span className="font-anton text-xl sm:text-2xl text-[#0047FF]" itemProp="price">{service.price}€</span>
+          <p className="font-futura text-[#0047FF]/40 text-[10px] sm:text-xs">À partir de</p>
+        </div>
+      </div>
+    </article>
+  );
 };
 
 export default function HomePage() {
@@ -111,254 +143,267 @@ export default function HomePage() {
       <Header />
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-screen bg-white flex items-center overflow-hidden">
+      <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
         {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-[#0047FF]/10 rounded-full" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-[#0047FF]/10 rounded-full" />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-64 sm:w-96 h-64 sm:h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] border border-[#0047FF]/10 rounded-full hidden sm:block" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="animate-fadeInUp">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-sm mb-6 animate-fadeInUp">
-                <Sparkles className="w-4 h-4" />
-                Studio Créatif Graphisme & 3D
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            <div className="animate-fadeInUp text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6">
+                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
+                <span>Studio Créatif Graphisme & 3D</span>
               </div>
               
-              <h1 className="font-anton text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-[#0047FF] leading-[0.95] uppercase tracking-tight" data-testid="hero-title">
+              <h1 className="font-anton text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#0047FF] leading-[0.95] uppercase tracking-tight" data-testid="hero-title">
                 On crée.<br />
                 <span className="text-[#0047FF]/30">Tu marques.</span>
               </h1>
               
-              <p className="font-futura text-[#0047FF]/70 text-lg sm:text-xl mt-8 max-w-lg leading-relaxed">
-                Studio créatif spécialisé en identité visuelle, modélisation 3D et création d'art toys uniques. On s'occupe du design, tu t'occupes de briller.
+              <p className="font-futura text-[#0047FF]/70 text-base sm:text-lg lg:text-xl mt-6 sm:mt-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                Studio créatif spécialisé en identité visuelle, sites web, modélisation 3D et création d'art toys uniques.
               </p>
               
-              <div className="flex flex-wrap gap-4 mt-10">
-                <a href="#contact" className="group inline-flex items-center gap-3 px-8 py-4 bg-[#0047FF] text-white font-anton text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]" data-testid="hero-cta-button">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 sm:mt-10 justify-center lg:justify-start">
+                <a href="#contact" className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]" data-testid="hero-cta-button" aria-label="Démarrer un projet avec ASSK Studio">
                   Démarrer un projet
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </a>
-                <a href="#shop" className="group inline-flex items-center gap-3 px-8 py-4 bg-transparent text-[#0047FF] font-anton text-lg uppercase border-2 border-[#0047FF] transition-all duration-300 hover:bg-[#0047FF] hover:text-white">
+                <a href="#shop" className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-300 hover:bg-[#0047FF] hover:text-white" aria-label="Explorer la boutique">
                   Explorer le shop
                 </a>
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-[#0047FF]/20">
-                <div ref={stats1.ref}>
-                  <p className="font-anton text-4xl text-[#0047FF]">{stats1.count}+</p>
-                  <p className="font-futura text-[#0047FF]/60 text-sm mt-1">Projets réalisés</p>
+              <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-[#0047FF]/20">
+                <div ref={stats1.ref} className="text-center lg:text-left">
+                  <p className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF]">{stats1.count}+</p>
+                  <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs lg:text-sm mt-1">Projets réalisés</p>
                 </div>
-                <div ref={stats2.ref}>
-                  <p className="font-anton text-4xl text-[#0047FF]">{stats2.count}%</p>
-                  <p className="font-futura text-[#0047FF]/60 text-sm mt-1">Clients satisfaits</p>
+                <div ref={stats2.ref} className="text-center lg:text-left">
+                  <p className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF]">{stats2.count}%</p>
+                  <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs lg:text-sm mt-1">Clients satisfaits</p>
                 </div>
-                <div ref={stats3.ref}>
-                  <p className="font-anton text-4xl text-[#0047FF]">{stats3.count}+</p>
-                  <p className="font-futura text-[#0047FF]/60 text-sm mt-1">Art toys créés</p>
+                <div ref={stats3.ref} className="text-center lg:text-left">
+                  <p className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF]">{stats3.count}+</p>
+                  <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs lg:text-sm mt-1">Art toys créés</p>
                 </div>
               </div>
             </div>
 
             {/* Hero Image/Logo */}
-            <div className="relative hidden lg:flex items-center justify-center">
-              <div className="relative w-[400px] h-[400px] animate-float">
+            <div className="relative hidden lg:flex items-center justify-center" aria-hidden="true">
+              <div className="relative w-[300px] xl:w-[400px] h-[300px] xl:h-[400px] animate-float">
                 <div className="absolute inset-0 bg-[#0047FF] rounded-full opacity-10 animate-ping-slow" />
-                <img src={LOGO_URL} alt="ASSK Studio" className="relative z-10 w-full h-full object-contain drop-shadow-2xl" />
+                <img 
+                  src={LOGO_URL} 
+                  alt="Logo ASSK Studio - Personnage bleu avec coeur, mascotte du studio créatif" 
+                  className="relative z-10 w-full h-full object-contain drop-shadow-2xl" 
+                  width="400"
+                  height="400"
+                  loading="eager"
+                />
               </div>
             </div>
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="font-futura text-[#0047FF]/50 text-xs uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-[#0047FF] to-transparent" />
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce" aria-hidden="true">
+          <span className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase tracking-widest">Scroll</span>
+          <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-[#0047FF] to-transparent" />
         </div>
       </section>
 
       {/* Marquee */}
-      <div className="bg-[#0047FF] py-4 overflow-hidden">
+      <div className="bg-[#0047FF] py-3 sm:py-4 overflow-hidden" aria-hidden="true">
         <Marquee gradient={false} speed={60}>
-          {['GRAPHISME', 'MODÉLISATION 3D', 'ART TOYS', 'IMPRESSION RÉSINE', 'IDENTITÉ VISUELLE', 'WEB DESIGN', 'MOCKUPS', 'BRANDING'].map((item, i) => (
-            <span key={i} className="font-anton text-2xl text-white mx-12 opacity-80">{item}</span>
+          {['GRAPHISME', 'SITES WEB', 'MODÉLISATION 3D', 'ART TOYS', 'IMPRESSION RÉSINE', 'IDENTITÉ VISUELLE', 'E-COMMERCE', 'BRANDING'].map((item, i) => (
+            <span key={i} className="font-anton text-lg sm:text-2xl text-white mx-6 sm:mx-12 opacity-80">{item}</span>
           ))}
         </Marquee>
       </div>
 
       {/* ===== SERVICES SECTION ===== */}
-      <section id="services" className="py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="services-section">
+      <section id="services" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="services-section" aria-labelledby="services-title">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <p className="font-futura text-[#0047FF] text-sm uppercase tracking-widest mb-4">Nos Services</p>
-            <h2 className="font-anton text-4xl sm:text-5xl lg:text-6xl text-[#0047FF]">
+          <header className="text-center mb-12 sm:mb-16 lg:mb-20">
+            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Nos Services</p>
+            <h2 id="services-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF]">
               Tout ce qu'il te faut.<br />
               <span className="text-[#0047FF]/30">Rien de superflu.</span>
             </h2>
-          </div>
+          </header>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Pôle Graphisme */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-[#0047FF] flex items-center justify-center">
-                  <Palette className="w-6 h-6 text-white" />
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center" aria-hidden="true">
+                  <Palette className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="font-anton text-2xl text-[#0047FF]">PÔLE GRAPHISME</h3>
+                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF]">GRAPHISME</h3>
               </div>
-              {services2D.map((service, index) => (
-                <div key={index} className="group p-6 border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-300 cursor-pointer" data-testid={`service-2d-${index}`}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 border border-[#0047FF]/20 flex items-center justify-center group-hover:bg-[#0047FF] group-hover:border-[#0047FF] transition-all duration-300">
-                      <service.icon className="w-5 h-5 text-[#0047FF] group-hover:text-white transition-colors duration-300" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-anton text-lg text-[#0047FF]">{service.name}</h4>
-                      <p className="font-futura text-[#0047FF]/60 text-sm">{service.description}</p>
-                    </div>
-                    <div className="text-right">
-                      <span className="font-anton text-2xl text-[#0047FF]">{service.price}€</span>
-                      <p className="font-futura text-[#0047FF]/40 text-xs">À partir de</p>
-                    </div>
-                  </div>
+              {servicesGraphisme.map((service, index) => (
+                <ServiceCard key={index} service={service} index={`graphisme-${index}`} />
+              ))}
+            </div>
+
+            {/* Pôle Web */}
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center" aria-hidden="true">
+                  <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
+                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF]">SITES WEB</h3>
+              </div>
+              {servicesWeb.map((service, index) => (
+                <ServiceCard key={index} service={service} index={`web-${index}`} />
               ))}
             </div>
 
             {/* Pôle 3D & Toys */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-[#0047FF] flex items-center justify-center">
-                  <Box className="w-6 h-6 text-white" />
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center" aria-hidden="true">
+                  <Box className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="font-anton text-2xl text-[#0047FF]">PÔLE 3D & TOYS</h3>
+                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF]">3D & TOYS</h3>
               </div>
               {services3D.map((service, index) => (
-                <div key={index} className="group p-6 border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-300 cursor-pointer" data-testid={`service-3d-${index}`}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 border border-[#0047FF]/20 flex items-center justify-center group-hover:bg-[#0047FF] group-hover:border-[#0047FF] transition-all duration-300">
-                      <service.icon className="w-5 h-5 text-[#0047FF] group-hover:text-white transition-colors duration-300" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-anton text-lg text-[#0047FF]">{service.name}</h4>
-                      <p className="font-futura text-[#0047FF]/60 text-sm">{service.description}</p>
-                    </div>
-                    <div className="text-right">
-                      <span className="font-anton text-2xl text-[#0047FF]">{service.price}€</span>
-                      <p className="font-futura text-[#0047FF]/40 text-xs">À partir de</p>
-                    </div>
-                  </div>
-                </div>
+                <ServiceCard key={index} service={service} index={`3d-${index}`} />
               ))}
-              
-              {/* CTA Card */}
-              <a href="#contact" className="group block p-6 bg-[#0047FF] text-white hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)] transition-all duration-300">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="font-anton text-lg">Besoin d'un devis ?</h4>
-                    <p className="font-futura text-white/70 text-sm">Discutons de ton projet</p>
-                  </div>
-                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
-                </div>
-              </a>
             </div>
+          </div>
+
+          {/* CTA */}
+          <div className="mt-12 sm:mt-16 text-center">
+            <a href="#contact" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]" aria-label="Demander un devis personnalisé">
+              Demander un devis
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </a>
           </div>
         </div>
       </section>
 
       {/* ===== WHY US SECTION ===== */}
-      <section className="py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]">
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" aria-labelledby="why-us-title">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <p className="font-futura text-white/60 text-sm uppercase tracking-widest mb-4">Pourquoi Nous ?</p>
-            <h2 className="font-anton text-4xl sm:text-5xl lg:text-6xl text-white">
+          <header className="text-center mb-12 sm:mb-16 lg:mb-20">
+            <p className="font-futura text-white/60 text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Pourquoi Nous ?</p>
+            <h2 id="why-us-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white">
               Ce qui nous différencie
             </h2>
-          </div>
+          </header>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {whyUs.map((item, index) => (
-              <div key={index} className="group p-8 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white hover:border-white transition-all duration-500">
-                <div className="w-12 h-12 bg-white/20 group-hover:bg-[#0047FF] flex items-center justify-center mb-6 transition-all duration-300">
-                  <Check className="w-6 h-6 text-white group-hover:text-white" />
+              <article key={index} className="group p-6 sm:p-8 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white hover:border-white transition-all duration-500">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 group-hover:bg-[#0047FF] flex items-center justify-center mb-4 sm:mb-6 transition-all duration-300" aria-hidden="true">
+                  <Check className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="font-anton text-xl text-white group-hover:text-[#0047FF] transition-colors duration-300">{item.title}</h3>
-                <p className="font-futura text-white/70 group-hover:text-[#0047FF]/70 text-sm mt-2 transition-colors duration-300">{item.desc}</p>
-              </div>
+                <h3 className="font-anton text-lg sm:text-xl text-white group-hover:text-[#0047FF] transition-colors duration-300">{item.title}</h3>
+                <p className="font-futura text-white/70 group-hover:text-[#0047FF]/70 text-xs sm:text-sm mt-2 transition-colors duration-300">{item.desc}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       {/* ===== SHOP SECTION ===== */}
-      <section id="shop" className="py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="shop-section">
+      <section id="shop" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="shop-section" aria-labelledby="shop-title">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-12">
+          <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 sm:gap-6 mb-8 sm:mb-12">
             <div>
-              <p className="font-futura text-[#0047FF] text-sm uppercase tracking-widest mb-4">Le Drop ASSK</p>
-              <h2 className="font-anton text-4xl sm:text-5xl text-[#0047FF]">Shop</h2>
+              <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Le Drop ASSK</p>
+              <h2 id="shop-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Shop</h2>
             </div>
-            <Link to="/shop" className="group inline-flex items-center gap-2 font-futura text-[#0047FF] hover:gap-4 transition-all duration-300">
-              Voir tous les produits <ArrowRight className="w-4 h-4" />
+            <Link to="/shop" className="group inline-flex items-center gap-2 font-futura text-sm sm:text-base text-[#0047FF] hover:gap-4 transition-all duration-300" aria-label="Voir tous les produits de la boutique">
+              Voir tous les produits <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
-          </div>
+          </header>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             {products.slice(0, 4).map((product) => (
-              <div key={product.id} className="group border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300" data-testid={`home-product-${product.id}`}>
+              <article key={product.id} className="group border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300" data-testid={`home-product-${product.id}`} itemScope itemType="https://schema.org/Product">
                 <div className="relative aspect-square overflow-hidden bg-[#f8f9ff]">
-                  <img src={product.image_url} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img 
+                    src={product.image_url} 
+                    alt={`${product.name} - ${product.description}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    loading="lazy"
+                    itemProp="image"
+                  />
                   {product.is_digital && (
-                    <span className="absolute top-3 left-3 px-3 py-1 bg-[#0047FF] text-white font-futura text-xs flex items-center gap-1">
-                      <Download className="w-3 h-3" /> DIGITAL
+                    <span className="absolute top-2 left-2 px-2 py-1 bg-[#0047FF] text-white font-futura text-[10px] sm:text-xs flex items-center gap-1">
+                      <Download className="w-2 h-2 sm:w-3 sm:h-3" aria-hidden="true" /> DIGITAL
                     </span>
                   )}
                 </div>
-                <div className="p-5">
-                  <h3 className="font-anton text-lg text-[#0047FF]">{product.name}</h3>
-                  <p className="font-futura text-[#0047FF]/60 text-sm mt-1 line-clamp-1">{product.description}</p>
-                  <div className="flex items-center justify-between mt-4">
-                    <span className="font-anton text-2xl text-[#0047FF]">{product.price.toFixed(0)}€</span>
-                    <button onClick={() => handleAddToCart(product)} className="w-10 h-10 bg-[#0047FF] text-white flex items-center justify-center hover:scale-110 transition-transform duration-200" data-testid={`home-add-cart-${product.id}`}>
-                      <ShoppingBag className="w-5 h-5" />
+                <div className="p-3 sm:p-5">
+                  <h3 className="font-anton text-sm sm:text-lg text-[#0047FF] line-clamp-1" itemProp="name">{product.name}</h3>
+                  <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-sm mt-1 line-clamp-1 hidden sm:block" itemProp="description">{product.description}</p>
+                  <div className="flex items-center justify-between mt-2 sm:mt-4">
+                    <span className="font-anton text-lg sm:text-2xl text-[#0047FF]" itemProp="price">{product.price.toFixed(0)}€</span>
+                    <button 
+                      onClick={() => handleAddToCart(product)} 
+                      className="w-8 h-8 sm:w-10 sm:h-10 bg-[#0047FF] text-white flex items-center justify-center hover:scale-110 transition-transform duration-200" 
+                      data-testid={`home-add-cart-${product.id}`}
+                      aria-label={`Ajouter ${product.name} au panier`}
+                    >
+                      <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                     </button>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       {/* ===== PORTFOLIO SECTION ===== */}
-      <section id="realisations" className="py-32 px-4 sm:px-6 lg:px-12 bg-[#fafbff]" data-testid="portfolio-section">
+      <section id="realisations" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#fafbff]" data-testid="portfolio-section" aria-labelledby="portfolio-title">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-12">
+          <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 sm:gap-6 mb-8 sm:mb-12">
             <div>
-              <p className="font-futura text-[#0047FF] text-sm uppercase tracking-widest mb-4">Notre Travail</p>
-              <h2 className="font-anton text-4xl sm:text-5xl text-[#0047FF]">Réalisations</h2>
+              <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Notre Travail</p>
+              <h2 id="portfolio-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Réalisations</h2>
             </div>
-            <Link to="/realisations" className="group inline-flex items-center gap-2 font-futura text-[#0047FF] hover:gap-4 transition-all duration-300">
-              Voir tout le portfolio <ArrowRight className="w-4 h-4" />
+            <Link to="/realisations" className="group inline-flex items-center gap-2 font-futura text-sm sm:text-base text-[#0047FF] hover:gap-4 transition-all duration-300" aria-label="Voir tout le portfolio">
+              Voir tout le portfolio <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
-          </div>
+          </header>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {portfolio.slice(0, 3).map((item) => (
-              <a key={item.id} href={item.link || '#'} target={item.link ? '_blank' : '_self'} rel="noopener noreferrer" className="group block overflow-hidden" data-testid={`home-portfolio-${item.id}`}>
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#0047FF]/5">
-                  <img src={item.image_url} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`; }} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0047FF] to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-end p-6">
+              <a 
+                key={item.id} 
+                href={item.link || '#'} 
+                target={item.link ? '_blank' : '_self'} 
+                rel="noopener noreferrer" 
+                className="group block overflow-hidden" 
+                data-testid={`home-portfolio-${item.id}`}
+                aria-label={`Voir le projet ${item.title}`}
+              >
+                <article className="relative aspect-[4/3] overflow-hidden bg-[#0047FF]/5">
+                  <img 
+                    src={item.image_url} 
+                    alt={`${item.title} - ${item.description} - Projet ${item.category} par ASSK Studio`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                    loading="lazy"
+                    onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`; }} 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0047FF] to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-end p-4 sm:p-6">
                     <div>
-                      <span className="font-futura text-white/70 text-xs uppercase tracking-wider">{item.category}</span>
-                      <h3 className="font-anton text-2xl text-white">{item.title}</h3>
+                      <span className="font-futura text-white/70 text-[10px] sm:text-xs uppercase tracking-wider">{item.category}</span>
+                      <h3 className="font-anton text-lg sm:text-2xl text-white">{item.title}</h3>
                     </div>
                   </div>
-                </div>
+                </article>
               </a>
             ))}
           </div>
@@ -366,72 +411,115 @@ export default function HomePage() {
       </section>
 
       {/* ===== CONTACT SECTION ===== */}
-      <section id="contact" className="py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="contact-section">
+      <section id="contact" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="contact-section" aria-labelledby="contact-title">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             <div>
-              <p className="font-futura text-[#0047FF] text-sm uppercase tracking-widest mb-4">Contact</p>
-              <h2 className="font-anton text-4xl sm:text-5xl lg:text-6xl text-[#0047FF] leading-tight">
+              <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Contact</p>
+              <h2 id="contact-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF] leading-tight">
                 Discutons de<br />ton projet
               </h2>
-              <p className="font-futura text-[#0047FF]/70 text-lg mt-6 max-w-md">
+              <p className="font-futura text-[#0047FF]/70 text-sm sm:text-base lg:text-lg mt-4 sm:mt-6 max-w-md">
                 Une idée en tête ? Un projet qui te tient à cœur ? Contacte-nous et transformons ta vision en réalité.
               </p>
 
-              <div className="space-y-4 mt-12">
-                <a href="mailto:amaurydebarros1607@gmail.com" className="group flex items-center gap-4 p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300">
-                  <div className="w-12 h-12 bg-[#0047FF] flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-white" />
+              <address className="space-y-3 sm:space-y-4 mt-8 sm:mt-12 not-italic">
+                <a href="mailto:amaurydebarros1607@gmail.com" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300" aria-label="Envoyer un email à ASSK Studio">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
-                  <div>
-                    <p className="font-futura text-[#0047FF]/50 text-xs uppercase">Email</p>
-                    <p className="font-anton text-[#0047FF]">amaurydebarros1607@gmail.com</p>
-                  </div>
-                </a>
-                <a href="tel:+33665097008" className="group flex items-center gap-4 p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300">
-                  <div className="w-12 h-12 bg-[#0047FF] flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-futura text-[#0047FF]/50 text-xs uppercase">Téléphone</p>
-                    <p className="font-anton text-[#0047FF]">06 65 09 70 08</p>
+                  <div className="min-w-0">
+                    <p className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase">Email</p>
+                    <p className="font-anton text-sm sm:text-base text-[#0047FF] truncate">amaurydebarros1607@gmail.com</p>
                   </div>
                 </a>
-                <a href="https://instagram.com/amau.psd" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300">
-                  <div className="w-12 h-12 bg-[#0047FF] flex items-center justify-center">
-                    <Instagram className="w-5 h-5 text-white" />
+                <a href="tel:+33665097008" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300" aria-label="Appeler ASSK Studio">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                    <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
-                    <p className="font-futura text-[#0047FF]/50 text-xs uppercase">Instagram</p>
-                    <p className="font-anton text-[#0047FF]">@amau.psd</p>
+                    <p className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase">Téléphone</p>
+                    <p className="font-anton text-sm sm:text-base text-[#0047FF]">06 65 09 70 08</p>
                   </div>
                 </a>
-              </div>
+                <a href="https://instagram.com/amau.psd" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300" aria-label="Suivre ASSK Studio sur Instagram">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                    <Instagram className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase">Instagram</p>
+                    <p className="font-anton text-sm sm:text-base text-[#0047FF]">@amau.psd</p>
+                  </div>
+                </a>
+              </address>
             </div>
 
-            <div className="bg-[#fafbff] p-8 lg:p-12">
-              <form onSubmit={handleContactSubmit} className="space-y-6" data-testid="home-contact-form">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-[#fafbff] p-6 sm:p-8 lg:p-12">
+              <form onSubmit={handleContactSubmit} className="space-y-4 sm:space-y-6" data-testid="home-contact-form" aria-label="Formulaire de contact">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="font-futura text-[#0047FF]/60 text-xs uppercase tracking-wider block mb-2">Nom</label>
-                    <input type="text" value={contactForm.name} onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })} className="w-full px-4 py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura focus:border-[#0047FF] focus:outline-none transition-colors duration-200" data-testid="home-contact-name" />
+                    <label htmlFor="contact-name" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Nom</label>
+                    <input 
+                      type="text" 
+                      id="contact-name"
+                      name="name"
+                      value={contactForm.name} 
+                      onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })} 
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none transition-colors duration-200" 
+                      data-testid="home-contact-name"
+                      required
+                      autoComplete="name"
+                    />
                   </div>
                   <div>
-                    <label className="font-futura text-[#0047FF]/60 text-xs uppercase tracking-wider block mb-2">Email</label>
-                    <input type="email" value={contactForm.email} onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} className="w-full px-4 py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura focus:border-[#0047FF] focus:outline-none transition-colors duration-200" data-testid="home-contact-email-input" />
+                    <label htmlFor="contact-email" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Email</label>
+                    <input 
+                      type="email" 
+                      id="contact-email"
+                      name="email"
+                      value={contactForm.email} 
+                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} 
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none transition-colors duration-200" 
+                      data-testid="home-contact-email-input"
+                      required
+                      autoComplete="email"
+                    />
                   </div>
                 </div>
                 <div>
-                  <label className="font-futura text-[#0047FF]/60 text-xs uppercase tracking-wider block mb-2">Sujet</label>
-                  <input type="text" value={contactForm.subject} onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })} className="w-full px-4 py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura focus:border-[#0047FF] focus:outline-none transition-colors duration-200" data-testid="home-contact-subject" />
+                  <label htmlFor="contact-subject" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Sujet</label>
+                  <input 
+                    type="text" 
+                    id="contact-subject"
+                    name="subject"
+                    value={contactForm.subject} 
+                    onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })} 
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none transition-colors duration-200" 
+                    data-testid="home-contact-subject"
+                    required
+                  />
                 </div>
                 <div>
-                  <label className="font-futura text-[#0047FF]/60 text-xs uppercase tracking-wider block mb-2">Message</label>
-                  <textarea value={contactForm.message} onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })} rows={5} className="w-full px-4 py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura resize-none focus:border-[#0047FF] focus:outline-none transition-colors duration-200" data-testid="home-contact-message" />
+                  <label htmlFor="contact-message" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Message</label>
+                  <textarea 
+                    id="contact-message"
+                    name="message"
+                    value={contactForm.message} 
+                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })} 
+                    rows={4} 
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base resize-none focus:border-[#0047FF] focus:outline-none transition-colors duration-200" 
+                    data-testid="home-contact-message"
+                    required
+                  />
                 </div>
-                <button type="submit" disabled={loading} className="group w-full flex items-center justify-center gap-3 py-5 bg-[#0047FF] text-white font-anton text-lg uppercase transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)] disabled:opacity-50" data-testid="home-contact-submit">
+                <button 
+                  type="submit" 
+                  disabled={loading} 
+                  className="group w-full flex items-center justify-center gap-3 py-4 sm:py-5 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)] disabled:opacity-50" 
+                  data-testid="home-contact-submit"
+                >
                   {loading ? 'Envoi...' : 'Envoyer le message'}
-                  <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                  <Send className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-200" aria-hidden="true" />
                 </button>
               </form>
             </div>
@@ -440,21 +528,18 @@ export default function HomePage() {
       </section>
 
       {/* ===== CTA SECTION ===== */}
-      <section className="py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,...')] opacity-5" />
-        </div>
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF] relative overflow-hidden" aria-labelledby="cta-title">
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="font-anton text-4xl sm:text-5xl lg:text-6xl text-white leading-tight">
+          <h2 id="cta-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white leading-tight">
             Prêt à laisser<br />ta marque ?
           </h2>
-          <p className="font-futura text-white/70 text-lg mt-6 max-w-lg mx-auto">
+          <p className="font-futura text-white/70 text-sm sm:text-base lg:text-lg mt-4 sm:mt-6 max-w-lg mx-auto">
             Plus tu attends, plus tes concurrents avancent. Changeons ça ensemble.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 mt-10">
-            <a href="#contact" className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-[#0047FF] font-anton text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)]">
+          <div className="mt-8 sm:mt-10">
+            <a href="#contact" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#0047FF] font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)]" aria-label="Commencer un projet maintenant">
               Commencer maintenant
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
           </div>
         </div>
