@@ -1,75 +1,79 @@
-# ASSK Studio - PRD (Product Requirements Document)
-
-## Project Overview
-**Project Name:** ASSK Studio Website  
-**Created:** 2024-12-25  
-**Last Updated:** 2024-12-25  
+# ASSK Studio - Portfolio & Agency Website
 
 ## Original Problem Statement
-Site web pour Assk Studio - Studio créatif de graphisme et 3D comprenant:
-1. **Identité Visuelle**: Bleu Cobalt (#0047FF) + Blanc, polices Anton/Futura, slogan "LAISSE TA MARQUE"
-2. **Services Studio**: Pôle Graphisme 2D et Pôle 3D & Toys avec tarifs
-3. **Boutique E-commerce**: Art Toys, Posters, T-Shirts, Hoodies avec paiement Stripe
-4. **Contact**: Formulaire fonctionnel avec envoi d'email
-5. **Admin Dashboard**: Gestion complète des contenus
+Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Modern, smooth, animated design inspired by webhero.co with cobalt blue (#0047FF) and white color scheme.
+
+## Core Requirements
+- Modern landing page showcasing services (Graphisme, Sites Web, 3D & Toys)
+- Portfolio section with 6 items + "Voir plus" button linking to external portfolio (www.amdbrs.com)
+- Admin dashboard with drag-and-drop image upload for portfolio management
+- Functional contact form
+- Mobile responsive design
 
 ## User Personas
-1. **Clients potentiels** - Cherchent services de design graphique ou 3D
-2. **Acheteurs** - Collectionneurs d'art toys et merch
-3. **Admin (Amaury)** - Gère produits, portfolio et commandes
+- **Potential Clients**: Looking for graphic design, web development, or 3D printing services
+- **Admin (Amaury)**: Managing portfolio content and viewing contact messages
 
-## Core Requirements (Static)
-- Design Swiss Brutalist strict: 2 couleurs uniquement
-- E-commerce avec Stripe
-- Formulaire de contact avec email
-- Dashboard admin sécurisé
-- Portfolio dynamique
+## Tech Stack
+- **Frontend**: React.js, Tailwind CSS, Shadcn UI, Framer Motion (CSS animations)
+- **Backend**: FastAPI, Motor (Async MongoDB)
+- **Database**: MongoDB
 
-## Architecture
-- **Frontend**: React 19 + Tailwind CSS + Shadcn/UI
-- **Backend**: FastAPI + MongoDB
-- **Integrations**: Stripe (payments), Resend (emails)
-- **Auth**: JWT pour admin
+## Key DB Schema
+- `portfolio`: {title, desc, image_url, category, created_at}
+- `admins`: {username, email, password_hash}
+- `contact_messages`: {name, email, subject, message, created_at}
 
-## What's Been Implemented ✅
-### Phase 1 - MVP (2024-12-25)
-- [x] Homepage avec hero "LAISSE TA MARQUE" et services
-- [x] Boutique Shop avec produits et panier
-- [x] Portfolio avec projets depuis amdbrs.com
-- [x] Formulaire de contact fonctionnel
-- [x] Intégration Stripe pour paiements
-- [x] Admin Dashboard complet (login/register, CRUD)
-- [x] Design Swiss Brutalist Bleu Cobalt/Blanc
-- [x] Backend API complète
-- [x] Données pré-seedées (produits + portfolio)
+## Key API Endpoints
+- POST /api/admin/login
+- GET/POST/DELETE /api/portfolio
+- POST /api/contact
+
+---
+
+## What's Been Implemented
+
+### December 2025
+- [x] Modern redesign inspired by webhero.co with smooth CSS animations
+- [x] Mobile responsiveness and layout adaptation
+- [x] Admin authentication and Drag & Drop image upload for Portfolio
+- [x] Backend CRUD for Portfolio and Contact Messages
+- [x] Addition of "Sites Web" service category
+- [x] Shop/Cart completely removed from frontend
+- [x] Stats updated: "+50 projets", "+10 art toys"
+- [x] "On travaille en famille" text in Why Us section
+- [x] Header: Removed "ASSK" text, logo only
+- [x] 3D section: "Impression 3D Filament - Sur devis" (porte-clés, totems, objets sur demande)
+- [x] Portfolio shows 6 items with "Voir plus" → www.amdbrs.com
+
+## Pricing (Current)
+### Graphisme
+- Pack Logo Signature: 450€
+- Identité Visuelle Complète: 950€
+- Papeterie & Édition: 200€
+
+### Sites Web
+- Site Vitrine: 1200€
+- Site Web 5-10 pages: 2200€
+- E-commerce: 3000€
+
+### 3D & Toys
+- Modélisation 3D (ZBrush): 250€
+- Impression 3D Filament: Sur devis
+- Pack Art Toy Custom: 490€
+
+---
 
 ## Prioritized Backlog
 
-### P0 - Critical (Done)
-- [x] Core e-commerce flow
-- [x] Admin authentication
-- [x] Contact form
-
-### P1 - High Priority (Next)
-- [ ] Configuration Resend API key pour emails réels
-- [ ] Ajout images réelles des produits Art Toys
-- [ ] Optimisation SEO (meta tags, sitemap)
-- [ ] Analytics integration
+### P1 - High Priority
+- [ ] SEO optimization (meta tags, alt attributes verification)
 
 ### P2 - Medium Priority
-- [ ] Order confirmation emails
-- [ ] Customer order history
-- [ ] Wishlist functionality
-- [ ] Multi-language support (EN)
+- [ ] Backend cleanup (remove unused products/orders routes)
+- [ ] Delete orphaned files (CartContext.js, ShopPage.js, etc.)
 
-### P3 - Nice to Have
-- [ ] 3D product viewer (Three.js)
-- [ ] Newsletter signup
-- [ ] Blog/News section
-- [ ] Customer reviews
-
-## Next Tasks
-1. Configurer Resend API key pour envoi emails réel
-2. Remplacer images placeholder par vraies photos produits
-3. Ajouter meta tags SEO
-4. Tester flow paiement complet avec Stripe
+### P3 - Low Priority / Future
+- [ ] Advanced image lazy loading
+- [ ] Client testimonials section
+- [ ] 3D printing gallery showcase

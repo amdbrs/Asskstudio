@@ -1,36 +1,34 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
-import { ArrowRight, Palette, Box, ShoppingBag, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Monitor, Printer, Star, Check, Download, Sparkles, Globe, Layout, Code } from 'lucide-react';
+import { ArrowRight, Palette, Box, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Printer, Star, Check, Sparkles, Globe, Layout, Code, Heart } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 
 const servicesGraphisme = [
-  { name: 'Pack Logo Signature', price: '350', description: 'Logo professionnel + déclinaisons', icon: PenTool },
-  { name: 'Identité Visuelle Complète', price: '750', description: 'Logo, charte graphique, supports', icon: Layers },
-  { name: 'Papeterie & Édition', price: '150', description: 'Cartes de visite, flyers, brochures', icon: FileText }
+  { name: 'Pack Logo Signature', price: '450', description: 'Logo professionnel + déclinaisons', icon: PenTool },
+  { name: 'Identité Visuelle Complète', price: '950', description: 'Logo, charte graphique, supports', icon: Layers },
+  { name: 'Papeterie & Édition', price: '200', description: 'Cartes de visite, flyers, brochures', icon: FileText }
 ];
 
 const servicesWeb = [
-  { name: 'Site Vitrine', price: '950', description: 'Landing page ou site one-page responsive', icon: Layout },
-  { name: 'Site Web 5-10 pages', price: '1800', description: 'Site complet multi-pages, SEO optimisé', icon: Globe },
-  { name: 'E-commerce', price: '2500', description: 'Boutique en ligne avec paiement sécurisé', icon: Code }
+  { name: 'Site Vitrine', price: '1200', description: 'Landing page ou site one-page responsive', icon: Layout },
+  { name: 'Site Web 5-10 pages', price: '2200', description: 'Site complet multi-pages, SEO optimisé', icon: Globe },
+  { name: 'E-commerce', price: '3000', description: 'Boutique en ligne avec paiement sécurisé', icon: Code }
 ];
 
 const services3D = [
-  { name: 'Modélisation 3D (ZBrush)', price: '200', description: 'Création de personnages et objets', icon: Box },
-  { name: 'Impression Résine 4K', price: '50', description: 'Prototypage haute définition', icon: Printer },
-  { name: 'Pack Art Toy Custom', price: '390', description: 'Design + modélisation + impression', icon: Star }
+  { name: 'Modélisation 3D (ZBrush)', price: '250', description: 'Création de personnages et objets', icon: Box },
+  { name: 'Impression 3D Filament', price: 'Sur devis', description: 'Porte-clés, totems, objets sur demande', icon: Printer },
+  { name: 'Pack Art Toy Custom', price: '490', description: 'Design + modélisation + impression', icon: Star }
 ];
 
 const whyUs = [
   { title: 'Design Sur-Mesure', desc: 'Chaque projet est unique, créé pour votre marque' },
-  { title: 'Prix Transparents', desc: 'Pas de surprises, tarifs clairs dès le départ' },
+  { title: 'On Travaille en Famille', desc: 'Relation de confiance et proximité avec nos clients' },
   { title: 'Support Continu', desc: 'Accompagnement même après livraison' },
   { title: 'Qualité Premium', desc: 'Finitions soignées, résultats pro' }
 ];
@@ -93,26 +91,18 @@ const ServiceCard = ({ service, index }) => {
 };
 
 export default function HomePage() {
-  const [products, setProducts] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
   const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
-  const { addToCart } = useCart();
   
-  const stats1 = useCountUp(150, 2000);
+  const stats1 = useCountUp(50, 2000);
   const stats2 = useCountUp(98, 2000);
-  const stats3 = useCountUp(50, 2000);
+  const stats3 = useCountUp(10, 2000);
 
   useEffect(() => {
     fetch(`${API}/seed`, { method: 'POST' }).catch(() => {});
-    fetch(`${API}/products`).then(r => r.json()).then(setProducts).catch(() => {});
     fetch(`${API}/portfolio`).then(r => r.json()).then(setPortfolio).catch(() => {});
   }, []);
-
-  const handleAddToCart = (product) => {
-    addToCart(product);
-    toast.success(`${product.name} ajouté au panier`);
-  };
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
@@ -173,8 +163,8 @@ export default function HomePage() {
                   Démarrer un projet
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </a>
-                <a href="#shop" className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-300 hover:bg-[#0047FF] hover:text-white" aria-label="Explorer la boutique">
-                  Explorer le shop
+                <a href="#realisations" className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-300 hover:bg-[#0047FF] hover:text-white" aria-label="Voir nos réalisations">
+                  Nos réalisations
                 </a>
               </div>
 
@@ -222,7 +212,7 @@ export default function HomePage() {
       {/* Marquee */}
       <div className="bg-[#0047FF] py-3 sm:py-4 overflow-hidden" aria-hidden="true">
         <Marquee gradient={false} speed={60}>
-          {['GRAPHISME', 'SITES WEB', 'MODÉLISATION 3D', 'ART TOYS', 'IMPRESSION RÉSINE', 'IDENTITÉ VISUELLE', 'E-COMMERCE', 'BRANDING'].map((item, i) => (
+          {['GRAPHISME', 'SITES WEB', 'MODÉLISATION 3D', 'ART TOYS', 'IMPRESSION 3D', 'IDENTITÉ VISUELLE', 'E-COMMERCE', 'BRANDING'].map((item, i) => (
             <span key={i} className="font-anton text-lg sm:text-2xl text-white mx-6 sm:mx-12 opacity-80">{item}</span>
           ))}
         </Marquee>
@@ -314,72 +304,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== SHOP SECTION ===== */}
-      <section id="shop" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="shop-section" aria-labelledby="shop-title">
-        <div className="max-w-7xl mx-auto">
-          <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 sm:gap-6 mb-8 sm:mb-12">
-            <div>
-              <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Le Drop ASSK</p>
-              <h2 id="shop-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Shop</h2>
-            </div>
-            <Link to="/shop" className="group inline-flex items-center gap-2 font-futura text-sm sm:text-base text-[#0047FF] hover:gap-4 transition-all duration-300" aria-label="Voir tous les produits de la boutique">
-              Voir tous les produits <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
-          </header>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-            {products.slice(0, 4).map((product) => (
-              <article key={product.id} className="group border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300" data-testid={`home-product-${product.id}`} itemScope itemType="https://schema.org/Product">
-                <div className="relative aspect-square overflow-hidden bg-[#f8f9ff]">
-                  <img 
-                    src={product.image_url} 
-                    alt={`${product.name} - ${product.description}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                    loading="lazy"
-                    itemProp="image"
-                  />
-                  {product.is_digital && (
-                    <span className="absolute top-2 left-2 px-2 py-1 bg-[#0047FF] text-white font-futura text-[10px] sm:text-xs flex items-center gap-1">
-                      <Download className="w-2 h-2 sm:w-3 sm:h-3" aria-hidden="true" /> DIGITAL
-                    </span>
-                  )}
-                </div>
-                <div className="p-3 sm:p-5">
-                  <h3 className="font-anton text-sm sm:text-lg text-[#0047FF] line-clamp-1" itemProp="name">{product.name}</h3>
-                  <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-sm mt-1 line-clamp-1 hidden sm:block" itemProp="description">{product.description}</p>
-                  <div className="flex items-center justify-between mt-2 sm:mt-4">
-                    <span className="font-anton text-lg sm:text-2xl text-[#0047FF]" itemProp="price">{product.price.toFixed(0)}€</span>
-                    <button 
-                      onClick={() => handleAddToCart(product)} 
-                      className="w-8 h-8 sm:w-10 sm:h-10 bg-[#0047FF] text-white flex items-center justify-center hover:scale-110 transition-transform duration-200" 
-                      data-testid={`home-add-cart-${product.id}`}
-                      aria-label={`Ajouter ${product.name} au panier`}
-                    >
-                      <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                    </button>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ===== PORTFOLIO SECTION ===== */}
-      <section id="realisations" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#fafbff]" data-testid="portfolio-section" aria-labelledby="portfolio-title">
+      <section id="realisations" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="portfolio-section" aria-labelledby="portfolio-title">
         <div className="max-w-7xl mx-auto">
-          <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 sm:gap-6 mb-8 sm:mb-12">
-            <div>
-              <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Notre Travail</p>
-              <h2 id="portfolio-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Réalisations</h2>
-            </div>
-            <Link to="/realisations" className="group inline-flex items-center gap-2 font-futura text-sm sm:text-base text-[#0047FF] hover:gap-4 transition-all duration-300" aria-label="Voir tout le portfolio">
-              Voir tout le portfolio <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
+          <header className="text-center mb-8 sm:mb-12">
+            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Notre Travail</p>
+            <h2 id="portfolio-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Réalisations</h2>
           </header>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {portfolio.slice(0, 3).map((item) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {portfolio.slice(0, 6).map((item) => (
               <a 
                 key={item.id} 
                 href={item.link || '#'} 
@@ -406,6 +340,20 @@ export default function HomePage() {
                 </article>
               </a>
             ))}
+          </div>
+
+          {/* Voir plus button */}
+          <div className="text-center mt-8 sm:mt-12">
+            <a 
+              href="https://www.amdbrs.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]"
+              aria-label="Voir plus de réalisations sur amdbrs.com"
+            >
+              Voir plus
+              <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </a>
           </div>
         </div>
       </section>

@@ -33,7 +33,6 @@ export const Footer = () => {
             <nav className="space-y-3">
               {[
                 { name: 'Accueil', path: '/' },
-                { name: 'Shop', path: '/shop' },
                 { name: 'Réalisations', path: '/realisations' },
                 { name: 'Contact', path: '/contact' }
               ].map((link) => (
@@ -43,9 +42,18 @@ export const Footer = () => {
                   className="group flex items-center gap-2 font-futura text-[#0047FF]/60 hover:text-[#0047FF] transition-colors duration-200"
                 >
                   {link.name}
-                  <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-200" />
+                  <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-200" aria-hidden="true" />
                 </Link>
               ))}
+              <a
+                href="https://www.amdbrs.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 font-futura text-[#0047FF]/60 hover:text-[#0047FF] transition-colors duration-200"
+              >
+                Portfolio complet
+                <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-200" aria-hidden="true" />
+              </a>
             </nav>
           </div>
 

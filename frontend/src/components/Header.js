@@ -1,15 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useCart } from '@/context/CartContext';
-import CartDrawer from './CartDrawer';
 
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { cartCount, setIsCartOpen } = useCart();
   const location = useLocation();
 
   useEffect(() => {
@@ -22,7 +19,6 @@ export const Header = () => {
 
   const navLinks = [
     { name: 'Studio', path: '/' },
-    { name: 'Shop', path: '/shop' },
     { name: 'Réalisations', path: '/realisations' },
     { name: 'Contact', path: '/contact' }
   ];
@@ -44,17 +40,14 @@ export const Header = () => {
             {/* Logo */}
             <Link
               to="/"
-              className="flex items-center gap-3 group"
+              className="flex items-center group"
               data-testid="logo-link"
             >
               <img
                 src={LOGO_URL}
-                alt="Assk Studio"
+                alt="ASSK Studio - Logo"
                 className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
               />
-              <span className="font-anton text-xl text-[#0047FF] hidden sm:block">
-                ASSK
-              </span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -78,33 +71,19 @@ export const Header = () => {
               ))}
             </nav>
 
-            {/* Cart & Mobile Menu */}
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="relative w-10 h-10 flex items-center justify-center bg-[#0047FF] text-white hover:bg-[#0035cc] transition-colors duration-200"
-                data-testid="cart-button"
-              >
-                <ShoppingBag className="w-5 h-5" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-white text-[#0047FF] text-xs font-bold flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </button>
-
-              <button
-                className="md:hidden w-10 h-10 flex items-center justify-center border border-[#0047FF]/20 text-[#0047FF] hover:bg-[#0047FF] hover:text-white transition-colors duration-200"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                data-testid="mobile-menu-button"
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Menu className="w-5 h-5" />
-                )}
-              </button>
-            </div>
+            {/* Mobile Menu */}
+            <button
+              className="md:hidden w-10 h-10 flex items-center justify-center border border-[#0047FF]/20 text-[#0047FF] hover:bg-[#0047FF] hover:text-white transition-colors duration-200"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              data-testid="mobile-menu-button"
+              aria-label="Menu de navigation"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
           </div>
         </div>
 
@@ -129,7 +108,6 @@ export const Header = () => {
           </nav>
         </div>
       </header>
-      <CartDrawer />
     </>
   );
 };
