@@ -45,6 +45,9 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - [x] Header: Removed "ASSK" text, logo only
 - [x] 3D section: "Impression 3D Filament - Sur devis" (porte-clés, totems, objets sur demande)
 - [x] Portfolio shows 6 items with "Voir plus" → www.amdbrs.com
+- [x] **Sellerie Garcia** added to portfolio (1st position) with link to selleriegarcia.fr
+- [x] **FAQ SEO section** with 8 questions targeting Clermont-Ferrand, Vichy, Moulins, Allier, Auvergne
+- [x] Schema.org FAQPage markup for Google rich snippets
 
 ## Pricing (Current)
 ### Graphisme

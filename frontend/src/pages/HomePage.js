@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import Marquee from 'react-fast-marquee';
-import { ArrowRight, Palette, Box, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Printer, Star, Check, Sparkles, Globe, Layout, Code, Heart } from 'lucide-react';
+import { ArrowRight, Palette, Box, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Printer, Star, Check, Sparkles, Globe, Layout, Code, Heart, ChevronDown, HelpCircle, MapPin } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { toast } from 'sonner';
@@ -488,6 +488,90 @@ export default function HomePage() {
             <a href="#contact" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#0047FF] font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)]" aria-label="Commencer un projet maintenant">
               Commencer maintenant
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FAQ SECTION - SEO ===== */}
+      <section id="faq" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="faq-section" aria-labelledby="faq-title" itemScope itemType="https://schema.org/FAQPage">
+        <div className="max-w-4xl mx-auto">
+          <header className="text-center mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4">
+              <MapPin className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
+              <span>Clermont-Ferrand • Vichy • Moulins • Allier • Auvergne</span>
+            </div>
+            <h2 id="faq-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">
+              Questions Fréquentes
+            </h2>
+            <p className="font-futura text-[#0047FF]/60 text-sm sm:text-base mt-4 max-w-2xl mx-auto">
+              Tout ce que vous devez savoir sur nos services de graphisme, création de sites web et impression 3D en Auvergne
+            </p>
+          </header>
+
+          <div className="space-y-4">
+            {[
+              {
+                question: "Quels services de graphisme proposez-vous à Clermont-Ferrand et en Auvergne ?",
+                answer: "Nous proposons des services complets de graphisme : création de logo, identité visuelle, charte graphique, design de supports print (cartes de visite, flyers, brochures) et design digital. Basés en Auvergne, nous intervenons sur Clermont-Ferrand, Vichy, Moulins et tout le département de l'Allier."
+              },
+              {
+                question: "Combien coûte la création d'un site web vitrine ?",
+                answer: "Nos sites web vitrine démarrent à 1200€ pour une landing page responsive. Pour un site complet de 5 à 10 pages avec optimisation SEO, comptez à partir de 2200€. Nous créons également des sites e-commerce à partir de 3000€. Chaque projet est personnalisé selon vos besoins."
+              },
+              {
+                question: "Proposez-vous des services d'impression 3D dans l'Allier ?",
+                answer: "Oui ! Nous réalisons de l'impression 3D filament sur demande : porte-clés personnalisés, totems, figurines, prototypes et objets sur-mesure. Pour la modélisation 3D avec ZBrush, les tarifs démarrent à 250€. Contactez-nous pour un devis personnalisé."
+              },
+              {
+                question: "Pourquoi choisir un studio créatif familial plutôt qu'une grande agence ?",
+                answer: "On travaille en famille, ce qui garantit une relation de confiance et une proximité avec nos clients. Vous avez un interlocuteur unique de A à Z, des tarifs transparents sans intermédiaire, et un suivi personnalisé. Avec plus de 50 projets réalisés, nous allions qualité professionnelle et accompagnement humain."
+              },
+              {
+                question: "Quels sont vos délais de livraison pour un logo ou une identité visuelle ?",
+                answer: "Pour un pack logo signature, comptez environ 1 à 2 semaines. Une identité visuelle complète (logo, charte graphique, supports) nécessite 3 à 4 semaines. Nous privilégions la qualité et les échanges avec nos clients plutôt que la rapidité à tout prix."
+              },
+              {
+                question: "Intervenez-vous en dehors de l'Auvergne ?",
+                answer: "Absolument ! Bien que basés près de Clermont-Ferrand, Vichy et Moulins, nous travaillons avec des clients dans toute la France. La majorité de nos échanges se font en visio et par email. Seules les impressions 3D nécessitent une livraison ou un retrait sur place."
+              },
+              {
+                question: "Comment se déroule un projet de création de site web ?",
+                answer: "Nous commençons par un brief pour comprendre vos besoins, votre cible et vos objectifs. Ensuite, nous créons des maquettes que vous validez. Une fois le design approuvé, nous développons votre site responsive et optimisé SEO. Vous bénéficiez d'un support continu même après la livraison."
+              },
+              {
+                question: "Faites-vous des Art Toys et figurines personnalisées ?",
+                answer: "Oui, c'est notre spécialité ! Avec plus de 10 Art Toys créés, nous proposons des packs complets incluant design, modélisation 3D et impression. Chaque création est unique et réalisée sur-mesure selon vos envies."
+              }
+            ].map((faq, index) => (
+              <details 
+                key={index} 
+                className="group border border-[#0047FF]/20 bg-white hover:border-[#0047FF] transition-colors duration-300"
+                itemScope 
+                itemProp="mainEntity" 
+                itemType="https://schema.org/Question"
+              >
+                <summary className="flex items-center justify-between p-4 sm:p-6 cursor-pointer list-none font-anton text-base sm:text-lg text-[#0047FF]">
+                  <span itemProp="name">{faq.question}</span>
+                  <ChevronDown className="w-5 h-5 text-[#0047FF] transition-transform duration-300 group-open:rotate-180 flex-shrink-0 ml-4" aria-hidden="true" />
+                </summary>
+                <div 
+                  className="px-4 sm:px-6 pb-4 sm:pb-6 font-futura text-[#0047FF]/70 text-sm sm:text-base leading-relaxed"
+                  itemScope 
+                  itemProp="acceptedAnswer" 
+                  itemType="https://schema.org/Answer"
+                >
+                  <p itemProp="text">{faq.answer}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="font-futura text-[#0047FF]/60 text-sm mb-4">Une autre question ?</p>
+            <a href="#contact" className="group inline-flex items-center gap-3 px-6 py-3 bg-[#0047FF] text-white font-anton text-base uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]">
+              Contactez-nous
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
           </div>
         </div>

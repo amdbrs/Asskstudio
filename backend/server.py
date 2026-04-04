@@ -343,7 +343,7 @@ async def delete_product(product_id: str, admin = Depends(get_current_admin)):
 
 @api_router.get("/portfolio", response_model=List[PortfolioResponse])
 async def get_portfolio():
-    items = await db.portfolio.find({}, {'_id': 0}).to_list(100)
+    items = await db.portfolio.find({}, {'_id': 0}).sort('created_at', -1).to_list(100)
     return [PortfolioResponse(**p) for p in items]
 
 @api_router.get("/portfolio/{item_id}", response_model=PortfolioResponse)
