@@ -15,9 +15,6 @@ import jwt
 import bcrypt
 import resend
 
-# Stripe Integration
-from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionResponse, CheckoutStatusResponse, CheckoutSessionRequest
-
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
@@ -25,9 +22,6 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
-
-# Stripe setup
-STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY', 'sk_test_emergent')
 
 # Resend setup
 RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '')
@@ -71,41 +65,6 @@ class AdminResponse(BaseModel):
     name: str
     created_at: str
 
-class ProductCreate(BaseModel):
-    name: str
-    description: str
-    price: float
-    category: str
-    image_url: str
-    stock: int = 10
-    active: bool = True
-    is_digital: bool = False
-    download_url: Optional[str] = None
-
-class ProductUpdate(BaseModel):
-    name: Optional[str] = None
-    description: Optional[str] = None
-    price: Optional[float] = None
-    category: Optional[str] = None
-    image_url: Optional[str] = None
-    stock: Optional[int] = None
-    active: Optional[bool] = None
-    is_digital: Optional[bool] = None
-    download_url: Optional[str] = None
-
-class ProductResponse(BaseModel):
-    id: str
-    name: str
-    description: str
-    price: float
-    category: str
-    image_url: str
-    stock: int
-    active: bool
-    is_digital: bool = False
-    download_url: Optional[str] = None
-    created_at: str
-
 class PortfolioCreate(BaseModel):
     title: str
     description: str
@@ -142,27 +101,6 @@ class ContactResponse(BaseModel):
     subject: str
     message: str
     read: bool
-    created_at: str
-
-class CartItem(BaseModel):
-    product_id: str
-    quantity: int
-
-class CheckoutRequest(BaseModel):
-    items: List[CartItem]
-    customer_email: EmailStr
-    customer_name: str
-    origin_url: str
-
-class OrderResponse(BaseModel):
-    id: str
-    customer_email: str
-    customer_name: str
-    items: List[Dict[str, Any]]
-    total: float
-    status: str
-    payment_status: str
-    session_id: Optional[str]
     created_at: str
 
 # ==================== AUTH HELPERS ====================
@@ -293,52 +231,6 @@ async def get_current_admin_info(admin = Depends(get_current_admin)):
         created_at=admin['created_at']
     )
 
-# ==================== PRODUCTS ROUTES ====================
-
-@api_router.get("/products", response_model=List[ProductResponse])
-async def get_products(active_only: bool = True):
-    query = {'active': True} if active_only else {}
-    products = await db.products.find(query, {'_id': 0}).to_list(100)
-    return [ProductResponse(**p) for p in products]
-
-@api_router.get("/products/{product_id}", response_model=ProductResponse)
-async def get_product(product_id: str):
-    product = await db.products.find_one({'id': product_id}, {'_id': 0})
-    if not product:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return ProductResponse(**product)
-
-@api_router.post("/products", response_model=ProductResponse)
-async def create_product(data: ProductCreate, admin = Depends(get_current_admin)):
-    product_id = str(uuid.uuid4())
-    product_doc = {
-        'id': product_id,
-        **data.model_dump(),
-        'created_at': datetime.now(timezone.utc).isoformat()
-    }
-    await db.products.insert_one(product_doc)
-    return ProductResponse(**product_doc)
-
-@api_router.put("/products/{product_id}", response_model=ProductResponse)
-async def update_product(product_id: str, data: ProductUpdate, admin = Depends(get_current_admin)):
-    update_data = {k: v for k, v in data.model_dump().items() if v is not None}
-    if not update_data:
-        raise HTTPException(status_code=400, detail="No data to update")
-    
-    result = await db.products.update_one({'id': product_id}, {'$set': update_data})
-    if result.matched_count == 0:
-        raise HTTPException(status_code=404, detail="Product not found")
-    
-    product = await db.products.find_one({'id': product_id}, {'_id': 0})
-    return ProductResponse(**product)
-
-@api_router.delete("/products/{product_id}")
-async def delete_product(product_id: str, admin = Depends(get_current_admin)):
-    result = await db.products.delete_one({'id': product_id})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return {"message": "Product deleted"}
-
 # ==================== PORTFOLIO ROUTES ====================
 
 @api_router.get("/portfolio", response_model=List[PortfolioResponse])
@@ -439,202 +331,16 @@ async def delete_contact(contact_id: str, admin = Depends(get_current_admin)):
         raise HTTPException(status_code=404, detail="Contact not found")
     return {"message": "Contact deleted"}
 
-# ==================== ORDERS & CHECKOUT ROUTES ====================
-
-@api_router.post("/checkout/session")
-async def create_checkout_session(data: CheckoutRequest, request: Request):
-    # Calculate total from products
-    total = 0.0
-    items_details = []
-    
-    for item in data.items:
-        product = await db.products.find_one({'id': item.product_id}, {'_id': 0})
-        if not product:
-            raise HTTPException(status_code=404, detail=f"Product {item.product_id} not found")
-        if product['stock'] < item.quantity:
-            raise HTTPException(status_code=400, detail=f"Insufficient stock for {product['name']}")
-        
-        item_total = product['price'] * item.quantity
-        total += item_total
-        items_details.append({
-            'product_id': item.product_id,
-            'name': product['name'],
-            'price': product['price'],
-            'quantity': item.quantity,
-            'subtotal': item_total
-        })
-    
-    # Create order
-    order_id = str(uuid.uuid4())
-    order_doc = {
-        'id': order_id,
-        'customer_email': data.customer_email,
-        'customer_name': data.customer_name,
-        'items': items_details,
-        'total': total,
-        'status': 'pending',
-        'payment_status': 'initiated',
-        'session_id': None,
-        'created_at': datetime.now(timezone.utc).isoformat()
-    }
-    
-    # Create Stripe checkout session
-    host_url = str(request.base_url).rstrip('/')
-    webhook_url = f"{host_url}/api/webhook/stripe"
-    success_url = f"{data.origin_url}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}"
-    cancel_url = f"{data.origin_url}/shop"
-    
-    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
-    
-    checkout_request = CheckoutSessionRequest(
-        amount=total,
-        currency='eur',
-        success_url=success_url,
-        cancel_url=cancel_url,
-        metadata={
-            'order_id': order_id,
-            'customer_email': data.customer_email
-        }
-    )
-    
-    session: CheckoutSessionResponse = await stripe_checkout.create_checkout_session(checkout_request)
-    
-    # Update order with session ID
-    order_doc['session_id'] = session.session_id
-    await db.orders.insert_one(order_doc)
-    
-    # Create payment transaction record
-    payment_doc = {
-        'id': str(uuid.uuid4()),
-        'order_id': order_id,
-        'session_id': session.session_id,
-        'amount': total,
-        'currency': 'eur',
-        'customer_email': data.customer_email,
-        'payment_status': 'initiated',
-        'created_at': datetime.now(timezone.utc).isoformat()
-    }
-    await db.payment_transactions.insert_one(payment_doc)
-    
-    return {'url': session.url, 'session_id': session.session_id, 'order_id': order_id}
-
-@api_router.get("/checkout/status/{session_id}")
-async def get_checkout_status(session_id: str, request: Request):
-    host_url = str(request.base_url).rstrip('/')
-    webhook_url = f"{host_url}/api/webhook/stripe"
-    
-    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
-    status: CheckoutStatusResponse = await stripe_checkout.get_checkout_status(session_id)
-    
-    # Update order and payment transaction
-    new_status = 'paid' if status.payment_status == 'paid' else status.payment_status
-    
-    order = await db.orders.find_one({'session_id': session_id}, {'_id': 0})
-    if order and order['payment_status'] != 'paid' and new_status == 'paid':
-        # Update order
-        await db.orders.update_one(
-            {'session_id': session_id},
-            {'$set': {'payment_status': 'paid', 'status': 'confirmed'}}
-        )
-        # Update payment transaction
-        await db.payment_transactions.update_one(
-            {'session_id': session_id},
-            {'$set': {'payment_status': 'paid'}}
-        )
-        # Decrease stock
-        for item in order['items']:
-            await db.products.update_one(
-                {'id': item['product_id']},
-                {'$inc': {'stock': -item['quantity']}}
-            )
-    
-    return {
-        'status': status.status,
-        'payment_status': status.payment_status,
-        'amount_total': status.amount_total,
-        'currency': status.currency
-    }
-
-@api_router.post("/webhook/stripe")
-async def stripe_webhook(request: Request):
-    body = await request.body()
-    signature = request.headers.get("Stripe-Signature")
-    
-    host_url = str(request.base_url).rstrip('/')
-    webhook_url = f"{host_url}/api/webhook/stripe"
-    
-    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
-    
-    try:
-        webhook_response = await stripe_checkout.handle_webhook(body, signature)
-        
-        if webhook_response.payment_status == 'paid':
-            session_id = webhook_response.session_id
-            order = await db.orders.find_one({'session_id': session_id}, {'_id': 0})
-            
-            if order and order['payment_status'] != 'paid':
-                await db.orders.update_one(
-                    {'session_id': session_id},
-                    {'$set': {'payment_status': 'paid', 'status': 'confirmed'}}
-                )
-                await db.payment_transactions.update_one(
-                    {'session_id': session_id},
-                    {'$set': {'payment_status': 'paid'}}
-                )
-                for item in order['items']:
-                    await db.products.update_one(
-                        {'id': item['product_id']},
-                        {'$inc': {'stock': -item['quantity']}}
-                    )
-        
-        return {"status": "success"}
-    except Exception as e:
-        logger.error(f"Webhook error: {str(e)}")
-        raise HTTPException(status_code=400, detail=str(e))
-
-# ==================== ORDERS ADMIN ROUTES ====================
-
-@api_router.get("/orders", response_model=List[OrderResponse])
-async def get_orders(admin = Depends(get_current_admin)):
-    orders = await db.orders.find({}, {'_id': 0}).sort('created_at', -1).to_list(100)
-    return [OrderResponse(**o) for o in orders]
-
-@api_router.get("/orders/{order_id}", response_model=OrderResponse)
-async def get_order(order_id: str, admin = Depends(get_current_admin)):
-    order = await db.orders.find_one({'id': order_id}, {'_id': 0})
-    if not order:
-        raise HTTPException(status_code=404, detail="Order not found")
-    return OrderResponse(**order)
-
-class OrderStatusUpdate(BaseModel):
-    status: str
-
-@api_router.put("/orders/{order_id}/status")
-async def update_order_status(order_id: str, data: OrderStatusUpdate, admin = Depends(get_current_admin)):
-    result = await db.orders.update_one({'id': order_id}, {'$set': {'status': data.status}})
-    if result.matched_count == 0:
-        raise HTTPException(status_code=404, detail="Order not found")
-    return {"message": "Order status updated"}
-
 # ==================== STATS ROUTES ====================
 
 @api_router.get("/stats")
 async def get_stats(admin = Depends(get_current_admin)):
-    total_products = await db.products.count_documents({})
-    total_orders = await db.orders.count_documents({})
     total_portfolio = await db.portfolio.count_documents({})
     unread_contacts = await db.contacts.count_documents({'read': False})
     
-    # Revenue calculation
-    paid_orders = await db.orders.find({'payment_status': 'paid'}, {'_id': 0, 'total': 1}).to_list(1000)
-    total_revenue = sum(o['total'] for o in paid_orders)
-    
     return {
-        'total_products': total_products,
-        'total_orders': total_orders,
         'total_portfolio': total_portfolio,
-        'unread_contacts': unread_contacts,
-        'total_revenue': total_revenue
+        'unread_contacts': unread_contacts
     }
 
 # ==================== SEED DATA ====================
@@ -642,149 +348,11 @@ async def get_stats(admin = Depends(get_current_admin)):
 @api_router.post("/seed")
 async def seed_data():
     # Check if already seeded
-    existing = await db.products.count_documents({})
+    existing = await db.portfolio.count_documents({})
     if existing > 0:
         return {"message": "Data already seeded"}
     
-    # Seed products (physical + digital)
-    products = [
-        # Physical products
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'Art Toy "Blue Edition"',
-            'description': 'Figurine collector édition limitée 15cm, résine haute qualité',
-            'price': 65.00,
-            'category': 'toys',
-            'image_url': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop',
-            'stock': 20,
-            'active': True,
-            'is_digital': False,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        },
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'Posters & Prints A3',
-            'description': 'Impression haute qualité format A3, papier 250g mat',
-            'price': 25.00,
-            'category': 'prints',
-            'image_url': 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=600&fit=crop',
-            'stock': 50,
-            'active': True,
-            'is_digital': False,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        },
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'T-Shirt "Studio Core"',
-            'description': 'T-shirt 100% coton bio, sérigraphie artisanale',
-            'price': 35.00,
-            'category': 'clothing',
-            'image_url': 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop',
-            'stock': 30,
-            'active': True,
-            'is_digital': False,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        },
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'Hoodie Brodé "Assk"',
-            'description': 'Hoodie premium brodé, 80% coton 20% polyester',
-            'price': 75.00,
-            'category': 'clothing',
-            'image_url': 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop',
-            'stock': 15,
-            'active': True,
-            'is_digital': False,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        },
-        # Digital products - Mockups
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'Pack Mockups iPhone Pro',
-            'description': '12 mockups iPhone haute résolution, fichiers PSD éditables, scènes variées',
-            'price': 19.00,
-            'category': 'mockups',
-            'image_url': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=600&fit=crop',
-            'stock': 999,
-            'active': True,
-            'is_digital': True,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        },
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'Pack Mockups Branding',
-            'description': '25 mockups pour identité visuelle: cartes, papeterie, packaging. Fichiers PSD',
-            'price': 29.00,
-            'category': 'mockups',
-            'image_url': 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=600&h=600&fit=crop',
-            'stock': 999,
-            'active': True,
-            'is_digital': True,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        },
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'Pack Mockups T-Shirts',
-            'description': '15 mockups t-shirts et hoodies, modèles variés, haute qualité 4K',
-            'price': 15.00,
-            'category': 'mockups',
-            'image_url': 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=600&fit=crop',
-            'stock': 999,
-            'active': True,
-            'is_digital': True,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        },
-        # Digital products - Creative Packs
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'Kit Créatif "Street Art"',
-            'description': 'Textures graffiti, brushes Procreate, palettes de couleurs urbaines',
-            'price': 25.00,
-            'category': 'packs',
-            'image_url': 'https://images.unsplash.com/photo-1561070791-36c11767b26a?w=600&h=600&fit=crop',
-            'stock': 999,
-            'active': True,
-            'is_digital': True,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        },
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'Pack Textures Premium',
-            'description': '50 textures haute résolution: béton, métal, papier froissé, grain film',
-            'price': 35.00,
-            'category': 'packs',
-            'image_url': 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=600&h=600&fit=crop',
-            'stock': 999,
-            'active': True,
-            'is_digital': True,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        },
-        {
-            'id': str(uuid.uuid4()),
-            'name': 'Bundle Complet Créatifs',
-            'description': 'Tous les mockups + tous les packs créatifs. Mises à jour à vie incluses',
-            'price': 89.00,
-            'category': 'packs',
-            'image_url': 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=600&h=600&fit=crop',
-            'stock': 999,
-            'active': True,
-            'is_digital': True,
-            'download_url': None,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        }
-    ]
-    await db.products.insert_many(products)
-    
-    # Seed portfolio with larger images
+    # Seed portfolio items
     portfolio_items = [
         {
             'id': str(uuid.uuid4()),
@@ -852,7 +420,7 @@ async def seed_data():
     ]
     await db.portfolio.insert_many(portfolio_items)
     
-    return {"message": "Data seeded successfully", "products": len(products), "portfolio": len(portfolio_items)}
+    return {"message": "Data seeded successfully", "portfolio": len(portfolio_items)}
 
 # Root endpoint
 @api_router.get("/")

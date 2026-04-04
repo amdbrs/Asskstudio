@@ -69,14 +69,18 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## Prioritized Backlog
 
-### P1 - High Priority
-- [ ] SEO optimization (meta tags, alt attributes verification)
+### P0 - Completed
+- [x] SEO optimization with local keywords (Clermont-Ferrand, Vichy, Moulins, Allier, Auvergne)
+- [x] Backend cleanup - removed all e-commerce routes (products, orders, checkout, stripe)
+- [x] Deleted orphaned files (CartContext, ShopPage, CheckoutSuccessPage, CartDrawer, ProductCard)
 
-### P2 - Medium Priority
-- [ ] Backend cleanup (remove unused products/orders routes)
-- [ ] Delete orphaned files (CartContext.js, ShopPage.js, etc.)
+### P1 - High Priority
+- All P1 tasks completed ✅
+
+### P2 - Medium Priority  
+- All P2 tasks completed ✅
 
 ### P3 - Low Priority / Future
-- [ ] Advanced image lazy loading
 - [ ] Client testimonials section
 - [ ] 3D printing gallery showcase
+- [ ] "Zone d'intervention" map section for local SEO
