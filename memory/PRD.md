@@ -33,7 +33,7 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## What's Been Implemented
 
-### December 2025
+### December 2025 - January 2026
 - [x] Modern redesign inspired by webhero.co with smooth CSS animations
 - [x] Mobile responsiveness and layout adaptation
 - [x] Admin authentication and Drag & Drop image upload for Portfolio
@@ -48,6 +48,13 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - [x] **Sellerie Garcia** added to portfolio (1st position) with link to selleriegarcia.fr
 - [x] **FAQ SEO section** with 8 questions targeting Clermont-Ferrand, Vichy, Moulins, Allier, Auvergne
 - [x] Schema.org FAQPage markup for Google rich snippets
+- [x] SEO optimized with local keywords in meta tags
+- [x] Backend cleaned - removed all e-commerce routes
+- [x] **Floating WhatsApp button** linked to 06 65 09 70 08
+- [x] **Dark mode** with toggle in header (persisted in localStorage)
+- [x] **"Notre Processus" section** - 4 creative process steps
+- [x] **"Ils nous font confiance" section** - 6 client names
+- [x] **Blog page** with search, category filters, and 6 demo articles
 
 ## Pricing (Current)
 ### Graphisme
