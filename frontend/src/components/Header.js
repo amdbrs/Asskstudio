@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useTheme } from '@/context/ThemeContext';
 
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 
@@ -9,7 +8,6 @@ export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +31,7 @@ export const Header = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled 
-            ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,71,255,0.1)]' 
+            ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,71,255,0.1)]' 
             : 'bg-transparent'
         }`}
         data-testid="main-header"
@@ -61,57 +59,38 @@ export const Header = () => {
                   to={link.path}
                   className={`relative font-futura font-medium text-sm uppercase tracking-wider transition-colors duration-200 ${
                     isActive(link.path)
-                      ? 'text-[#0047FF] dark:text-white'
-                      : 'text-[#0047FF]/60 dark:text-gray-400 hover:text-[#0047FF] dark:hover:text-white'
+                      ? 'text-[#0047FF]'
+                      : 'text-[#0047FF]/60 hover:text-[#0047FF]'
                   }`}
                   data-testid={`nav-${link.name.toLowerCase()}`}
                 >
                   {link.name}
                   {isActive(link.path) && (
-                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#0047FF] dark:bg-white" />
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#0047FF]" />
                   )}
                 </Link>
               ))}
-
-              {/* Dark Mode Toggle */}
-              <button
-                onClick={toggleTheme}
-                className="w-10 h-10 flex items-center justify-center border border-[#0047FF]/20 dark:border-gray-700 text-[#0047FF] dark:text-gray-300 hover:bg-[#0047FF] hover:text-white dark:hover:bg-gray-800 transition-all duration-200"
-                aria-label={isDark ? 'Activer le mode clair' : 'Activer le mode sombre'}
-                data-testid="theme-toggle"
-              >
-                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
             </nav>
 
             {/* Mobile Menu */}
-            <div className="flex items-center gap-2 md:hidden">
-              <button
-                onClick={toggleTheme}
-                className="w-10 h-10 flex items-center justify-center border border-[#0047FF]/20 dark:border-gray-700 text-[#0047FF] dark:text-gray-300 transition-colors duration-200"
-                aria-label={isDark ? 'Activer le mode clair' : 'Activer le mode sombre'}
-              >
-                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-              <button
-                className="w-10 h-10 flex items-center justify-center border border-[#0047FF]/20 dark:border-gray-700 text-[#0047FF] dark:text-gray-300 hover:bg-[#0047FF] hover:text-white transition-colors duration-200"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                data-testid="mobile-menu-button"
-                aria-label="Menu de navigation"
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Menu className="w-5 h-5" />
-                )}
-              </button>
-            </div>
+            <button
+              className="md:hidden w-10 h-10 flex items-center justify-center border border-[#0047FF]/20 text-[#0047FF] hover:bg-[#0047FF] hover:text-white transition-colors duration-200"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              data-testid="mobile-menu-button"
+              aria-label="Menu de navigation"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         <div className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96' : 'max-h-0'}`}>
-          <nav className="bg-white dark:bg-gray-950 border-t border-[#0047FF]/10 dark:border-gray-800 px-4 py-4">
+          <nav className="bg-white border-t border-[#0047FF]/10 px-4 py-4">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -119,8 +98,8 @@ export const Header = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block py-3 font-futura font-medium transition-colors duration-200 ${
                   isActive(link.path)
-                    ? 'text-[#0047FF] dark:text-white'
-                    : 'text-[#0047FF]/60 dark:text-gray-400'
+                    ? 'text-[#0047FF]'
+                    : 'text-[#0047FF]/60'
                 }`}
                 data-testid={`mobile-nav-${link.name.toLowerCase()}`}
               >

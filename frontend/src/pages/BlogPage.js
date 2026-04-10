@@ -121,34 +121,34 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300" data-testid="blog-page">
+    <div className="min-h-screen bg-white" data-testid="blog-page">
       <Header />
       
       {/* Hero */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-12 bg-gradient-to-b from-[#0047FF]/5 to-transparent dark:from-[#0047FF]/10">
+      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-12 bg-gradient-to-b from-[#0047FF]/5 to-transparent">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="font-anton text-4xl sm:text-5xl lg:text-6xl text-[#0047FF] dark:text-white">
+          <h1 className="font-anton text-4xl sm:text-5xl lg:text-6xl text-[#0047FF]">
             Blog & Actualités
           </h1>
-          <p className="font-futura text-[#0047FF]/70 dark:text-gray-400 text-base sm:text-lg mt-4 max-w-2xl mx-auto">
+          <p className="font-futura text-[#0047FF]/70 text-base sm:text-lg mt-4 max-w-2xl mx-auto">
             Conseils, tendances et coulisses de nos projets créatifs
           </p>
         </div>
       </section>
 
       {/* Filters */}
-      <section className="py-8 px-4 sm:px-6 lg:px-12 border-b border-[#0047FF]/10 dark:border-gray-800">
+      <section className="py-8 px-4 sm:px-6 lg:px-12 border-b border-[#0047FF]/10">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
             {/* Search */}
             <div className="relative w-full sm:w-80">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0047FF]/40 dark:text-gray-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0047FF]/40" />
               <input
                 type="text"
                 placeholder="Rechercher un article..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-900 border border-[#0047FF]/20 dark:border-gray-700 text-[#0047FF] dark:text-white font-futura focus:border-[#0047FF] focus:outline-none transition-colors"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura focus:border-[#0047FF] focus:outline-none transition-colors"
                 data-testid="blog-search"
               />
             </div>
@@ -162,7 +162,7 @@ export default function BlogPage() {
                   className={`px-4 py-2 font-futura text-sm transition-all duration-200 ${
                     selectedCategory === category
                       ? 'bg-[#0047FF] text-white'
-                      : 'bg-[#0047FF]/10 dark:bg-gray-800 text-[#0047FF] dark:text-gray-300 hover:bg-[#0047FF]/20'
+                      : 'bg-[#0047FF]/10 text-[#0047FF] hover:bg-[#0047FF]/20'
                   }`}
                   data-testid={`category-${category.toLowerCase()}`}
                 >
@@ -179,7 +179,7 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto">
           {filteredPosts.length === 0 ? (
             <div className="text-center py-16">
-              <p className="font-futura text-[#0047FF]/60 dark:text-gray-400 text-lg">
+              <p className="font-futura text-[#0047FF]/60 text-lg">
                 Aucun article trouvé pour cette recherche.
               </p>
             </div>
@@ -188,7 +188,7 @@ export default function BlogPage() {
               {filteredPosts.map((post, index) => (
                 <article
                   key={post.id}
-                  className="group bg-white dark:bg-gray-900 border border-[#0047FF]/10 dark:border-gray-800 hover:border-[#0047FF] dark:hover:border-[#0047FF] hover:shadow-[0_20px_60px_-15px_rgba(0,71,255,0.15)] transition-all duration-300"
+                  className="group bg-white border border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_20px_60px_-15px_rgba(0,71,255,0.15)] transition-all duration-300"
                   data-testid={`blog-post-${post.id}`}
                 >
                   {/* Image */}
@@ -209,7 +209,7 @@ export default function BlogPage() {
 
                   {/* Content */}
                   <div className="p-6">
-                    <div className="flex items-center gap-4 text-[#0047FF]/50 dark:text-gray-500 text-xs font-futura mb-3">
+                    <div className="flex items-center gap-4 text-[#0047FF]/50 text-xs font-futura mb-3">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
                         {formatDate(post.created_at)}
@@ -220,16 +220,16 @@ export default function BlogPage() {
                       </span>
                     </div>
 
-                    <h2 className="font-anton text-xl text-[#0047FF] dark:text-white group-hover:text-[#0047FF] transition-colors line-clamp-2">
+                    <h2 className="font-anton text-xl text-[#0047FF] group-hover:text-[#0047FF] transition-colors line-clamp-2">
                       {post.title}
                     </h2>
                     
-                    <p className="font-futura text-[#0047FF]/70 dark:text-gray-400 text-sm mt-3 line-clamp-3">
+                    <p className="font-futura text-[#0047FF]/70 text-sm mt-3 line-clamp-3">
                       {post.excerpt}
                     </p>
 
-                    <div className="mt-6 pt-4 border-t border-[#0047FF]/10 dark:border-gray-800">
-                      <button className="group/btn inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] dark:text-[#0047FF] hover:gap-3 transition-all">
+                    <div className="mt-6 pt-4 border-t border-[#0047FF]/10">
+                      <button className="group/btn inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-3 transition-all">
                         Lire l'article
                         <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                       </button>

@@ -166,16 +166,16 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 overflow-x-hidden transition-colors duration-300" data-testid="home-page">
+    <div className="min-h-screen bg-white overflow-x-hidden" data-testid="home-page">
       <Header />
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-[100svh] bg-white dark:bg-gray-950 flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
+      <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-[#0047FF]/5 dark:bg-[#0047FF]/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-10 w-64 sm:w-96 h-64 sm:h-96 bg-[#0047FF]/5 dark:bg-[#0047FF]/10 rounded-full blur-3xl animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] border border-[#0047FF]/10 dark:border-[#0047FF]/20 rounded-full hidden sm:block" />
+          <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-64 sm:w-96 h-64 sm:h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] border border-[#0047FF]/10 rounded-full hidden sm:block" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-24">
@@ -342,14 +342,14 @@ export default function HomePage() {
       </section>
 
       {/* ===== PROCESS SECTION ===== */}
-      <section id="process" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white dark:bg-gray-950" aria-labelledby="process-title">
+      <section id="process" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" aria-labelledby="process-title">
         <div className="max-w-7xl mx-auto">
           <header className="text-center mb-12 sm:mb-16 lg:mb-20">
-            <p className="font-futura text-[#0047FF] dark:text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Notre Processus</p>
-            <h2 id="process-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF] dark:text-white">
+            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Notre Processus</p>
+            <h2 id="process-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF]">
               Comment on travaille
             </h2>
-            <p className="font-futura text-[#0047FF]/60 dark:text-gray-400 text-sm sm:text-base mt-4 max-w-2xl mx-auto">
+            <p className="font-futura text-[#0047FF]/60 text-sm sm:text-base mt-4 max-w-2xl mx-auto">
               Un processus simple et transparent pour des résultats qui dépassent tes attentes
             </p>
           </header>
@@ -364,15 +364,15 @@ export default function HomePage() {
                     <div className="hidden lg:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-[#0047FF] to-[#0047FF]/20 -translate-x-4 z-0" />
                   )}
                   
-                  <div className="relative z-10 p-6 sm:p-8 bg-[#0047FF]/5 dark:bg-gray-900 border border-[#0047FF]/10 dark:border-gray-800 hover:border-[#0047FF] dark:hover:border-[#0047FF] hover:shadow-[0_20px_60px_-15px_rgba(0,71,255,0.15)] transition-all duration-300">
+                  <div className="relative z-10 p-6 sm:p-8 bg-[#0047FF]/5 border border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_20px_60px_-15px_rgba(0,71,255,0.15)] transition-all duration-300">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="w-12 h-12 bg-[#0047FF] flex items-center justify-center">
                         <IconComponent className="w-6 h-6 text-white" aria-hidden="true" />
                       </div>
-                      <span className="font-anton text-4xl text-[#0047FF]/20 dark:text-[#0047FF]/30">{step.step}</span>
+                      <span className="font-anton text-4xl text-[#0047FF]/20">{step.step}</span>
                     </div>
-                    <h3 className="font-anton text-xl text-[#0047FF] dark:text-white mb-2">{step.title}</h3>
-                    <p className="font-futura text-[#0047FF]/70 dark:text-gray-400 text-sm">{step.desc}</p>
+                    <h3 className="font-anton text-xl text-[#0047FF] mb-2">{step.title}</h3>
+                    <p className="font-futura text-[#0047FF]/70 text-sm">{step.desc}</p>
                   </div>
                 </article>
               );
@@ -381,26 +381,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== TRUSTED BY SECTION ===== */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-12 bg-[#0047FF]/5 dark:bg-gray-900 border-y border-[#0047FF]/10 dark:border-gray-800" aria-labelledby="trusted-title">
-        <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-8 sm:mb-12">
-            <p className="font-futura text-[#0047FF] dark:text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2" id="trusted-title">Ils nous font confiance</p>
-          </header>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
-            {trustedClients.map((client, index) => (
-              <div 
-                key={index}
-                className="group flex items-center justify-center p-4 sm:p-6 bg-white dark:bg-gray-950 border border-[#0047FF]/10 dark:border-gray-800 hover:border-[#0047FF] dark:hover:border-[#0047FF] transition-all duration-300"
-              >
-                <span className="font-anton text-sm sm:text-base text-[#0047FF]/60 dark:text-gray-500 group-hover:text-[#0047FF] dark:group-hover:text-white transition-colors text-center">
-                  {client.name}
-                </span>
-              </div>
-            ))}
-          </div>
+      {/* ===== TRUSTED BY SECTION - SLIDER ===== */}
+      <section className="py-12 sm:py-16 bg-[#0047FF]/5 border-y border-[#0047FF]/10 overflow-hidden" aria-labelledby="trusted-title">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mb-8">
+          <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest text-center" id="trusted-title">Ils nous font confiance</p>
         </div>
+
+        <Marquee gradient={false} speed={40} pauseOnHover={true}>
+          {[...trustedClients, ...trustedClients].map((client, index) => (
+            <div 
+              key={index}
+              className="flex items-center justify-center mx-8 sm:mx-12 px-8 sm:px-12 py-4 sm:py-6 bg-white border border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-300 min-w-[180px] sm:min-w-[220px]"
+            >
+              <span className="font-anton text-base sm:text-lg text-[#0047FF]/70 hover:text-[#0047FF] transition-colors whitespace-nowrap">
+                {client.name}
+              </span>
+            </div>
+          ))}
+        </Marquee>
       </section>
 
       {/* ===== PORTFOLIO SECTION ===== */}
@@ -667,7 +665,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="font-futura text-[#0047FF]/60 dark:text-gray-500 text-sm mb-4">Une autre question ?</p>
+            <p className="font-futura text-[#0047FF]/60 text-sm mb-4">Une autre question ?</p>
             <a href="#contact" className="group inline-flex items-center gap-3 px-6 py-3 bg-[#0047FF] text-white font-anton text-base uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]">
               Contactez-nous
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
