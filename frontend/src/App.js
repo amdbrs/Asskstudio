@@ -7,6 +7,7 @@ import HomePage from "@/pages/HomePage";
 import PortfolioPage from "@/pages/PortfolioPage";
 import ContactPage from "@/pages/ContactPage";
 import BlogPage from "@/pages/BlogPage";
+import AboutPage from "@/pages/AboutPage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/realisations" element={<PortfolioPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/a-propos" element={<AboutPage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/admin/*" element={<AdminDashboard />} />
         </Routes>
