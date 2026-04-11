@@ -28,21 +28,20 @@ const DashboardOverview = () => {
   const { token } = useAuth();
 
   useEffect(() => {
-    fetchStats();
-  }, []);
-
-  const fetchStats = async () => {
-    try {
-      const response = await fetch(`${API}/stats`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      if (response.ok) {
-        setStats(await response.json());
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(`${API}/stats`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (response.ok) {
+          setStats(await response.json());
+        }
+      } catch (error) {
+        console.error('Error fetching stats:', error);
       }
-    } catch (error) {
-      console.error('Error fetching stats:', error);
-    }
-  };
+    };
+    fetchStats();
+  }, [token]);
 
   return (
     <div data-testid="admin-dashboard-overview">
@@ -559,10 +558,6 @@ const MessagesManagement = () => {
   const [messages, setMessages] = useState([]);
   const { token } = useAuth();
 
-  useEffect(() => {
-    fetchMessages();
-  }, []);
-
   const fetchMessages = async () => {
     try {
       const response = await fetch(`${API}/contacts`, {
@@ -575,6 +570,11 @@ const MessagesManagement = () => {
       console.error('Error fetching messages:', error);
     }
   };
+
+  useEffect(() => {
+    fetchMessages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   const handleMarkRead = async (id) => {
     try {
@@ -657,10 +657,6 @@ const OrdersManagement = () => {
   const [orders, setOrders] = useState([]);
   const { token } = useAuth();
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
   const fetchOrders = async () => {
     try {
       const response = await fetch(`${API}/orders`, {
@@ -673,6 +669,11 @@ const OrdersManagement = () => {
       console.error('Error fetching orders:', error);
     }
   };
+
+  useEffect(() => {
+    fetchOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   const getStatusColor = (status) => {
     switch (status) {
