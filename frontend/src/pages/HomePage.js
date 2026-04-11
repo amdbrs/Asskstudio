@@ -382,23 +382,53 @@ export default function HomePage() {
       </section>
 
       {/* ===== TRUSTED BY SECTION - SLIDER ===== */}
-      <section className="py-12 sm:py-16 bg-[#0047FF]/5 border-y border-[#0047FF]/10 overflow-hidden" aria-labelledby="trusted-title">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mb-8">
-          <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest text-center" id="trusted-title">Ils nous font confiance</p>
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-white to-[#0047FF]/5 overflow-hidden" aria-labelledby="trusted-title">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mb-10 sm:mb-14">
+          <div className="flex items-center justify-center gap-4">
+            <div className="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-[#0047FF]/30" />
+            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] text-center" id="trusted-title">
+              Ils nous font confiance
+            </p>
+            <div className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-[#0047FF]/30" />
+          </div>
         </div>
 
-        <Marquee gradient={false} speed={40} pauseOnHover={true}>
-          {[...trustedClients, ...trustedClients].map((client, index) => (
-            <div 
-              key={index}
-              className="flex items-center justify-center mx-8 sm:mx-12 px-8 sm:px-12 py-4 sm:py-6 bg-white border border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-300 min-w-[180px] sm:min-w-[220px]"
-            >
-              <span className="font-anton text-base sm:text-lg text-[#0047FF]/70 hover:text-[#0047FF] transition-colors whitespace-nowrap">
-                {client.name}
-              </span>
-            </div>
-          ))}
-        </Marquee>
+        {/* First row - left to right */}
+        <div className="mb-4">
+          <Marquee gradient={true} gradientColor="#ffffff" gradientWidth={100} speed={35} pauseOnHover={true}>
+            {[...trustedClients, ...trustedClients, ...trustedClients].map((client, index) => (
+              <div 
+                key={index}
+                className="group flex items-center justify-center mx-3 sm:mx-4"
+              >
+                <div className="relative px-8 sm:px-10 py-4 sm:py-5 bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 transform hover:-translate-y-1">
+                  <span className="font-anton text-lg sm:text-xl text-[#0047FF]/50 group-hover:text-[#0047FF] transition-all duration-300 whitespace-nowrap">
+                    {client.name}
+                  </span>
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[#0047FF] group-hover:w-full transition-all duration-300" />
+                </div>
+              </div>
+            ))}
+          </Marquee>
+        </div>
+
+        {/* Second row - right to left */}
+        <div>
+          <Marquee gradient={true} gradientColor="#f8fafc" gradientWidth={100} speed={25} direction="right" pauseOnHover={true}>
+            {[...trustedClients, ...trustedClients, ...trustedClients].map((client, index) => (
+              <div 
+                key={index}
+                className="group flex items-center justify-center mx-3 sm:mx-4"
+              >
+                <div className="relative px-8 sm:px-10 py-4 sm:py-5 bg-[#0047FF]/5 border-2 border-transparent hover:border-[#0047FF]/30 hover:bg-white transition-all duration-500 transform hover:-translate-y-1">
+                  <span className="font-anton text-lg sm:text-xl text-[#0047FF]/40 group-hover:text-[#0047FF] transition-all duration-300 whitespace-nowrap">
+                    {client.name}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </Marquee>
+        </div>
       </section>
 
       {/* ===== PORTFOLIO SECTION ===== */}
