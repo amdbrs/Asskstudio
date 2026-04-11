@@ -1,0 +1,12 @@
+# Robots.txt pour ASSK Studio
+# https://assk.studio
+
+User-agent: *
+Allow: /
+
+# Bloquer les pages admin
+Disallow: /admin/
+Disallow: /admin/*
+
+# Sitemap
+Sitemap: https://assk.studio/sitemap.xml
