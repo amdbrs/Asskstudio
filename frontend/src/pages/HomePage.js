@@ -240,7 +240,7 @@ export default function HomePage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce" aria-hidden="true">
+        <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 flex flex-col items-center gap-2 animate-bounce" aria-hidden="true">
           <span className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase tracking-widest">Scroll</span>
           <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-[#0047FF] to-transparent" />
         </div>
