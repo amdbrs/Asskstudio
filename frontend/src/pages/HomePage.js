@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
 import { ArrowRight, Palette, Box, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Printer, Star, Check, Sparkles, Globe, Layout, Code, Heart, ChevronDown, HelpCircle, MapPin, MessageSquare, Lightbulb, Pencil, Rocket } from 'lucide-react';
 import { Header } from '@/components/Header';
@@ -248,48 +249,50 @@ export default function HomePage() {
       {/* ===== STATS SECTION - KITEMI STYLE ===== */}
       <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" id="stats-section">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-            {/* Stats cards */}
-            <div className="space-y-6">
-              {/* Stat 1 */}
-              <div className="group p-8 sm:p-10 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.15)]">
-                <p className="font-anton text-6xl sm:text-7xl lg:text-8xl text-[#0047FF] leading-none">75%</p>
-                <p className="font-futura text-[#0047FF]/70 text-sm sm:text-base mt-4 leading-relaxed">
-                  des utilisateurs jugent la crédibilité d'une entreprise en fonction de son identité visuelle. *
-                </p>
-                <p className="font-futura text-[#0047FF]/40 text-xs mt-3">* Stanford University</p>
-              </div>
-              
-              {/* Stat 2 */}
-              <div className="group p-8 sm:p-10 bg-gradient-to-br from-[#0047FF] to-[#0047FF]/90 border-2 border-[#0047FF] transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.4)]">
-                <p className="font-anton text-6xl sm:text-7xl lg:text-8xl text-white leading-none">x2.6</p>
-                <p className="font-futura text-white/80 text-sm sm:text-base mt-4 leading-relaxed">
-                  Les entreprises avec des visuels attractifs ont 2.6x plus de chances de voir leurs visiteurs s'engager. *
-                </p>
-                <p className="font-futura text-white/50 text-xs mt-3">* Adobe</p>
-              </div>
+          <header className="text-center mb-12 sm:mb-16">
+            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-3">Pourquoi investir dans le design ?</p>
+            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Les chiffres parlent</h2>
+          </header>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {/* Stat 1 */}
+            <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,71,255,0.15)]">
+              <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">75%</p>
+              <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
+                des utilisateurs jugent la crédibilité d'une entreprise sur son identité visuelle
+              </p>
+            </div>
+            
+            {/* Stat 2 */}
+            <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF] to-[#0047FF]/90 border-2 border-[#0047FF] transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,71,255,0.4)]">
+              <p className="font-anton text-4xl sm:text-5xl text-white leading-none">x2.6</p>
+              <p className="font-futura text-white/80 text-xs sm:text-sm mt-3 leading-relaxed">
+                plus de chances d'engagement avec des visuels attractifs
+              </p>
             </div>
 
-            {/* Testimonials carousel */}
-            <div className="flex flex-col justify-center space-y-4">
-              <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-4">Ce qu'ils en disent</p>
-              
-              <Marquee gradient={false} speed={30} direction="up" style={{ height: '400px' }} pauseOnHover={true}>
-                <div className="space-y-4 py-2">
-                  {[...testimonials, ...testimonials].map((testimonial, index) => (
-                    <div 
-                      key={index}
-                      className="group p-6 bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-300 mx-2"
-                    >
-                      <p className="font-futura text-[#0047FF]/80 text-sm sm:text-base italic leading-relaxed">
-                        "{testimonial.quote}"
-                      </p>
-                      <p className="font-anton text-[#0047FF] text-sm mt-4">{testimonial.name}</p>
-                    </div>
-                  ))}
-                </div>
-              </Marquee>
+            {/* Stat 3 */}
+            <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,71,255,0.15)]">
+              <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">72%</p>
+              <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
+                des gens jugent une entreprise sur la qualité de ses supports imprimés
+              </p>
             </div>
+
+            {/* Stat 4 */}
+            <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,71,255,0.15)]">
+              <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">94%</p>
+              <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
+                des premières impressions sont liées au design
+              </p>
+            </div>
+          </div>
+
+          {/* Sources */}
+          <div className="text-center mt-8">
+            <p className="font-futura text-[#0047FF]/40 text-xs">
+              Sources : Stanford University, Adobe, Print Industries Market Research
+            </p>
           </div>
         </div>
       </section>
@@ -308,41 +311,53 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Pôle Graphisme */}
             <div className="space-y-3 sm:space-y-4">
-              <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center" aria-hidden="true">
+              <Link to="/graphisme" className="flex items-center gap-3 mb-4 sm:mb-6 group">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-colors" aria-hidden="true">
                   <Palette className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF]">GRAPHISME</h3>
-              </div>
+                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">GRAPHISME</h3>
+                <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+              </Link>
               {servicesGraphisme.map((service, index) => (
                 <ServiceCard key={index} service={service} index={`graphisme-${index}`} />
               ))}
+              <Link to="/graphisme" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-3 transition-all mt-2">
+                En savoir plus <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
             {/* Pôle Web */}
             <div className="space-y-3 sm:space-y-4">
-              <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center" aria-hidden="true">
+              <Link to="/sites-web" className="flex items-center gap-3 mb-4 sm:mb-6 group">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-colors" aria-hidden="true">
                   <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF]">SITES WEB</h3>
-              </div>
+                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">SITES WEB</h3>
+                <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+              </Link>
               {servicesWeb.map((service, index) => (
                 <ServiceCard key={index} service={service} index={`web-${index}`} />
               ))}
+              <Link to="/sites-web" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-3 transition-all mt-2">
+                En savoir plus <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
             {/* Pôle 3D & Toys */}
             <div className="space-y-3 sm:space-y-4">
-              <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center" aria-hidden="true">
+              <Link to="/modelisation-3d" className="flex items-center gap-3 mb-4 sm:mb-6 group">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-colors" aria-hidden="true">
                   <Box className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF]">3D & TOYS</h3>
-              </div>
+                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">3D & TOYS</h3>
+                <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+              </Link>
               {services3D.map((service, index) => (
                 <ServiceCard key={index} service={service} index={`3d-${index}`} />
               ))}
+              <Link to="/modelisation-3d" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-3 transition-all mt-2">
+                En savoir plus <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
 

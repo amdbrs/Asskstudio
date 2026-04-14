@@ -8,6 +8,9 @@ import PortfolioPage from "@/pages/PortfolioPage";
 import ContactPage from "@/pages/ContactPage";
 import BlogPage from "@/pages/BlogPage";
 import AboutPage from "@/pages/AboutPage";
+import GraphismePage from "@/pages/GraphismePage";
+import SiteWebPage from "@/pages/SiteWebPage";
+import Modelisation3DPage from "@/pages/Modelisation3DPage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 
@@ -24,6 +27,9 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/a-propos" element={<AboutPage />} />
+          <Route path="/graphisme" element={<GraphismePage />} />
+          <Route path="/sites-web" element={<SiteWebPage />} />
+          <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/admin/*" element={<AdminDashboard />} />
         </Routes>
