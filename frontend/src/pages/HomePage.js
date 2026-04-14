@@ -249,37 +249,37 @@ export default function HomePage() {
       </div>
 
       {/* ===== STATS BANNER - COMPACT ===== */}
-      <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" id="stats-section">
+      <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-12 bg-[#0047FF]/10" id="stats-section">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 items-center">
             {/* Stat 1 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-white leading-none">75%</p>
-              <p className="font-futura text-white/70 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">75%</p>
+              <p className="font-futura text-[#0047FF]/70 text-[10px] sm:text-xs mt-1 leading-tight">
                 jugent sur l'identité visuelle
               </p>
             </div>
             
             {/* Stat 2 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-white leading-none">x2.6</p>
-              <p className="font-futura text-white/70 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">x2.6</p>
+              <p className="font-futura text-[#0047FF]/70 text-[10px] sm:text-xs mt-1 leading-tight">
                 plus d'engagement
               </p>
             </div>
 
             {/* Stat 3 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-white leading-none">72%</p>
-              <p className="font-futura text-white/70 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">72%</p>
+              <p className="font-futura text-[#0047FF]/70 text-[10px] sm:text-xs mt-1 leading-tight">
                 jugent sur les supports print
               </p>
             </div>
 
             {/* Stat 4 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-white leading-none">94%</p>
-              <p className="font-futura text-white/70 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">94%</p>
+              <p className="font-futura text-[#0047FF]/70 text-[10px] sm:text-xs mt-1 leading-tight">
                 premières impressions = design
               </p>
             </div>
