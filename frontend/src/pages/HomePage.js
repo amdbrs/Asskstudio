@@ -10,21 +10,28 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 
 const servicesGraphisme = [
-  { name: 'Pack Logo Signature', price: '450', description: 'Logo professionnel + déclinaisons', icon: PenTool },
-  { name: 'Identité Visuelle Complète', price: '950', description: 'Logo, charte graphique, supports', icon: Layers },
-  { name: 'Papeterie & Édition', price: '200', description: 'Cartes de visite, flyers, brochures', icon: FileText }
+  { name: 'Pack Logo Signature', description: 'Logo professionnel + déclinaisons', icon: PenTool },
+  { name: 'Identité Visuelle Complète', description: 'Logo, charte graphique, supports', icon: Layers },
+  { name: 'Papeterie & Édition', description: 'Cartes de visite, flyers, brochures', icon: FileText }
 ];
 
 const servicesWeb = [
-  { name: 'Site Vitrine', price: '1200', description: 'Landing page ou site one-page responsive', icon: Layout },
-  { name: 'Site Web 5-10 pages', price: '2200', description: 'Site complet multi-pages, SEO optimisé', icon: Globe },
-  { name: 'E-commerce', price: '3000', description: 'Boutique en ligne avec paiement sécurisé', icon: Code }
+  { name: 'Site Vitrine', description: 'Landing page ou site one-page responsive', icon: Layout },
+  { name: 'Site Web Multi-pages', description: 'Site complet avec SEO optimisé', icon: Globe },
+  { name: 'E-commerce', description: 'Boutique en ligne avec paiement sécurisé', icon: Code }
 ];
 
 const services3D = [
-  { name: 'Modélisation 3D (ZBrush)', price: '250', description: 'Création de personnages et objets', icon: Box },
-  { name: 'Impression 3D Filament', price: 'Sur devis', description: 'Porte-clés, totems, objets sur demande', icon: Printer },
-  { name: 'Pack Art Toy Custom', price: '490', description: 'Design + modélisation + impression', icon: Star }
+  { name: 'Modélisation 3D', description: 'Création de personnages et objets sur ZBrush', icon: Box },
+  { name: 'Impression 3D Filament', description: 'Porte-clés, totems, objets sur demande', icon: Printer },
+  { name: 'Pack Art Toy Custom', description: 'Design + modélisation + impression', icon: Star }
+];
+
+const testimonials = [
+  { name: 'Liberty Van', quote: "Un logo et une identité qui nous ressemblent parfaitement." },
+  { name: 'Sellerie Garcia', quote: "Notre site web nous apporte des clients chaque semaine." },
+  { name: 'Club Football Laforest', quote: "Des maillots et un branding dont on est fiers." },
+  { name: 'Kates Agency', quote: "Professionnalisme et créativité au rendez-vous." }
 ];
 
 const whyUs = [
@@ -105,7 +112,7 @@ const ServiceCard = ({ service, index }) => {
   const IconComponent = service.icon;
   return (
     <article 
-      className="group p-4 sm:p-6 border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-300 cursor-pointer" 
+      className="group p-4 sm:p-6 border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-300 cursor-pointer hover:-translate-y-1" 
       data-testid={`service-${index}`}
       itemScope 
       itemType="https://schema.org/Service"
@@ -115,13 +122,10 @@ const ServiceCard = ({ service, index }) => {
           <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-[#0047FF] group-hover:text-white transition-colors duration-300" aria-hidden="true" />
         </div>
         <div className="flex-1 min-w-0">
-          <h4 className="font-anton text-base sm:text-lg text-[#0047FF]" itemProp="name">{service.name}</h4>
+          <h4 className="font-anton text-base sm:text-lg text-[#0047FF] group-hover:text-[#0047FF]" itemProp="name">{service.name}</h4>
           <p className="font-futura text-[#0047FF]/60 text-xs sm:text-sm" itemProp="description">{service.description}</p>
         </div>
-        <div className="text-right flex-shrink-0">
-          <span className="font-anton text-xl sm:text-2xl text-[#0047FF]" itemProp="price">{service.price}€</span>
-          <p className="font-futura text-[#0047FF]/40 text-[10px] sm:text-xs">À partir de</p>
-        </div>
+        <ArrowRight className="w-5 h-5 text-[#0047FF]/30 group-hover:text-[#0047FF] group-hover:translate-x-1 transition-all duration-300 flex-shrink-0" />
       </div>
     </article>
   );
@@ -205,21 +209,7 @@ export default function HomePage() {
                 </a>
               </div>
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-[#0047FF]/20">
-                <div ref={stats1.ref} className="text-center lg:text-left">
-                  <p className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF]">{stats1.count}+</p>
-                  <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs lg:text-sm mt-1">Projets réalisés</p>
-                </div>
-                <div ref={stats2.ref} className="text-center lg:text-left">
-                  <p className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF]">{stats2.count}%</p>
-                  <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs lg:text-sm mt-1">Clients satisfaits</p>
-                </div>
-                <div ref={stats3.ref} className="text-center lg:text-left">
-                  <p className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF]">{stats3.count}+</p>
-                  <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs lg:text-sm mt-1">Art toys créés</p>
-                </div>
-              </div>
+              {/* Stats removed - new stats section below */}
             </div>
 
             {/* Hero Image/Logo */}
@@ -254,6 +244,55 @@ export default function HomePage() {
           ))}
         </Marquee>
       </div>
+
+      {/* ===== STATS SECTION - KITEMI STYLE ===== */}
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" id="stats-section">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+            {/* Stats cards */}
+            <div className="space-y-6">
+              {/* Stat 1 */}
+              <div className="group p-8 sm:p-10 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.15)]">
+                <p className="font-anton text-6xl sm:text-7xl lg:text-8xl text-[#0047FF] leading-none">75%</p>
+                <p className="font-futura text-[#0047FF]/70 text-sm sm:text-base mt-4 leading-relaxed">
+                  des utilisateurs jugent la crédibilité d'une entreprise en fonction de son identité visuelle. *
+                </p>
+                <p className="font-futura text-[#0047FF]/40 text-xs mt-3">* Stanford University</p>
+              </div>
+              
+              {/* Stat 2 */}
+              <div className="group p-8 sm:p-10 bg-gradient-to-br from-[#0047FF] to-[#0047FF]/90 border-2 border-[#0047FF] transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.4)]">
+                <p className="font-anton text-6xl sm:text-7xl lg:text-8xl text-white leading-none">x2.6</p>
+                <p className="font-futura text-white/80 text-sm sm:text-base mt-4 leading-relaxed">
+                  Les entreprises avec des visuels attractifs ont 2.6x plus de chances de voir leurs visiteurs s'engager. *
+                </p>
+                <p className="font-futura text-white/50 text-xs mt-3">* Adobe</p>
+              </div>
+            </div>
+
+            {/* Testimonials carousel */}
+            <div className="flex flex-col justify-center space-y-4">
+              <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-4">Ce qu'ils en disent</p>
+              
+              <Marquee gradient={false} speed={30} direction="up" style={{ height: '400px' }} pauseOnHover={true}>
+                <div className="space-y-4 py-2">
+                  {[...testimonials, ...testimonials].map((testimonial, index) => (
+                    <div 
+                      key={index}
+                      className="group p-6 bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-300 mx-2"
+                    >
+                      <p className="font-futura text-[#0047FF]/80 text-sm sm:text-base italic leading-relaxed">
+                        "{testimonial.quote}"
+                      </p>
+                      <p className="font-anton text-[#0047FF] text-sm mt-4">{testimonial.name}</p>
+                    </div>
+                  ))}
+                </div>
+              </Marquee>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ===== SERVICES SECTION ===== */}
       <section id="services" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="services-section" aria-labelledby="services-title">
@@ -491,36 +530,65 @@ export default function HomePage() {
       </section>
 
       {/* ===== PORTFOLIO SECTION ===== */}
-      <section id="realisations" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="portfolio-section" aria-labelledby="portfolio-title">
+      <section id="realisations" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-gradient-to-b from-white to-[#0047FF]/5" data-testid="portfolio-section" aria-labelledby="portfolio-title">
         <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-8 sm:mb-12">
-            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Notre Travail</p>
+          <header className="text-center mb-12 sm:mb-16">
+            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-3 sm:mb-4">Notre Travail</p>
             <h2 id="portfolio-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Réalisations</h2>
+            <p className="font-futura text-[#0047FF]/60 text-sm sm:text-base mt-4 max-w-xl mx-auto">
+              Découvrez nos derniers projets en graphisme, web et 3D
+            </p>
           </header>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {portfolio.slice(0, 6).map((item) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            {portfolio.slice(0, 6).map((item, index) => (
               <a 
                 key={item.id} 
                 href={item.link || '#'} 
                 target={item.link ? '_blank' : '_self'} 
                 rel="noopener noreferrer" 
-                className="group block overflow-hidden" 
+                className="group block" 
                 data-testid={`home-portfolio-${item.id}`}
                 aria-label={`Voir le projet ${item.title}`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <article className="relative aspect-[4/3] overflow-hidden bg-[#0047FF]/5">
-                  <img 
-                    src={item.image_url} 
-                    alt={`${item.title} - ${item.description} - Projet ${item.category} par ASSK Studio`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                    loading="lazy"
-                    onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`; }} 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0047FF] to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-end p-4 sm:p-6">
-                    <div>
-                      <span className="font-futura text-white/70 text-[10px] sm:text-xs uppercase tracking-wider">{item.category}</span>
-                      <h3 className="font-anton text-lg sm:text-2xl text-white">{item.title}</h3>
+                <article className="relative overflow-hidden bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.2)] hover:-translate-y-2">
+                  {/* Image container */}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={item.image_url} 
+                      alt={`${item.title} - ${item.description} - Projet ${item.category} par ASSK Studio`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                      loading="lazy"
+                      onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`; }} 
+                    />
+                    
+                    {/* Overlay with gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0047FF] via-[#0047FF]/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                    
+                    {/* Category tag */}
+                    <div className="absolute top-4 left-4 px-3 py-1 bg-white font-futura text-[10px] sm:text-xs text-[#0047FF] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0">
+                      {item.category}
+                    </div>
+                    
+                    {/* View icon */}
+                    <div className="absolute top-4 right-4 w-10 h-10 bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                      <ExternalLink className="w-4 h-4 text-[#0047FF]" />
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-4 sm:p-6">
+                    <h3 className="font-anton text-lg sm:text-xl text-[#0047FF] group-hover:text-[#0047FF] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="font-futura text-[#0047FF]/60 text-xs sm:text-sm mt-1 line-clamp-1">
+                      {item.description}
+                    </p>
+                    
+                    {/* Animated underline */}
+                    <div className="mt-4 h-0.5 bg-[#0047FF]/10 overflow-hidden">
+                      <div className="h-full w-0 bg-[#0047FF] group-hover:w-full transition-all duration-500" />
                     </div>
                   </div>
                 </article>
@@ -529,16 +597,16 @@ export default function HomePage() {
           </div>
 
           {/* Voir plus button */}
-          <div className="text-center mt-8 sm:mt-12">
+          <div className="text-center mt-12 sm:mt-16">
             <a 
               href="https://www.amdbrs.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]"
+              className="group inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.5)]"
               aria-label="Voir plus de réalisations sur amdbrs.com"
             >
-              Voir plus
-              <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              Voir tout le portfolio
+              <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
             </a>
           </div>
         </div>
