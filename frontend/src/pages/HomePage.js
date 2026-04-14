@@ -248,62 +248,42 @@ export default function HomePage() {
         </Marquee>
       </div>
 
-      {/* ===== STATS SECTION - KITEMI STYLE ===== */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" id="stats-section">
+      {/* ===== STATS BANNER - COMPACT ===== */}
+      <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" id="stats-section">
         <div className="max-w-7xl mx-auto">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16">
-            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-3">Pourquoi investir dans le design ?</p>
-            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Les chiffres parlent</h2>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 items-center">
             {/* Stat 1 */}
-            <AnimatedSection animation="fadeInUp" delay={0}>
-              <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-15px_rgba(0,71,255,0.2)] hover:-translate-y-2">
-                <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">75%</p>
-                <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
-                  des utilisateurs jugent la crédibilité d'une entreprise sur son identité visuelle
-                </p>
-              </div>
-            </AnimatedSection>
+            <div className="text-center">
+              <p className="font-anton text-2xl sm:text-3xl text-white leading-none">75%</p>
+              <p className="font-futura text-white/70 text-[10px] sm:text-xs mt-1 leading-tight">
+                jugent sur l'identité visuelle
+              </p>
+            </div>
             
             {/* Stat 2 */}
-            <AnimatedSection animation="fadeInUp" delay={100}>
-              <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF] to-[#0047FF]/90 border-2 border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-15px_rgba(0,71,255,0.5)] hover:-translate-y-2">
-                <p className="font-anton text-4xl sm:text-5xl text-white leading-none">x2.6</p>
-                <p className="font-futura text-white/80 text-xs sm:text-sm mt-3 leading-relaxed">
-                  plus de chances d'engagement avec des visuels attractifs
-                </p>
-              </div>
-            </AnimatedSection>
+            <div className="text-center">
+              <p className="font-anton text-2xl sm:text-3xl text-white leading-none">x2.6</p>
+              <p className="font-futura text-white/70 text-[10px] sm:text-xs mt-1 leading-tight">
+                plus d'engagement
+              </p>
+            </div>
 
             {/* Stat 3 */}
-            <AnimatedSection animation="fadeInUp" delay={200}>
-              <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-15px_rgba(0,71,255,0.2)] hover:-translate-y-2">
-                <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">72%</p>
-                <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
-                  des gens jugent une entreprise sur la qualité de ses supports imprimés
-                </p>
-              </div>
-            </AnimatedSection>
+            <div className="text-center">
+              <p className="font-anton text-2xl sm:text-3xl text-white leading-none">72%</p>
+              <p className="font-futura text-white/70 text-[10px] sm:text-xs mt-1 leading-tight">
+                jugent sur les supports print
+              </p>
+            </div>
 
             {/* Stat 4 */}
-            <AnimatedSection animation="fadeInUp" delay={300}>
-              <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-15px_rgba(0,71,255,0.2)] hover:-translate-y-2">
-                <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">94%</p>
-                <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
-                  des premières impressions sont liées au design
-                </p>
-              </div>
-            </AnimatedSection>
+            <div className="text-center">
+              <p className="font-anton text-2xl sm:text-3xl text-white leading-none">94%</p>
+              <p className="font-futura text-white/70 text-[10px] sm:text-xs mt-1 leading-tight">
+                premières impressions = design
+              </p>
+            </div>
           </div>
-
-          {/* Sources */}
-          <AnimatedSection animation="fadeInUp" delay={400} className="text-center mt-8">
-            <p className="font-futura text-[#0047FF]/40 text-xs">
-              Sources : Stanford University, Adobe, Print Industries Market Research
-            </p>
-          </AnimatedSection>
         </div>
       </section>
 
