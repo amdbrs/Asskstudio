@@ -51,10 +51,15 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - [x] SEO optimized with local keywords in meta tags
 - [x] Backend cleaned - removed all e-commerce routes
 - [x] **Floating WhatsApp button** linked to 06 65 09 70 08
-- [x] **Dark mode** with toggle in header (persisted in localStorage)
-- [x] **"Notre Processus" section** - 4 creative process steps
-- [x] **"Ils nous font confiance" section** - 6 client names
+- [x] **Dark mode** with toggle in header (persisted in localStorage) - REMOVED per user request
+- [x] **"Notre Processus" section** - 4 creative process steps with vertical timeline (PC)
+- [x] **"Ils nous font confiance" section** - 6 client names with continuous marquee slider
 - [x] **Blog page** with search, category filters, and 6 demo articles
+- [x] **About page** created with founder info from CV
+- [x] **Stats section** redesigned with Kitemi.studio style (4 cards with hover effects)
+- [x] **3 dedicated service pages**: GraphismePage, SiteWebPage, Modelisation3DPage
+- [x] **ScrollToTop component** - automatic scroll to top on page navigation
+- [x] **White header on sub-pages** - conditional bg-white for non-home pages
 
 ## Pricing (Current)
 ### Graphisme

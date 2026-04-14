@@ -26,14 +26,17 @@ export const Header = () => {
   ];
 
   const isActive = (path) => location.pathname === path;
+  const isHomePage = location.pathname === '/';
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled 
-            ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,71,255,0.1)]' 
-            : 'bg-transparent'
+          !isHomePage
+            ? 'bg-white shadow-[0_4px_30px_rgba(0,71,255,0.1)]'
+            : scrolled 
+              ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,71,255,0.1)]' 
+              : 'bg-transparent'
         }`}
         data-testid="main-header"
       >
