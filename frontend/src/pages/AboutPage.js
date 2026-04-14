@@ -193,37 +193,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Formation */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <header className="text-center mb-12 sm:mb-16">
-            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-3">Études</p>
-            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Formation</h2>
-          </header>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 bg-[#0047FF] text-white text-center">
-              <p className="font-futura text-white/60 text-sm mb-2">2023 - 2024</p>
-              <h3 className="font-anton text-lg">Bachelor Designer Graphique</h3>
-              <p className="font-futura text-white/70 text-sm mt-2">Écoresponsable PRINT</p>
-              <p className="font-futura text-white/50 text-xs mt-2">Campus Fonderie de l'image - Bagnolet</p>
-            </div>
-            <div className="p-6 bg-[#0047FF]/10 text-[#0047FF] text-center border-2 border-[#0047FF]/20">
-              <p className="font-futura text-[#0047FF]/60 text-sm mb-2">2021 - 2023</p>
-              <h3 className="font-anton text-lg">BTS Communication</h3>
-              <p className="font-futura text-[#0047FF]/70 text-sm mt-2">Lycée Albert Londres</p>
-              <p className="font-futura text-[#0047FF]/50 text-xs mt-2">Cusset, France</p>
-            </div>
-            <div className="p-6 bg-[#0047FF]/5 text-[#0047FF] text-center border-2 border-[#0047FF]/10">
-              <p className="font-futura text-[#0047FF]/60 text-sm mb-2">2018 - 2021</p>
-              <h3 className="font-anton text-lg">BAC STI2D</h3>
-              <p className="font-futura text-[#0047FF]/70 text-sm mt-2">Architecture & Construction</p>
-              <p className="font-futura text-[#0047FF]/50 text-xs mt-2">Lycée Jean Monnet - Yzeure</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Contact CTA */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-[#0047FF]">
         <div className="max-w-4xl mx-auto text-center">

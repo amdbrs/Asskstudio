@@ -60,6 +60,13 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - [x] **3 dedicated service pages**: GraphismePage, SiteWebPage, Modelisation3DPage
 - [x] **ScrollToTop component** - automatic scroll to top on page navigation
 - [x] **White header on sub-pages** - conditional bg-white for non-home pages
+- [x] **Formation section removed** from About page (per user request)
+- [x] **Modern animations added** - Scroll-triggered animations, enhanced hover effects, micro-interactions
+  - New `useScrollAnimation` hook for scroll-triggered visibility
+  - `AnimatedSection` component for staggered reveal animations
+  - Enhanced CSS with fadeInUp, slideLeft, slideRight, scaleIn animations
+  - Improved hover states with smoother transitions (cubic-bezier)
+  - Active states with scale feedback on buttons
 
 ## Pricing (Current)
 ### Graphisme

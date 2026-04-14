@@ -6,6 +6,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { toast } from 'sonner';
+import { useScrollAnimation, AnimatedSection } from '@/hooks/useScrollAnimation';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
@@ -113,20 +114,20 @@ const ServiceCard = ({ service, index }) => {
   const IconComponent = service.icon;
   return (
     <article 
-      className="group p-4 sm:p-6 border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-300 cursor-pointer hover:-translate-y-1" 
+      className="group p-4 sm:p-6 border border-[#0047FF]/20 bg-white hover:border-[#0047FF] hover:shadow-[0_20px_50px_-15px_rgba(0,71,255,0.25)] transition-all duration-500 cursor-pointer hover:-translate-y-2" 
       data-testid={`service-${index}`}
       itemScope 
       itemType="https://schema.org/Service"
     >
       <div className="flex items-start sm:items-center gap-3 sm:gap-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 border border-[#0047FF]/20 flex items-center justify-center group-hover:bg-[#0047FF] group-hover:border-[#0047FF] transition-all duration-300 flex-shrink-0">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 border border-[#0047FF]/20 flex items-center justify-center group-hover:bg-[#0047FF] group-hover:border-[#0047FF] transition-all duration-500 flex-shrink-0 group-hover:scale-110">
           <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-[#0047FF] group-hover:text-white transition-colors duration-300" aria-hidden="true" />
         </div>
         <div className="flex-1 min-w-0">
           <h4 className="font-anton text-base sm:text-lg text-[#0047FF] group-hover:text-[#0047FF]" itemProp="name">{service.name}</h4>
           <p className="font-futura text-[#0047FF]/60 text-xs sm:text-sm" itemProp="description">{service.description}</p>
         </div>
-        <ArrowRight className="w-5 h-5 text-[#0047FF]/30 group-hover:text-[#0047FF] group-hover:translate-x-1 transition-all duration-300 flex-shrink-0" />
+        <ArrowRight className="w-5 h-5 text-[#0047FF]/30 group-hover:text-[#0047FF] group-hover:translate-x-2 transition-all duration-500 flex-shrink-0" />
       </div>
     </article>
   );
@@ -178,34 +179,35 @@ export default function HomePage() {
       <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-10 w-64 sm:w-96 h-64 sm:h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] border border-[#0047FF]/10 rounded-full hidden sm:block" />
+          <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute bottom-20 right-10 w-64 sm:w-96 h-64 sm:h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] border border-[#0047FF]/10 rounded-full hidden sm:block animate-[spin_60s_linear_infinite]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] border border-[#0047FF]/5 rounded-full hidden sm:block animate-[spin_45s_linear_infinite_reverse]" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            <div className="animate-fadeInUp text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6">
-                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6 animate-fadeInUp" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 animate-pulse" aria-hidden="true" />
                 <span>Studio Créatif Graphisme & 3D</span>
               </div>
               
-              <h1 className="font-anton text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#0047FF] leading-[0.95] uppercase tracking-tight" data-testid="hero-title">
+              <h1 className="font-anton text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#0047FF] leading-[0.95] uppercase tracking-tight animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }} data-testid="hero-title">
                 On crée.<br />
                 <span className="text-[#0047FF]/30">Tu marques.</span>
               </h1>
               
-              <p className="font-futura text-[#0047FF]/70 text-base sm:text-lg lg:text-xl mt-6 sm:mt-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              <p className="font-futura text-[#0047FF]/70 text-base sm:text-lg lg:text-xl mt-6 sm:mt-8 max-w-lg mx-auto lg:mx-0 leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
                 Studio créatif spécialisé en identité visuelle, sites web, modélisation 3D et création d'art toys uniques.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 sm:mt-10 justify-center lg:justify-start">
-                <a href="#contact" className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]" data-testid="hero-cta-button" aria-label="Démarrer un projet avec ASSK Studio">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 sm:mt-10 justify-center lg:justify-start animate-fadeInUp" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
+                <a href="#contact" className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-500 hover:gap-5 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.5)] hover:-translate-y-1 active:scale-95" data-testid="hero-cta-button" aria-label="Démarrer un projet avec ASSK Studio">
                   Démarrer un projet
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                 </a>
-                <a href="#realisations" className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-300 hover:bg-[#0047FF] hover:text-white" aria-label="Voir nos réalisations">
+                <a href="#realisations" className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-500 hover:bg-[#0047FF] hover:text-white hover:-translate-y-1 active:scale-95" aria-label="Voir nos réalisations">
                   Nos réalisations
                 </a>
               </div>
@@ -214,13 +216,13 @@ export default function HomePage() {
             </div>
 
             {/* Hero Image/Logo */}
-            <div className="relative hidden lg:flex items-center justify-center" aria-hidden="true">
+            <div className="relative hidden lg:flex items-center justify-center animate-fadeInUp" style={{ animationDelay: '0.3s', animationFillMode: 'both' }} aria-hidden="true">
               <div className="relative w-[300px] xl:w-[400px] h-[300px] xl:h-[400px] animate-float">
                 <div className="absolute inset-0 bg-[#0047FF] rounded-full opacity-10 animate-ping-slow" />
                 <img 
                   src={LOGO_URL} 
                   alt="Logo ASSK Studio - Personnage bleu avec coeur, mascotte du studio créatif" 
-                  className="relative z-10 w-full h-full object-contain drop-shadow-2xl" 
+                  className="relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-105" 
                   width="400"
                   height="400"
                   loading="eager"
@@ -231,7 +233,7 @@ export default function HomePage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 flex flex-col items-center gap-2 animate-bounce" aria-hidden="true">
+        <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 flex flex-col items-center gap-2 animate-bounce" style={{ animationDuration: '2s' }} aria-hidden="true">
           <span className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase tracking-widest">Scroll</span>
           <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-[#0047FF] to-transparent" />
         </div>
@@ -249,147 +251,163 @@ export default function HomePage() {
       {/* ===== STATS SECTION - KITEMI STYLE ===== */}
       <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" id="stats-section">
         <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-12 sm:mb-16">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16">
             <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-3">Pourquoi investir dans le design ?</p>
             <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Les chiffres parlent</h2>
-          </header>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {/* Stat 1 */}
-            <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,71,255,0.15)]">
-              <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">75%</p>
-              <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
-                des utilisateurs jugent la crédibilité d'une entreprise sur son identité visuelle
-              </p>
-            </div>
+            <AnimatedSection animation="fadeInUp" delay={0}>
+              <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-15px_rgba(0,71,255,0.2)] hover:-translate-y-2">
+                <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">75%</p>
+                <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
+                  des utilisateurs jugent la crédibilité d'une entreprise sur son identité visuelle
+                </p>
+              </div>
+            </AnimatedSection>
             
             {/* Stat 2 */}
-            <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF] to-[#0047FF]/90 border-2 border-[#0047FF] transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,71,255,0.4)]">
-              <p className="font-anton text-4xl sm:text-5xl text-white leading-none">x2.6</p>
-              <p className="font-futura text-white/80 text-xs sm:text-sm mt-3 leading-relaxed">
-                plus de chances d'engagement avec des visuels attractifs
-              </p>
-            </div>
+            <AnimatedSection animation="fadeInUp" delay={100}>
+              <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF] to-[#0047FF]/90 border-2 border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-15px_rgba(0,71,255,0.5)] hover:-translate-y-2">
+                <p className="font-anton text-4xl sm:text-5xl text-white leading-none">x2.6</p>
+                <p className="font-futura text-white/80 text-xs sm:text-sm mt-3 leading-relaxed">
+                  plus de chances d'engagement avec des visuels attractifs
+                </p>
+              </div>
+            </AnimatedSection>
 
             {/* Stat 3 */}
-            <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,71,255,0.15)]">
-              <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">72%</p>
-              <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
-                des gens jugent une entreprise sur la qualité de ses supports imprimés
-              </p>
-            </div>
+            <AnimatedSection animation="fadeInUp" delay={200}>
+              <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-15px_rgba(0,71,255,0.2)] hover:-translate-y-2">
+                <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">72%</p>
+                <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
+                  des gens jugent une entreprise sur la qualité de ses supports imprimés
+                </p>
+              </div>
+            </AnimatedSection>
 
             {/* Stat 4 */}
-            <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,71,255,0.15)]">
-              <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">94%</p>
-              <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
-                des premières impressions sont liées au design
-              </p>
-            </div>
+            <AnimatedSection animation="fadeInUp" delay={300}>
+              <div className="group p-6 sm:p-8 bg-gradient-to-br from-[#0047FF]/5 to-transparent border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-15px_rgba(0,71,255,0.2)] hover:-translate-y-2">
+                <p className="font-anton text-4xl sm:text-5xl text-[#0047FF] leading-none">94%</p>
+                <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm mt-3 leading-relaxed">
+                  des premières impressions sont liées au design
+                </p>
+              </div>
+            </AnimatedSection>
           </div>
 
           {/* Sources */}
-          <div className="text-center mt-8">
+          <AnimatedSection animation="fadeInUp" delay={400} className="text-center mt-8">
             <p className="font-futura text-[#0047FF]/40 text-xs">
               Sources : Stanford University, Adobe, Print Industries Market Research
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* ===== SERVICES SECTION ===== */}
       <section id="services" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="services-section" aria-labelledby="services-title">
         <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16 lg:mb-20">
             <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Nos Services</p>
             <h2 id="services-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF]">
               Tout ce qu'il te faut.<br />
               <span className="text-[#0047FF]/30">Rien de superflu.</span>
             </h2>
-          </header>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Pôle Graphisme */}
-            <div className="space-y-3 sm:space-y-4">
-              <Link to="/graphisme" className="flex items-center gap-3 mb-4 sm:mb-6 group">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-colors" aria-hidden="true">
-                  <Palette className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">GRAPHISME</h3>
-                <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-              </Link>
-              {servicesGraphisme.map((service, index) => (
-                <ServiceCard key={index} service={service} index={`graphisme-${index}`} />
-              ))}
-              <Link to="/graphisme" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-3 transition-all mt-2">
-                En savoir plus <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <AnimatedSection animation="fadeInUp" delay={0}>
+              <div className="space-y-3 sm:space-y-4">
+                <Link to="/graphisme" className="flex items-center gap-3 mb-4 sm:mb-6 group">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-all duration-500 group-hover:scale-110" aria-hidden="true">
+                    <Palette className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                  <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">GRAPHISME</h3>
+                  <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500" />
+                </Link>
+                {servicesGraphisme.map((service, index) => (
+                  <ServiceCard key={index} service={service} index={`graphisme-${index}`} />
+                ))}
+                <Link to="/graphisme" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-4 transition-all duration-500 mt-2 group">
+                  En savoir plus <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </AnimatedSection>
 
             {/* Pôle Web */}
-            <div className="space-y-3 sm:space-y-4">
-              <Link to="/sites-web" className="flex items-center gap-3 mb-4 sm:mb-6 group">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-colors" aria-hidden="true">
-                  <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">SITES WEB</h3>
-                <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-              </Link>
-              {servicesWeb.map((service, index) => (
-                <ServiceCard key={index} service={service} index={`web-${index}`} />
-              ))}
-              <Link to="/sites-web" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-3 transition-all mt-2">
-                En savoir plus <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <AnimatedSection animation="fadeInUp" delay={150}>
+              <div className="space-y-3 sm:space-y-4">
+                <Link to="/sites-web" className="flex items-center gap-3 mb-4 sm:mb-6 group">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-all duration-500 group-hover:scale-110" aria-hidden="true">
+                    <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                  <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">SITES WEB</h3>
+                  <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500" />
+                </Link>
+                {servicesWeb.map((service, index) => (
+                  <ServiceCard key={index} service={service} index={`web-${index}`} />
+                ))}
+                <Link to="/sites-web" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-4 transition-all duration-500 mt-2 group">
+                  En savoir plus <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </AnimatedSection>
 
             {/* Pôle 3D & Toys */}
-            <div className="space-y-3 sm:space-y-4">
-              <Link to="/modelisation-3d" className="flex items-center gap-3 mb-4 sm:mb-6 group">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-colors" aria-hidden="true">
-                  <Box className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">3D & TOYS</h3>
-                <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-              </Link>
-              {services3D.map((service, index) => (
-                <ServiceCard key={index} service={service} index={`3d-${index}`} />
-              ))}
-              <Link to="/modelisation-3d" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-3 transition-all mt-2">
-                En savoir plus <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <AnimatedSection animation="fadeInUp" delay={300}>
+              <div className="space-y-3 sm:space-y-4">
+                <Link to="/modelisation-3d" className="flex items-center gap-3 mb-4 sm:mb-6 group">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-all duration-500 group-hover:scale-110" aria-hidden="true">
+                    <Box className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                  <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">3D & TOYS</h3>
+                  <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500" />
+                </Link>
+                {services3D.map((service, index) => (
+                  <ServiceCard key={index} service={service} index={`3d-${index}`} />
+                ))}
+                <Link to="/modelisation-3d" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-4 transition-all duration-500 mt-2 group">
+                  En savoir plus <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </AnimatedSection>
           </div>
 
           {/* CTA */}
-          <div className="mt-12 sm:mt-16 text-center">
-            <a href="#contact" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]" aria-label="Demander un devis personnalisé">
+          <AnimatedSection animation="fadeInUp" delay={450} className="mt-12 sm:mt-16 text-center">
+            <a href="#contact" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-500 hover:gap-5 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.5)] hover:-translate-y-1 active:scale-95" aria-label="Demander un devis personnalisé">
               Demander un devis
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* ===== WHY US SECTION ===== */}
       <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" aria-labelledby="why-us-title">
         <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16 lg:mb-20">
             <p className="font-futura text-white/60 text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Pourquoi Nous ?</p>
             <h2 id="why-us-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white">
               Ce qui nous différencie
             </h2>
-          </header>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {whyUs.map((item, index) => (
-              <article key={index} className="group p-6 sm:p-8 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white hover:border-white transition-all duration-500">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 group-hover:bg-[#0047FF] flex items-center justify-center mb-4 sm:mb-6 transition-all duration-300" aria-hidden="true">
-                  <Check className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <h3 className="font-anton text-lg sm:text-xl text-white group-hover:text-[#0047FF] transition-colors duration-300">{item.title}</h3>
-                <p className="font-futura text-white/70 group-hover:text-[#0047FF]/70 text-xs sm:text-sm mt-2 transition-colors duration-300">{item.desc}</p>
-              </article>
+              <AnimatedSection key={index} animation="fadeInUp" delay={index * 100}>
+                <article className="group p-6 sm:p-8 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white hover:border-white transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.25)]">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 group-hover:bg-[#0047FF] flex items-center justify-center mb-4 sm:mb-6 transition-all duration-500 group-hover:scale-110" aria-hidden="true">
+                    <Check className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                  <h3 className="font-anton text-lg sm:text-xl text-white group-hover:text-[#0047FF] transition-colors duration-500">{item.title}</h3>
+                  <p className="font-futura text-white/70 group-hover:text-[#0047FF]/70 text-xs sm:text-sm mt-2 transition-colors duration-500">{item.desc}</p>
+                </article>
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -547,83 +565,83 @@ export default function HomePage() {
       {/* ===== PORTFOLIO SECTION ===== */}
       <section id="realisations" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-gradient-to-b from-white to-[#0047FF]/5" data-testid="portfolio-section" aria-labelledby="portfolio-title">
         <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-12 sm:mb-16">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16">
             <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-3 sm:mb-4">Notre Travail</p>
             <h2 id="portfolio-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Réalisations</h2>
             <p className="font-futura text-[#0047FF]/60 text-sm sm:text-base mt-4 max-w-xl mx-auto">
               Découvrez nos derniers projets en graphisme, web et 3D
             </p>
-          </header>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {portfolio.slice(0, 6).map((item, index) => (
-              <a 
-                key={item.id} 
-                href={item.link || '#'} 
-                target={item.link ? '_blank' : '_self'} 
-                rel="noopener noreferrer" 
-                className="group block" 
-                data-testid={`home-portfolio-${item.id}`}
-                aria-label={`Voir le projet ${item.title}`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <article className="relative overflow-hidden bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.2)] hover:-translate-y-2">
-                  {/* Image container */}
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img 
-                      src={item.image_url} 
-                      alt={`${item.title} - ${item.description} - Projet ${item.category} par ASSK Studio`}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                      loading="lazy"
-                      onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`; }} 
-                    />
-                    
-                    {/* Overlay with gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0047FF] via-[#0047FF]/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                    
-                    {/* Category tag */}
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-white font-futura text-[10px] sm:text-xs text-[#0047FF] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0">
-                      {item.category}
+              <AnimatedSection key={item.id} animation="fadeInUp" delay={index * 100}>
+                <a 
+                  href={item.link || '#'} 
+                  target={item.link ? '_blank' : '_self'} 
+                  rel="noopener noreferrer" 
+                  className="group block" 
+                  data-testid={`home-portfolio-${item.id}`}
+                  aria-label={`Voir le projet ${item.title}`}
+                >
+                  <article className="relative overflow-hidden bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.25)] hover:-translate-y-3">
+                    {/* Image container */}
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <img 
+                        src={item.image_url} 
+                        alt={`${item.title} - ${item.description} - Projet ${item.category} par ASSK Studio`}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                        loading="lazy"
+                        onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`; }} 
+                      />
+                      
+                      {/* Overlay with gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0047FF] via-[#0047FF]/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                      
+                      {/* Category tag */}
+                      <div className="absolute top-4 left-4 px-3 py-1 bg-white font-futura text-[10px] sm:text-xs text-[#0047FF] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-500 transform -translate-y-4 group-hover:translate-y-0">
+                        {item.category}
+                      </div>
+                      
+                      {/* View icon */}
+                      <div className="absolute top-4 right-4 w-10 h-10 bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                        <ExternalLink className="w-4 h-4 text-[#0047FF]" />
+                      </div>
                     </div>
                     
-                    {/* View icon */}
-                    <div className="absolute top-4 right-4 w-10 h-10 bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                      <ExternalLink className="w-4 h-4 text-[#0047FF]" />
+                    {/* Content */}
+                    <div className="p-4 sm:p-6">
+                      <h3 className="font-anton text-lg sm:text-xl text-[#0047FF] group-hover:text-[#0047FF] transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="font-futura text-[#0047FF]/60 text-xs sm:text-sm mt-1 line-clamp-1">
+                        {item.description}
+                      </p>
+                      
+                      {/* Animated underline */}
+                      <div className="mt-4 h-0.5 bg-[#0047FF]/10 overflow-hidden">
+                        <div className="h-full w-0 bg-[#0047FF] group-hover:w-full transition-all duration-700" />
+                      </div>
                     </div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="p-4 sm:p-6">
-                    <h3 className="font-anton text-lg sm:text-xl text-[#0047FF] group-hover:text-[#0047FF] transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="font-futura text-[#0047FF]/60 text-xs sm:text-sm mt-1 line-clamp-1">
-                      {item.description}
-                    </p>
-                    
-                    {/* Animated underline */}
-                    <div className="mt-4 h-0.5 bg-[#0047FF]/10 overflow-hidden">
-                      <div className="h-full w-0 bg-[#0047FF] group-hover:w-full transition-all duration-500" />
-                    </div>
-                  </div>
-                </article>
-              </a>
+                  </article>
+                </a>
+              </AnimatedSection>
             ))}
           </div>
 
           {/* Voir plus button */}
-          <div className="text-center mt-12 sm:mt-16">
+          <AnimatedSection animation="fadeInUp" delay={600} className="text-center mt-12 sm:mt-16">
             <a 
               href="https://www.amdbrs.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.5)]"
+              className="group inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-500 hover:gap-5 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.5)] hover:-translate-y-1 active:scale-95"
               aria-label="Voir plus de réalisations sur amdbrs.com"
             >
               Voir tout le portfolio
               <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
             </a>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -631,7 +649,7 @@ export default function HomePage() {
       <section id="contact" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="contact-section" aria-labelledby="contact-title">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-            <div>
+            <AnimatedSection animation="slideLeft">
               <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Contact</p>
               <h2 id="contact-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF] leading-tight">
                 Discutons de<br />ton projet
@@ -641,8 +659,8 @@ export default function HomePage() {
               </p>
 
               <address className="space-y-3 sm:space-y-4 mt-8 sm:mt-12 not-italic">
-                <a href="mailto:amaurydebarros1607@gmail.com" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300" aria-label="Envoyer un email à ASSK Studio">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                <a href="mailto:amaurydebarros1607@gmail.com" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_15px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 hover:-translate-y-1" aria-label="Envoyer un email à ASSK Studio">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
                     <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div className="min-w-0">
@@ -650,8 +668,8 @@ export default function HomePage() {
                     <p className="font-anton text-sm sm:text-base text-[#0047FF] truncate">amaurydebarros1607@gmail.com</p>
                   </div>
                 </a>
-                <a href="tel:+33665097008" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300" aria-label="Appeler ASSK Studio">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                <a href="tel:+33665097008" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_15px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 hover:-translate-y-1" aria-label="Appeler ASSK Studio">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
                     <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
@@ -659,8 +677,8 @@ export default function HomePage() {
                     <p className="font-anton text-sm sm:text-base text-[#0047FF]">06 65 09 70 08</p>
                   </div>
                 </a>
-                <a href="https://instagram.com/amau.psd" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_10px_40px_-10px_rgba(0,71,255,0.15)] transition-all duration-300" aria-label="Suivre ASSK Studio sur Instagram">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                <a href="https://instagram.com/amau.psd" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_15px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 hover:-translate-y-1" aria-label="Suivre ASSK Studio sur Instagram">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
                     <Instagram className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
@@ -669,77 +687,79 @@ export default function HomePage() {
                   </div>
                 </a>
               </address>
-            </div>
+            </AnimatedSection>
 
-            <div className="bg-[#fafbff] p-6 sm:p-8 lg:p-12">
-              <form onSubmit={handleContactSubmit} className="space-y-4 sm:space-y-6" data-testid="home-contact-form" aria-label="Formulaire de contact">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <AnimatedSection animation="slideRight">
+              <div className="bg-[#fafbff] p-6 sm:p-8 lg:p-12">
+                <form onSubmit={handleContactSubmit} className="space-y-4 sm:space-y-6" data-testid="home-contact-form" aria-label="Formulaire de contact">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <div>
+                      <label htmlFor="contact-name" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Nom</label>
+                      <input 
+                        type="text" 
+                        id="contact-name"
+                        name="name"
+                        value={contactForm.name} 
+                        onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })} 
+                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,71,255,0.1)] transition-all duration-300" 
+                        data-testid="home-contact-name"
+                        required
+                        autoComplete="name"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-email" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Email</label>
+                      <input 
+                        type="email" 
+                        id="contact-email"
+                        name="email"
+                        value={contactForm.email} 
+                        onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} 
+                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,71,255,0.1)] transition-all duration-300" 
+                        data-testid="home-contact-email-input"
+                        required
+                        autoComplete="email"
+                      />
+                    </div>
+                  </div>
                   <div>
-                    <label htmlFor="contact-name" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Nom</label>
+                    <label htmlFor="contact-subject" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Sujet</label>
                     <input 
                       type="text" 
-                      id="contact-name"
-                      name="name"
-                      value={contactForm.name} 
-                      onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })} 
-                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none transition-colors duration-200" 
-                      data-testid="home-contact-name"
+                      id="contact-subject"
+                      name="subject"
+                      value={contactForm.subject} 
+                      onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })} 
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,71,255,0.1)] transition-all duration-300" 
+                      data-testid="home-contact-subject"
                       required
-                      autoComplete="name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-email" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Email</label>
-                    <input 
-                      type="email" 
-                      id="contact-email"
-                      name="email"
-                      value={contactForm.email} 
-                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} 
-                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none transition-colors duration-200" 
-                      data-testid="home-contact-email-input"
+                    <label htmlFor="contact-message" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Message</label>
+                    <textarea 
+                      id="contact-message"
+                      name="message"
+                      value={contactForm.message} 
+                      onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })} 
+                      rows={4} 
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base resize-none focus:border-[#0047FF] focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,71,255,0.1)] transition-all duration-300" 
+                      data-testid="home-contact-message"
                       required
-                      autoComplete="email"
                     />
                   </div>
-                </div>
-                <div>
-                  <label htmlFor="contact-subject" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Sujet</label>
-                  <input 
-                    type="text" 
-                    id="contact-subject"
-                    name="subject"
-                    value={contactForm.subject} 
-                    onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })} 
-                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none transition-colors duration-200" 
-                    data-testid="home-contact-subject"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-message" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Message</label>
-                  <textarea 
-                    id="contact-message"
-                    name="message"
-                    value={contactForm.message} 
-                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })} 
-                    rows={4} 
-                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base resize-none focus:border-[#0047FF] focus:outline-none transition-colors duration-200" 
-                    data-testid="home-contact-message"
-                    required
-                  />
-                </div>
-                <button 
-                  type="submit" 
-                  disabled={loading} 
-                  className="group w-full flex items-center justify-center gap-3 py-4 sm:py-5 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)] disabled:opacity-50" 
-                  data-testid="home-contact-submit"
-                >
-                  {loading ? 'Envoi...' : 'Envoyer le message'}
-                  <Send className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-200" aria-hidden="true" />
-                </button>
-              </form>
-            </div>
+                  <button 
+                    type="submit" 
+                    disabled={loading} 
+                    className="group w-full flex items-center justify-center gap-3 py-4 sm:py-5 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.5)] hover:-translate-y-1 disabled:opacity-50 disabled:hover:translate-y-0 active:scale-[0.98]" 
+                    data-testid="home-contact-submit"
+                  >
+                    {loading ? 'Envoi...' : 'Envoyer le message'}
+                    <Send className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" aria-hidden="true" />
+                  </button>
+                </form>
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
