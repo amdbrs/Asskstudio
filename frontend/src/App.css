@@ -3,13 +3,32 @@
     overflow: hidden;
 }
 
-/* ===== MODERN ANIMATIONS ===== */
+/* ===== DAVE HOLLOWAY INSPIRED ANIMATIONS ===== */
 
-/* Fade in up animation */
+/* Smooth cubic bezier for all transitions */
+:root {
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Text reveal animation - clip from bottom */
+@keyframes textReveal {
+    from {
+        clip-path: inset(100% 0 0 0);
+        transform: translateY(20px);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0);
+    }
+}
+
+/* Fade in up animation - smoother */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(60px);
     }
     to {
         opacity: 1;
@@ -35,11 +54,11 @@
     }
 }
 
-/* Slide in from left */
+/* Slide in from left - smoother */
 @keyframes slideInLeft {
     from {
         opacity: 0;
-        transform: translateX(-60px);
+        transform: translateX(-80px);
     }
     to {
         opacity: 1;
@@ -47,11 +66,11 @@
     }
 }
 
-/* Slide in from right */
+/* Slide in from right - smoother */
 @keyframes slideInRight {
     from {
         opacity: 0;
-        transform: translateX(60px);
+        transform: translateX(80px);
     }
     to {
         opacity: 1;
@@ -59,10 +78,34 @@
     }
 }
 
-/* Floating animation */
+/* Floating animation - gentler */
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Rotate in */
+@keyframes rotateIn {
+    from {
+        opacity: 0;
+        transform: rotate(-10deg) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+/* Line draw animation */
+@keyframes lineDraw {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Counter animation */
+@keyframes countUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Pulse glow */
@@ -78,25 +121,31 @@
     100% { transform: scale(1); opacity: 0.3; }
 }
 
-/* Animation utility classes */
+/* Marquee scroll */
+@keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* Animation utility classes - smoother with expo easing */
 .animate-fadeInUp {
-    animation: fadeInUp 0.8s ease-out forwards;
+    animation: fadeInUp 1s var(--ease-out-expo) forwards;
 }
 
 .animate-fadeIn {
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeIn 0.8s var(--ease-out-expo) forwards;
 }
 
 .animate-scaleIn {
-    animation: scaleIn 0.6s ease-out forwards;
+    animation: scaleIn 0.8s var(--ease-out-expo) forwards;
 }
 
 .animate-slideInLeft {
-    animation: slideInLeft 0.8s ease-out forwards;
+    animation: slideInLeft 1s var(--ease-out-expo) forwards;
 }
 
 .animate-slideInRight {
-    animation: slideInRight 0.8s ease-out forwards;
+    animation: slideInRight 1s var(--ease-out-expo) forwards;
 }
 
 .animate-float {
@@ -111,7 +160,15 @@
     animation: pingSlow 4s ease-in-out infinite;
 }
 
-/* Staggered delays */
+.animate-text-reveal {
+    animation: textReveal 1s var(--ease-out-expo) forwards;
+}
+
+.animate-rotate-in {
+    animation: rotateIn 1s var(--ease-out-expo) forwards;
+}
+
+/* Staggered delays - more options */
 .delay-100 { animation-delay: 100ms; }
 .delay-200 { animation-delay: 200ms; }
 .delay-300 { animation-delay: 300ms; }
@@ -120,12 +177,14 @@
 .delay-600 { animation-delay: 600ms; }
 .delay-700 { animation-delay: 700ms; }
 .delay-800 { animation-delay: 800ms; }
+.delay-900 { animation-delay: 900ms; }
+.delay-1000 { animation-delay: 1000ms; }
 
-/* Scroll-triggered animations - start hidden */
+/* Scroll-triggered animations - smoother transitions */
 .scroll-animate {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateY(50px);
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 
 .scroll-animate.visible {
@@ -135,8 +194,8 @@
 
 .scroll-animate-left {
     opacity: 0;
-    transform: translateX(-40px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateX(-60px);
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 
 .scroll-animate-left.visible {
@@ -146,8 +205,8 @@
 
 .scroll-animate-right {
     opacity: 0;
-    transform: translateX(40px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateX(60px);
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 
 .scroll-animate-right.visible {
@@ -157,8 +216,8 @@
 
 .scroll-animate-scale {
     opacity: 0;
-    transform: scale(0.95);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: scale(0.9);
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 
 .scroll-animate-scale.visible {
@@ -166,26 +225,31 @@
     transform: scale(1);
 }
 
-/* ===== ENHANCED HOVER EFFECTS ===== */
+/* ===== DAVE HOLLOWAY STYLE HOVER EFFECTS ===== */
 
-/* Product card hover */
+/* Magnetic hover effect base */
+.magnetic-hover {
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+/* Product card hover - smoother */
 .product-card {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
 }
 
 .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px -12px rgba(0, 71, 255, 0.25);
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px -15px rgba(0, 71, 255, 0.25);
 }
 
-/* Portfolio grid hover */
+/* Portfolio grid hover - more dramatic */
 .portfolio-item {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
 }
 
 .portfolio-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px -12px rgba(0, 71, 255, 0.25);
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px -15px rgba(0, 71, 255, 0.25);
 }
 
 /* Service card */

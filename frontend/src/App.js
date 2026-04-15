@@ -1,5 +1,5 @@
 import "@/App.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 import { HelmetProvider } from "react-helmet-async";
@@ -17,6 +17,9 @@ import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import NotFoundPage from "@/pages/NotFoundPage";
 
+// Components
+import { Preloader } from "@/components/Preloader";
+
 // Context
 import { AuthProvider } from "@/context/AuthContext";
 
@@ -32,8 +35,24 @@ function ScrollToTop() {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Check if preloader was already shown this session
+  useEffect(() => {
+    const hasLoaded = sessionStorage.getItem('assk_loaded');
+    if (hasLoaded) {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handlePreloaderComplete = () => {
+    sessionStorage.setItem('assk_loaded', 'true');
+    setIsLoading(false);
+  };
+
   return (
     <HelmetProvider>
+      {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       <AuthProvider>
         <BrowserRouter>
           <ScrollToTop />
