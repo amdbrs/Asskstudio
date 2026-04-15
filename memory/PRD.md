@@ -1,7 +1,7 @@
 # ASSK Studio - Portfolio & Agency Website
 
 ## Original Problem Statement
-Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Modern, smooth, animated design inspired by webhero.co with cobalt blue (#0047FF) and white color scheme.
+Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Modern, smooth, animated design inspired by daveholloway.uk with cobalt blue (#0047FF) and white color scheme.
 
 ## Core Requirements
 - Modern landing page showcasing services (Graphisme, Sites Web, 3D & Toys)
@@ -9,13 +9,14 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - Admin dashboard with drag-and-drop image upload for portfolio management
 - Functional contact form
 - Mobile responsive design
+- Smooth animations: preloader, custom cursor, parallax effects
 
 ## User Personas
 - **Potential Clients**: Looking for graphic design, web development, or 3D printing services
 - **Admin (Amaury)**: Managing portfolio content and viewing contact messages
 
 ## Tech Stack
-- **Frontend**: React.js, Tailwind CSS, Shadcn UI, Framer Motion (CSS animations)
+- **Frontend**: React.js, Tailwind CSS, Shadcn UI, react-helmet-async (SEO)
 - **Backend**: FastAPI, Motor (Async MongoDB)
 - **Database**: MongoDB
 
@@ -33,53 +34,38 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## What's Been Implemented
 
-### December 2025 - January 2026
-- [x] Modern redesign inspired by webhero.co with smooth CSS animations
-- [x] Mobile responsiveness and layout adaptation
-- [x] Admin authentication and Drag & Drop image upload for Portfolio
-- [x] Backend CRUD for Portfolio and Contact Messages
-- [x] Addition of "Sites Web" service category
-- [x] Shop/Cart completely removed from frontend
-- [x] Stats updated: "+50 projets", "+10 art toys"
-- [x] "On travaille en famille" text in Why Us section
-- [x] Header: Removed "ASSK" text, logo only
-- [x] 3D section: "Impression 3D Filament - Sur devis" (porte-clés, totems, objets sur demande)
-- [x] Portfolio shows 6 items with "Voir plus" → www.amdbrs.com
-- [x] **Sellerie Garcia** added to portfolio (1st position) with link to selleriegarcia.fr
-- [x] **FAQ SEO section** with 8 questions targeting Clermont-Ferrand, Vichy, Moulins, Allier, Auvergne
-- [x] Schema.org FAQPage markup for Google rich snippets
-- [x] SEO optimized with local keywords in meta tags
-- [x] Backend cleaned - removed all e-commerce routes
-- [x] **Floating WhatsApp button** linked to 06 65 09 70 08
-- [x] **Dark mode** with toggle in header (persisted in localStorage) - REMOVED per user request
-- [x] **"Notre Processus" section** - 4 creative process steps with vertical timeline (PC)
-- [x] **"Ils nous font confiance" section** - 6 client names with continuous marquee slider
-- [x] **Blog page** with search, category filters, and 6 demo articles
-- [x] **About page** created with founder info from CV
-- [x] **Stats section** redesigned with Kitemi.studio style (4 cards with hover effects)
-- [x] **3 dedicated service pages**: GraphismePage, SiteWebPage, Modelisation3DPage
-- [x] **ScrollToTop component** - automatic scroll to top on page navigation
-- [x] **White header on sub-pages** - conditional bg-white for non-home pages
-- [x] **Formation section removed** from About page (per user request)
-- [x] **Modern animations added** - Scroll-triggered animations, enhanced hover effects, micro-interactions
-  - New `useScrollAnimation` hook for scroll-triggered visibility
-  - `AnimatedSection` component for staggered reveal animations
-  - Enhanced CSS with fadeInUp, slideLeft, slideRight, scaleIn animations
-  - Improved hover states with smoother transitions (cubic-bezier)
-  - Active states with scale feedback on buttons
-- [x] **Stats section compact banner** - Reduced to a small blue-light horizontal banner
-- [x] **Favicon added** - Custom ASSK logo as favicon and apple-touch-icon
-- [x] **Header overlap fixed** on Portfolio and Contact pages (added pt-28 sm:pt-32)
+### December 2025 - January 2026 (Latest Updates)
 
-### Optimizations Implemented (January 2025)
-- [x] **a) Lazy loading images** - OptimizedImage component with IntersectionObserver
-- [x] **b) WebP support** - Auto-conversion for compatible CDNs (Cloudinary)
-- [x] **c) Font preloading** - Preconnect and preload for Google Fonts in index.html
-- [x] **d) Dynamic SEO meta tags** - SEO component with page-specific titles/descriptions/keywords
-- [x] **e) Sitemap.xml** - Complete sitemap with all pages for Google indexing
-- [x] **f) Custom 404 page** - NotFoundPage with navigation links and CTA
-- [x] **g) Floating CTA** - "Demander un devis" button appears after 500px scroll
-- [x] **j) Improved hamburger menu** - Full-screen overlay with animated bars and staggered links
+**Animations & Effects (Latest - Jan 2026)**
+- [x] **Preloader** - Animated logo with progress bar (0-100%), ~3s duration, appears once per session
+- [x] **Custom Cursor** - White dot (8px) + ring (40px→80px on hover) with mix-blend-difference
+  - Shows text from `data-cursor-text` attribute on hover
+  - Hidden on touch devices
+  - CSS `cursor: none !important` for all elements
+- [x] **MouseParallax** - Hero logo follows mouse movement with smooth easing
+- [x] **TiltCard** - Portfolio cards have 3D perspective rotation on hover (maxTilt=8, scale=1.02)
+- [x] **Scroll animations** - fadeInUp, slideLeft, slideRight with staggered delays
+
+**SEO & Performance**
+- [x] **react-helmet-async** - Dynamic meta tags per page
+- [x] **sitemap.xml & robots.txt** - For Google indexing
+- [x] **404 page** - Custom NotFoundPage with navigation
+- [x] **Static portfolio fallback** - Unsplash images for Vercel deployment (backend not deployed)
+
+**UI/UX**
+- [x] Mobile responsiveness and layout adaptation
+- [x] Admin authentication and Drag & Drop image upload
+- [x] "Sites Web" service category
+- [x] Stats compact banner with 4 key metrics
+- [x] FAQ SEO section with 8 questions (Schema.org markup)
+- [x] WhatsApp floating button (+33 6 65 09 70 08)
+- [x] "Notre Processus" timeline section (4 steps)
+- [x] "Ils nous font confiance" marquee slider (6 clients)
+- [x] Blog page with search and filters
+- [x] About page with founder info
+- [x] 3 dedicated service pages (Graphisme, Sites Web, 3D)
+- [x] ScrollToTop on navigation
+- [x] Favicon (ASSK logo)
 
 ## Pricing (Current)
 ### Graphisme
@@ -101,16 +87,17 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## Prioritized Backlog
 
-### P0 - Completed
-- [x] SEO optimization with local keywords (Clermont-Ferrand, Vichy, Moulins, Allier, Auvergne)
-- [x] Backend cleanup - removed all e-commerce routes (products, orders, checkout, stripe)
-- [x] Deleted orphaned files (CartContext, ShopPage, CheckoutSuccessPage, CartDrawer, ProductCard)
+### P0 - Completed ✅
+- [x] Custom cursor + parallax effects (daveholloway.uk inspiration)
+- [x] Preloader with logo animation
+- [x] SEO optimization (local keywords)
 
 ### P1 - High Priority
-- All P1 tasks completed ✅
+- [ ] Finalize Blog API (create/edit/delete articles via admin dashboard)
 
 ### P2 - Medium Priority  
-- All P2 tasks completed ✅
+- [ ] Deploy backend to Render/Railway for production admin dashboard
+- [ ] Connect Vercel frontend to deployed backend
 
 ### P3 - Low Priority / Future
 - [ ] Client testimonials section
