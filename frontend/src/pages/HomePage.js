@@ -10,6 +10,7 @@ import { useScrollAnimation, AnimatedSection } from '@/hooks/useScrollAnimation'
 import { MouseParallax, TiltCard, ParallaxLayer } from '@/hooks/useParallax';
 import { MagneticButton } from '@/components/MagneticButton';
 import { HorizontalScrollCarousel } from '@/components/HorizontalScrollCarousel';
+import { ScrollIndicator } from '@/components/ScrollIndicator';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
@@ -362,10 +363,7 @@ export default function HomePage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 flex flex-col items-center gap-2 animate-bounce" style={{ animationDuration: '2s' }} aria-hidden="true">
-          <span className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-[#0047FF] to-transparent" />
-        </div>
+        <ScrollIndicator />
       </section>
 
       {/* Marquee */}

@@ -1,5 +1,51 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+
+// RevealImage component for smooth image reveal effect
+const RevealImage = ({ src, alt, className = '', index = 0 }) => {
+  const ref = useRef(null);
+  const [isRevealed, setIsRevealed] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsRevealed(true), index * 100);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2, rootMargin: '50px' }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [index]);
+
+  return (
+    <div ref={ref} className="relative overflow-hidden w-full h-full">
+      {/* Blue reveal overlay */}
+      <div 
+        className="absolute inset-0 bg-[#0047FF] z-10 origin-left"
+        style={{
+          transform: isRevealed ? 'scaleX(0)' : 'scaleX(1)',
+          transformOrigin: 'right',
+          transition: 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)'
+        }}
+      />
+      <img
+        src={src}
+        alt={alt}
+        className={`${className} transition-all duration-700`}
+        style={{
+          transform: isRevealed ? 'scale(1)' : 'scale(1.2)',
+          opacity: isRevealed ? 1 : 0,
+          transition: 'transform 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.2s, opacity 0.5s ease 0.3s'
+        }}
+        loading="lazy"
+      />
+    </div>
+  );
+};
 
 export const HorizontalScrollCarousel = ({ items = [] }) => {
   const trackRef = useRef(null);
@@ -79,7 +125,7 @@ export const HorizontalScrollCarousel = ({ items = [] }) => {
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           onScroll={checkScrollability}
         >
-          {items.map((item) => (
+          {items.map((item, index) => (
             <a
               key={item.id}
               href={item.link || '#'}
@@ -88,25 +134,21 @@ export const HorizontalScrollCarousel = ({ items = [] }) => {
               className="group flex-shrink-0 w-[300px] sm:w-[350px] lg:w-[400px]"
               data-testid={`carousel-portfolio-${item.id}`}
               data-cursor-text="Voir"
-              aria-label={`Voir le projet ${item.title}`}
+              aria-label={`Voir le projet ${item.title} - ${item.category} réalisé par ASSK Studio graphiste Clermont-Ferrand`}
             >
               <article className="relative overflow-hidden bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.25)] transform hover:-translate-y-2">
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
+                  <RevealImage
                     src={item.image_url}
-                    alt={`${item.title} - ${item.description} - Projet ${item.category} par ASSK Studio`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`;
-                    }}
+                    alt={`${item.title} - ${item.description} - Création ${item.category} par ASSK Studio, graphiste freelance à Clermont-Ferrand, Vichy et Moulins en Auvergne`}
+                    className="w-full h-full object-cover group-hover:scale-110"
+                    index={index}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0047FF] via-[#0047FF]/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-white font-futura text-[10px] sm:text-xs text-[#0047FF] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-500 transform -translate-y-4 group-hover:translate-y-0">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0047FF] via-[#0047FF]/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 z-20" />
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-white font-futura text-[10px] sm:text-xs text-[#0047FF] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-500 transform -translate-y-4 group-hover:translate-y-0 z-20">
                     {item.category}
                   </div>
-                  <div className="absolute top-4 right-4 w-10 h-10 bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 z-20">
                     <ExternalLink className="w-4 h-4 text-[#0047FF]" />
                   </div>
                 </div>
