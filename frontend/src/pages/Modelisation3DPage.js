@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { SEO } from '@/components/SEO';
 import { ArrowRight, Box, Printer, Star, Layers, Palette, Sparkles, CheckCircle, Lightbulb, Rocket, Package } from 'lucide-react';
 
@@ -296,7 +295,6 @@ export default function Modelisation3DPage() {
       </section>
 
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 }

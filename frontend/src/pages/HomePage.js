@@ -4,7 +4,6 @@ import Marquee from 'react-fast-marquee';
 import { ArrowRight, Palette, Box, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Printer, Star, Check, Sparkles, Globe, Layout, Code, Heart, ChevronDown, HelpCircle, MapPin, MessageSquare, Lightbulb, Pencil, Rocket } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { toast } from 'sonner';
 import { useScrollAnimation, AnimatedSection } from '@/hooks/useScrollAnimation';
 import { MouseParallax, TiltCard, ParallaxLayer } from '@/hooks/useParallax';
@@ -758,7 +757,6 @@ export default function HomePage() {
       </section>
 
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { SEO } from '@/components/SEO';
 import { ArrowRight, PenTool, Layers, FileText, Palette, Eye, Target, Sparkles, CheckCircle, Zap } from 'lucide-react';
 
@@ -256,7 +255,6 @@ export default function GraphismePage() {
       </section>
 
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 }

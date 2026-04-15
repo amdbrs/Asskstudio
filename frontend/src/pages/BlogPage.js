@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, ArrowRight, Search, Tag } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { SEO } from '@/components/SEO';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -264,7 +263,6 @@ export default function BlogPage() {
       </section>
 
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 }
