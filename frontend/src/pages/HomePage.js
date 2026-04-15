@@ -14,6 +14,8 @@ import { AnimatedProcessSection } from '@/components/AnimatedProcessSection';
 import { HeroBackgroundMarquee } from '@/components/HeroBackgroundMarquee';
 import { AnimatedCounter } from '@/components/AnimatedCounter';
 import { QuoteForm } from '@/components/QuoteForm';
+import { StackingWhyUsCards } from '@/components/StackingWhyUsCards';
+import { MobileServiceAccordion } from '@/components/MobileServiceAccordion';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
@@ -439,7 +441,27 @@ export default function HomePage() {
             </h2>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          {/* Mobile: Accordion with + */}
+          <div className="space-y-8 sm:hidden">
+            <MobileServiceAccordion 
+              title="GRAPHISME" 
+              services={servicesGraphisme} 
+              linkTo="/graphisme" 
+            />
+            <MobileServiceAccordion 
+              title="SITES WEB" 
+              services={servicesWeb} 
+              linkTo="/sites-web" 
+            />
+            <MobileServiceAccordion 
+              title="3D & TOYS" 
+              services={services3D} 
+              linkTo="/modelisation-3d" 
+            />
+          </div>
+
+          {/* Desktop: Grid */}
+          <div className="hidden sm:grid sm:grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Pôle Graphisme */}
             <AnimatedSection animation="fadeInUp" delay={0}>
               <div className="space-y-3 sm:space-y-4">
@@ -518,31 +540,8 @@ export default function HomePage() {
       {/* ===== PORTFOLIO CAROUSEL SECTION ===== */}
       <HorizontalScrollCarousel items={portfolio} />
 
-      {/* ===== WHY US SECTION ===== */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" aria-labelledby="why-us-title">
-        <div className="max-w-7xl mx-auto">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16 lg:mb-20">
-            <p className="font-futura text-white/60 text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Pourquoi Nous ?</p>
-            <h2 id="why-us-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white">
-              Ce qui nous différencie
-            </h2>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {whyUs.map((item, index) => (
-              <AnimatedSection key={index} animation="fadeInUp" delay={index * 100}>
-                <article className="group p-6 sm:p-8 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white hover:border-white transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.25)]">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 group-hover:bg-[#0047FF] flex items-center justify-center mb-4 sm:mb-6 transition-all duration-500 group-hover:scale-110" aria-hidden="true">
-                    <Check className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                  </div>
-                  <h3 className="font-anton text-lg sm:text-xl text-white group-hover:text-[#0047FF] transition-colors duration-500">{item.title}</h3>
-                  <p className="font-futura text-white/70 group-hover:text-[#0047FF]/70 text-xs sm:text-sm mt-2 transition-colors duration-500">{item.desc}</p>
-                </article>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ===== WHY US SECTION - STACKING ON MOBILE ===== */}
+      <StackingWhyUsCards items={whyUs} />
 
       {/* ===== PROCESS SECTION - ANIMATED ===== */}
       <AnimatedProcessSection steps={processSteps} />
