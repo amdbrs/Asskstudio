@@ -20,6 +20,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 // Components
 import { Preloader } from "@/components/Preloader";
 import { CustomCursor } from "@/components/CustomCursor";
+import { GrainOverlay } from "@/components/GrainOverlay";
 
 // Context
 import { AuthProvider } from "@/context/AuthContext";
@@ -55,6 +56,7 @@ function App() {
     <HelmetProvider>
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       <CustomCursor />
+      <GrainOverlay />
       <AuthProvider>
         <BrowserRouter>
           <ScrollToTop />

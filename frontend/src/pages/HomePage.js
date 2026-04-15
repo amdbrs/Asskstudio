@@ -12,6 +12,9 @@ import { MagneticButton } from '@/components/MagneticButton';
 import { HorizontalScrollCarousel } from '@/components/HorizontalScrollCarousel';
 import { ScrollIndicator } from '@/components/ScrollIndicator';
 import { AnimatedProcessSection } from '@/components/AnimatedProcessSection';
+import { HeroBackgroundMarquee } from '@/components/HeroBackgroundMarquee';
+import { AnimatedCounter } from '@/components/AnimatedCounter';
+import { QuoteForm } from '@/components/QuoteForm';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
@@ -280,6 +283,9 @@ export default function HomePage() {
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
+        {/* Background Marquee Text */}
+        <HeroBackgroundMarquee text="ASSK STUDIO • GRAPHISME • WEB • 3D" />
+        
         {/* Mobile background image */}
         <div className="absolute inset-0 lg:hidden">
           <img 
@@ -347,7 +353,7 @@ export default function HomePage() {
             {/* Hero Image/Logo */}
             <div className="relative hidden lg:flex items-center justify-center animate-fadeInUp" style={{ animationDelay: '0.3s', animationFillMode: 'both' }} aria-hidden="true">
               <MouseParallax intensity={25} className="relative w-[300px] xl:w-[400px] h-[300px] xl:h-[400px]">
-                <div className="relative w-full h-full animate-float">
+                <div className="relative w-full h-full animate-heartbeat">
                   <div className="absolute inset-0 bg-[#0047FF] rounded-full opacity-10 animate-ping-slow" />
                   <img 
                     src={LOGO_URL} 
@@ -382,7 +388,9 @@ export default function HomePage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 items-center">
             {/* Stat 1 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">75%</p>
+              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
+                <AnimatedCounter end={75} suffix="%" duration={2000} />
+              </p>
               <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
                 jugent sur l'identité visuelle
               </p>
@@ -390,7 +398,9 @@ export default function HomePage() {
             
             {/* Stat 2 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">x2.6</p>
+              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
+                x<AnimatedCounter end={2} duration={1500} />.<AnimatedCounter end={6} duration={1800} />
+              </p>
               <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
                 plus d'engagement
               </p>
@@ -398,7 +408,9 @@ export default function HomePage() {
 
             {/* Stat 3 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">72%</p>
+              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
+                <AnimatedCounter end={72} suffix="%" duration={2200} />
+              </p>
               <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
                 jugent sur les supports print
               </p>
@@ -406,7 +418,9 @@ export default function HomePage() {
 
             {/* Stat 4 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">94%</p>
+              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
+                <AnimatedCounter end={94} suffix="%" duration={2500} />
+              </p>
               <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
                 premières impressions = design
               </p>
@@ -629,74 +643,12 @@ export default function HomePage() {
             </AnimatedSection>
 
             <AnimatedSection animation="slideRight">
-              <div className="bg-[#fafbff] p-6 sm:p-8 lg:p-12">
-                <form onSubmit={handleContactSubmit} className="space-y-4 sm:space-y-6" data-testid="home-contact-form" aria-label="Formulaire de contact">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                    <div>
-                      <label htmlFor="contact-name" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Nom</label>
-                      <input 
-                        type="text" 
-                        id="contact-name"
-                        name="name"
-                        value={contactForm.name} 
-                        onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })} 
-                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,71,255,0.1)] transition-all duration-300" 
-                        data-testid="home-contact-name"
-                        required
-                        autoComplete="name"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="contact-email" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Email</label>
-                      <input 
-                        type="email" 
-                        id="contact-email"
-                        name="email"
-                        value={contactForm.email} 
-                        onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} 
-                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,71,255,0.1)] transition-all duration-300" 
-                        data-testid="home-contact-email-input"
-                        required
-                        autoComplete="email"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="contact-subject" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Sujet</label>
-                    <input 
-                      type="text" 
-                      id="contact-subject"
-                      name="subject"
-                      value={contactForm.subject} 
-                      onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })} 
-                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base focus:border-[#0047FF] focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,71,255,0.1)] transition-all duration-300" 
-                      data-testid="home-contact-subject"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="contact-message" className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider block mb-2">Message</label>
-                    <textarea 
-                      id="contact-message"
-                      name="message"
-                      value={contactForm.message} 
-                      onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })} 
-                      rows={4} 
-                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white border border-[#0047FF]/20 text-[#0047FF] font-futura text-sm sm:text-base resize-none focus:border-[#0047FF] focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,71,255,0.1)] transition-all duration-300" 
-                      data-testid="home-contact-message"
-                      required
-                    />
-                  </div>
-                  <button 
-                    type="submit" 
-                    disabled={loading} 
-                    className="group w-full flex items-center justify-center gap-3 py-4 sm:py-5 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.5)] hover:-translate-y-1 disabled:opacity-50 disabled:hover:translate-y-0 active:scale-[0.98]" 
-                    data-testid="home-contact-submit"
-                  >
-                    {loading ? 'Envoi...' : 'Envoyer le message'}
-                    <Send className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" aria-hidden="true" />
-                  </button>
-                </form>
+              <div className="bg-[#fafbff] p-6 sm:p-8 lg:p-10">
+                <div className="mb-6">
+                  <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF]">Demande de devis</h3>
+                  <p className="font-futura text-gray-600 text-sm mt-1">Réponse personnalisée sous 24h</p>
+                </div>
+                <QuoteForm />
               </div>
             </AnimatedSection>
           </div>
