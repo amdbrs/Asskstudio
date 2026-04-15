@@ -1,6 +1,7 @@
 import "@/App.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { HelmetProvider } from "react-helmet-async";
 
@@ -26,15 +27,64 @@ import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
 // Context
 import { AuthProvider } from "@/context/AuthContext";
 
-// Scroll to top on route change
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  
+// Page transition variants
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    y: 20,
+  },
+  enter: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -15,
+    transition: {
+      duration: 0.3,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+// Animated Routes wrapper with transitions
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
-  
-  return null;
+  }, [location.pathname]);
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        variants={pageVariants}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/realisations" element={<PortfolioPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/a-propos" element={<AboutPage />} />
+          <Route path="/graphisme" element={<GraphismePage />} />
+          <Route path="/sites-web" element={<SiteWebPage />} />
+          <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
 }
 
 function App() {
@@ -60,20 +110,7 @@ function App() {
       <GrainOverlay />
       <AuthProvider>
         <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/realisations" element={<PortfolioPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/a-propos" element={<AboutPage />} />
-            <Route path="/graphisme" element={<GraphismePage />} />
-            <Route path="/sites-web" element={<SiteWebPage />} />
-            <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
-            <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/admin/*" element={<AdminDashboard />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+          <AnimatedRoutes />
           <FloatingQuoteButton />
           <Toaster position="top-right" />
         </BrowserRouter>
