@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
+import { SEO } from '@/components/SEO';
 import { ArrowRight, Globe, Layout, Code, Smartphone, Search, Zap, Shield, Clock, CheckCircle, Sparkles, BarChart } from 'lucide-react';
 
 const services = [
@@ -45,6 +46,7 @@ const technologies = [
 export default function SiteWebPage() {
   return (
     <div className="min-h-screen bg-white" data-testid="siteweb-page">
+      <SEO page="sitesWeb" />
       <Header />
       
       {/* Hero Section */}

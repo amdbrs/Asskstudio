@@ -2,6 +2,7 @@ import "@/App.css";
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
+import { HelmetProvider } from "react-helmet-async";
 
 // Pages
 import HomePage from "@/pages/HomePage";
@@ -14,6 +15,10 @@ import SiteWebPage from "@/pages/SiteWebPage";
 import Modelisation3DPage from "@/pages/Modelisation3DPage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
+import NotFoundPage from "@/pages/NotFoundPage";
+
+// Components
+import { FloatingCTA } from "@/components/FloatingCTA";
 
 // Context
 import { AuthProvider } from "@/context/AuthContext";
@@ -31,24 +36,28 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/realisations" element={<PortfolioPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/a-propos" element={<AboutPage />} />
-          <Route path="/graphisme" element={<GraphismePage />} />
-          <Route path="/sites-web" element={<SiteWebPage />} />
-          <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
-          <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin/*" element={<AdminDashboard />} />
-        </Routes>
-        <Toaster position="top-right" />
-      </BrowserRouter>
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/realisations" element={<PortfolioPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/a-propos" element={<AboutPage />} />
+            <Route path="/graphisme" element={<GraphismePage />} />
+            <Route path="/sites-web" element={<SiteWebPage />} />
+            <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route path="/admin/*" element={<AdminDashboard />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+          <FloatingCTA />
+          <Toaster position="top-right" />
+        </BrowserRouter>
+      </AuthProvider>
+    </HelmetProvider>
   );
 }
 

@@ -67,6 +67,19 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
   - Enhanced CSS with fadeInUp, slideLeft, slideRight, scaleIn animations
   - Improved hover states with smoother transitions (cubic-bezier)
   - Active states with scale feedback on buttons
+- [x] **Stats section compact banner** - Reduced to a small blue-light horizontal banner
+- [x] **Favicon added** - Custom ASSK logo as favicon and apple-touch-icon
+- [x] **Header overlap fixed** on Portfolio and Contact pages (added pt-28 sm:pt-32)
+
+### Optimizations Implemented (January 2025)
+- [x] **a) Lazy loading images** - OptimizedImage component with IntersectionObserver
+- [x] **b) WebP support** - Auto-conversion for compatible CDNs (Cloudinary)
+- [x] **c) Font preloading** - Preconnect and preload for Google Fonts in index.html
+- [x] **d) Dynamic SEO meta tags** - SEO component with page-specific titles/descriptions/keywords
+- [x] **e) Sitemap.xml** - Complete sitemap with all pages for Google indexing
+- [x] **f) Custom 404 page** - NotFoundPage with navigation links and CTA
+- [x] **g) Floating CTA** - "Demander un devis" button appears after 500px scroll
+- [x] **j) Improved hamburger menu** - Full-screen overlay with animated bars and staggered links
 
 ## Pricing (Current)
 ### Graphisme

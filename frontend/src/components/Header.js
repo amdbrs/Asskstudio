@@ -17,6 +17,23 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { name: 'Studio', path: '/' },
     { name: 'Réalisations', path: '/realisations' },
@@ -45,7 +62,7 @@ export const Header = () => {
             {/* Logo */}
             <Link
               to="/"
-              className="flex items-center group"
+              className="flex items-center group relative z-50"
               data-testid="logo-link"
             >
               <img
@@ -76,43 +93,99 @@ export const Header = () => {
               ))}
             </nav>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Button - Animated Hamburger (j) */}
             <button
-              className="md:hidden w-10 h-10 flex items-center justify-center border border-[#0047FF]/20 text-[#0047FF] hover:bg-[#0047FF] hover:text-white transition-colors duration-200"
+              className="md:hidden w-10 h-10 flex items-center justify-center relative z-50"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               data-testid="mobile-menu-button"
               aria-label="Menu de navigation"
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
+              <div className="w-6 h-5 relative flex flex-col justify-between">
+                <span 
+                  className={`block h-0.5 bg-[#0047FF] transition-all duration-300 origin-center ${
+                    mobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                  }`} 
+                />
+                <span 
+                  className={`block h-0.5 bg-[#0047FF] transition-all duration-300 ${
+                    mobileMenuOpen ? 'opacity-0 scale-0' : ''
+                  }`} 
+                />
+                <span 
+                  className={`block h-0.5 bg-[#0047FF] transition-all duration-300 origin-center ${
+                    mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                  }`} 
+                />
+              </div>
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        <div className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96' : 'max-h-0'}`}>
-          <nav className="bg-white border-t border-[#0047FF]/10 px-4 py-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block py-3 font-futura font-medium transition-colors duration-200 ${
-                  isActive(link.path)
-                    ? 'text-[#0047FF]'
-                    : 'text-[#0047FF]/60'
-                }`}
-                data-testid={`mobile-nav-${link.name.toLowerCase()}`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
       </header>
+
+      {/* Mobile Navigation - Full Screen Overlay (j) */}
+      <div 
+        className={`fixed inset-0 z-40 md:hidden transition-all duration-500 ${
+          mobileMenuOpen ? 'visible' : 'invisible'
+        }`}
+      >
+        {/* Backdrop */}
+        <div 
+          className={`absolute inset-0 bg-[#0047FF]/10 backdrop-blur-sm transition-opacity duration-500 ${
+            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+        
+        {/* Menu Panel */}
+        <nav 
+          className={`absolute top-0 right-0 h-full w-full max-w-sm bg-white shadow-[-10px_0_40px_rgba(0,71,255,0.1)] transition-transform duration-500 ease-out ${
+            mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          <div className="pt-24 px-8 pb-8 h-full flex flex-col">
+            {/* Nav Links */}
+            <div className="flex-1 space-y-2">
+              {navLinks.map((link, index) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block py-4 font-anton text-2xl uppercase transition-all duration-300 ${
+                    isActive(link.path)
+                      ? 'text-[#0047FF]'
+                      : 'text-[#0047FF]/60 hover:text-[#0047FF] hover:translate-x-2'
+                  }`}
+                  style={{ 
+                    transitionDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms',
+                    opacity: mobileMenuOpen ? 1 : 0,
+                    transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(20px)'
+                  }}
+                  data-testid={`mobile-nav-${link.name.toLowerCase()}`}
+                >
+                  {link.name}
+                  {isActive(link.path) && (
+                    <span className="block w-12 h-1 bg-[#0047FF] mt-2" />
+                  )}
+                </Link>
+              ))}
+            </div>
+            
+            {/* CTA Button */}
+            <Link
+              to="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-8 block w-full py-4 bg-[#0047FF] text-white font-anton text-lg text-center uppercase transition-all duration-300 hover:shadow-[0_10px_30px_-10px_rgba(0,71,255,0.5)]"
+              style={{ 
+                transitionDelay: mobileMenuOpen ? '250ms' : '0ms',
+                opacity: mobileMenuOpen ? 1 : 0
+              }}
+            >
+              Demander un devis
+            </Link>
+          </div>
+        </nav>
+      </div>
     </>
   );
 };

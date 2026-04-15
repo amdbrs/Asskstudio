@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
+import { SEO } from '@/components/SEO';
 import { ArrowRight, Mail, Phone, Instagram, Linkedin, ExternalLink, Palette, Globe, Box, Video, Camera, Sparkles } from 'lucide-react';
 
 const AVATAR_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/tba01jo4_IMG_0173.jpeg';
@@ -51,6 +52,7 @@ const experiences = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white" data-testid="about-page">
+      <SEO page="aPropos" />
       <Header />
       
       {/* Hero Section */}

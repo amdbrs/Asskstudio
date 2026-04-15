@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Mail, Phone, Instagram, Send } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { SEO } from '@/components/SEO';
 import { toast } from 'sonner';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -52,10 +53,11 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white" data-testid="contact-page">
+      <SEO page="contact" />
       <Header />
 
       {/* Hero */}
-      <section className="bg-[#0047FF] py-16 px-4 sm:px-6 lg:px-12">
+      <section className="bg-[#0047FF] pt-28 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-12">
         <div className="max-w-7xl mx-auto">
           <h1 className="font-anton text-5xl sm:text-6xl lg:text-7xl text-white uppercase">
             DISCUTONS DE TON PROJET
