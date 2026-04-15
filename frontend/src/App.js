@@ -21,6 +21,8 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import { Preloader } from "@/components/Preloader";
 import { CustomCursor } from "@/components/CustomCursor";
 import { GrainOverlay } from "@/components/GrainOverlay";
+import { BottomNavigation } from "@/components/BottomNavigation";
+import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
 
 // Context
 import { AuthProvider } from "@/context/AuthContext";
@@ -60,19 +62,23 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/realisations" element={<PortfolioPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/a-propos" element={<AboutPage />} />
-            <Route path="/graphisme" element={<GraphismePage />} />
-            <Route path="/sites-web" element={<SiteWebPage />} />
-            <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
-            <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/admin/*" element={<AdminDashboard />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+          <div className="has-bottom-nav">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/realisations" element={<PortfolioPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/a-propos" element={<AboutPage />} />
+              <Route path="/graphisme" element={<GraphismePage />} />
+              <Route path="/sites-web" element={<SiteWebPage />} />
+              <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
+              <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route path="/admin/*" element={<AdminDashboard />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </div>
+          <BottomNavigation />
+          <FloatingQuoteButton />
           <Toaster position="top-right" />
         </BrowserRouter>
       </AuthProvider>

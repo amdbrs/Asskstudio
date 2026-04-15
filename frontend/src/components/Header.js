@@ -54,21 +54,21 @@ export const Header = () => {
             : scrolled 
               ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,71,255,0.1)]' 
               : 'bg-transparent'
-        }`}
+        } ${scrolled ? 'header-compact' : ''}`}
         data-testid="main-header"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="flex justify-between items-center py-4">
+          <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'py-2 sm:py-3' : 'py-4'}`}>
             {/* Logo */}
             <Link
               to="/"
-              className="flex items-center group relative z-50"
+              className="flex items-center group relative z-50 touch-feedback"
               data-testid="logo-link"
             >
               <img
                 src={LOGO_URL}
                 alt="ASSK Studio - Logo"
-                className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
+                className={`w-auto transition-all duration-300 group-hover:scale-105 ${scrolled ? 'h-8' : 'h-10'}`}
               />
             </Link>
 

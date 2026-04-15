@@ -51,12 +51,18 @@ export const HorizontalScrollCarousel = ({ items = [] }) => {
   const trackRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const checkScrollability = () => {
     if (!trackRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = trackRef.current;
     setCanScrollLeft(scrollLeft > 0);
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    
+    // Calculate active index for dots
+    const cardWidth = 320; // Approximate card width on mobile
+    const newIndex = Math.round(scrollLeft / cardWidth);
+    setActiveIndex(Math.min(newIndex, items.length - 1));
   };
 
   const scroll = (direction) => {
@@ -167,16 +173,36 @@ export const HorizontalScrollCarousel = ({ items = [] }) => {
             </a>
           ))}
         </div>
+
+        {/* Mobile dots indicator */}
+        <div className="carousel-dots md:hidden mt-4">
+          {items.slice(0, 6).map((_, index) => (
+            <button
+              key={index}
+              className={`carousel-dot ${index === activeIndex ? 'active' : ''}`}
+              onClick={() => {
+                if (trackRef.current) {
+                  const cardWidth = 320;
+                  trackRef.current.scrollTo({
+                    left: index * cardWidth,
+                    behavior: 'smooth'
+                  });
+                }
+              }}
+              aria-label={`Voir projet ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* CTA */}
-      <div className="px-4 sm:px-6 lg:px-12 mt-12 sm:mt-16">
+      <div className="px-4 sm:px-6 lg:px-12 mt-8 sm:mt-16">
         <div className="max-w-7xl mx-auto text-center">
           <a
             href="https://www.amdbrs.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-500 hover:gap-5 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.5)] hover:-translate-y-1"
+            className="group inline-flex items-center gap-3 px-6 sm:px-10 py-3 sm:py-5 bg-[#0047FF] text-white font-anton text-sm sm:text-lg uppercase transition-all duration-500 hover:gap-5 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.5)] active:scale-95 touch-feedback"
             data-cursor-text="Go!"
           >
             Voir tout le portfolio

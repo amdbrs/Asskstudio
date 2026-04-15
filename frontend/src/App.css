@@ -549,3 +549,111 @@ html {
     outline: 2px solid #0047FF;
     outline-offset: 2px;
 }
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+
+/* Safe area for bottom navigation */
+.safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Touch feedback */
+.touch-feedback {
+    -webkit-tap-highlight-color: rgba(0, 71, 255, 0.1);
+}
+
+.touch-feedback:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+}
+
+/* Disable animations on mobile for performance */
+@media (max-width: 768px) {
+    /* Disable grain overlay on mobile */
+    .grain-overlay {
+        display: none !important;
+    }
+    
+    /* Disable parallax on mobile */
+    .parallax-disabled {
+        transform: none !important;
+    }
+    
+    /* Simpler animations */
+    .hero-bg-marquee {
+        animation-duration: 60s;
+    }
+    
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+/* Bottom navigation spacing */
+.has-bottom-nav {
+    padding-bottom: 70px;
+}
+
+@media (min-width: 768px) {
+    .has-bottom-nav {
+        padding-bottom: 0;
+    }
+}
+
+/* Scrollbar hide for carousels */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Swipeable carousel indicators */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 0;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 71, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    width: 24px;
+    border-radius: 4px;
+    background: #0047FF;
+}
+
+/* Mobile-optimized buttons */
+@media (max-width: 640px) {
+    .btn-mobile {
+        min-height: 48px;
+        padding: 12px 24px;
+    }
+}
+
+/* Sticky header compact on scroll - mobile */
+@media (max-width: 768px) {
+    .header-compact {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    
+    .header-compact .logo-img {
+        height: 32px;
+    }
+}
+
