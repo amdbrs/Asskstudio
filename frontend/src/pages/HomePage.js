@@ -505,8 +505,18 @@ export default function HomePage() {
       <HorizontalScrollCarousel items={portfolio} />
 
       {/* ===== WHY US SECTION ===== */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" aria-labelledby="why-us-title">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF] relative overflow-hidden" aria-labelledby="why-us-title">
+        {/* Human touch background image */}
+        <div className="absolute inset-0 opacity-10">
+          <img 
+            src="https://images.unsplash.com/photo-1637250037209-70d093732f44?w=1920&q=60" 
+            alt=""
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16 lg:mb-20">
             <p className="font-futura text-white/60 text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Pourquoi Nous ?</p>
             <h2 id="why-us-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white">
@@ -676,6 +686,89 @@ export default function HomePage() {
               </div>
             ))}
           </Marquee>
+        </div>
+      </section>
+
+      {/* ===== BEHIND THE SCENES SECTION ===== */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-gradient-to-b from-slate-50 to-white" aria-labelledby="behind-scenes-title">
+        <div className="max-w-7xl mx-auto">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-10 sm:mb-14">
+            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-3">Dans les coulisses</p>
+            <h2 id="behind-scenes-title" className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF]">
+              L'humain derrière chaque création
+            </h2>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            {/* Image 1 - Designer at work */}
+            <AnimatedSection animation="fadeInUp" delay={0} className="col-span-2 row-span-2">
+              <div className="relative h-full min-h-[280px] sm:min-h-[400px] overflow-hidden group">
+                <img 
+                  src="https://images.unsplash.com/photo-1758613655335-63e9e75af77f?w=800&q=80" 
+                  alt="Designer graphiste au travail sur un projet créatif - ASSK Studio Clermont-Ferrand"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0047FF]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                  <p className="font-anton text-white text-lg">Création en cours</p>
+                  <p className="font-futura text-white/80 text-sm">Chaque projet mérite une attention particulière</p>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            {/* Image 2 - Workspace */}
+            <AnimatedSection animation="fadeInUp" delay={100}>
+              <div className="relative h-40 sm:h-48 overflow-hidden group">
+                <img 
+                  src="https://images.unsplash.com/photo-1746459001269-1dc33c7c5223?w=600&q=80" 
+                  alt="Espace de travail créatif avec équipement professionnel"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-[#0047FF]/20 group-hover:bg-transparent transition-all duration-500" />
+              </div>
+            </AnimatedSection>
+
+            {/* Image 3 - Sketching */}
+            <AnimatedSection animation="fadeInUp" delay={200}>
+              <div className="relative h-40 sm:h-48 overflow-hidden group">
+                <img 
+                  src="https://images.unsplash.com/photo-1523726491678-bf852e717f6a?w=600&q=80" 
+                  alt="Croquis et brainstorming pour la création de logo"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-[#0047FF]/20 group-hover:bg-transparent transition-all duration-500" />
+              </div>
+            </AnimatedSection>
+
+            {/* Image 4 - Notebook ideas */}
+            <AnimatedSection animation="fadeInUp" delay={300}>
+              <div className="relative h-40 sm:h-48 overflow-hidden group">
+                <img 
+                  src="https://images.unsplash.com/photo-1772588627357-e735115b9620?w=600&q=80" 
+                  alt="Prise de notes et réflexion créative"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-[#0047FF]/20 group-hover:bg-transparent transition-all duration-500" />
+              </div>
+            </AnimatedSection>
+
+            {/* Image 5 - Collaboration */}
+            <AnimatedSection animation="fadeInUp" delay={400}>
+              <div className="relative h-40 sm:h-48 overflow-hidden group">
+                <img 
+                  src="https://images.unsplash.com/photo-1714976326873-2e27a3988daf?w=600&q=80" 
+                  alt="Collaboration et échange avec les clients"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-[#0047FF]/20 group-hover:bg-transparent transition-all duration-500" />
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
       </section>
 

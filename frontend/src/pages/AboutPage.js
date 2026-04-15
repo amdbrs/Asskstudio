@@ -114,6 +114,44 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Workspace Gallery */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-12 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
+            <div className="relative aspect-square overflow-hidden group">
+              <img 
+                src="https://images.unsplash.com/photo-1732120529252-6829835e7468?w=600&q=80" 
+                alt="Designer travaillant sur tablette graphique"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-[#0047FF]/0 group-hover:bg-[#0047FF]/20 transition-all duration-500" />
+            </div>
+            <div className="relative aspect-square overflow-hidden group">
+              <img 
+                src="https://images.unsplash.com/photo-1664735245380-75ad87571bca?w=600&q=80" 
+                alt="Carnet de croquis et outils de création"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-[#0047FF]/0 group-hover:bg-[#0047FF]/20 transition-all duration-500" />
+            </div>
+            <div className="relative aspect-square overflow-hidden group">
+              <img 
+                src="https://images.unsplash.com/photo-1681372751506-1586b0542195?w=600&q=80" 
+                alt="Brainstorming et idéation créative"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-[#0047FF]/0 group-hover:bg-[#0047FF]/20 transition-all duration-500" />
+            </div>
+          </div>
+          <p className="font-futura text-center text-[#0047FF]/50 text-xs sm:text-sm mt-4 uppercase tracking-widest">
+            L'environnement créatif
+          </p>
+        </div>
+      </section>
+
       {/* Services */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-[#0047FF]">
         <div className="max-w-7xl mx-auto">
