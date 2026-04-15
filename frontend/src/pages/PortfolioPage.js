@@ -85,7 +85,6 @@ const FALLBACK_PORTFOLIO = [
 export default function PortfolioPage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     fetchPortfolio();
@@ -112,12 +111,6 @@ export default function PortfolioPage() {
     }
   };
 
-  const filteredItems = filter === 'all'
-    ? items
-    : items.filter((item) => item.category === filter);
-
-  const categories = ['all', ...new Set(items.map((item) => item.category))];
-
   return (
     <div className="min-h-screen bg-white" data-testid="portfolio-page">
       <SEO page="realisations" />
@@ -135,28 +128,6 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="py-8 px-4 sm:px-6 lg:px-12 border-b-2 border-[#0047FF]">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap gap-3">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-6 py-2 font-anton uppercase border-2 border-[#0047FF] transition-colors duration-200 ${
-                  filter === cat
-                    ? 'bg-[#0047FF] text-white'
-                    : 'bg-white text-[#0047FF] hover:bg-[#0047FF] hover:text-white'
-                }`}
-                data-testid={`filter-${cat}`}
-              >
-                {cat === 'all' ? 'TOUT' : cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Portfolio Grid */}
       <section className="py-16 px-4 sm:px-6 lg:px-12">
         <div className="max-w-7xl mx-auto">
@@ -164,13 +135,13 @@ export default function PortfolioPage() {
             <div className="text-center py-12">
               <div className="inline-block w-8 h-8 border-4 border-[#0047FF] border-t-transparent animate-spin" />
             </div>
-          ) : filteredItems.length === 0 ? (
+          ) : items.length === 0 ? (
             <p className="text-center font-futura text-[#0047FF] py-12">
               Aucun projet disponible
             </p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredItems.map((item) => (
+              {items.map((item) => (
                 <a
                   key={item.id}
                   href={item.link || '#'}
