@@ -34,45 +34,37 @@ const FALLBACK_PORTFOLIO = [
   {
     id: '2',
     title: 'Liberty Van',
-    description: 'Location de Vans dans l\'Allier 03 - Stickers et identité visuelle',
+    description: 'Entreprise de location de Vans dans l\'Allier 03',
     category: 'Graphisme',
     image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/1aifryat_IMG_0347.png',
     link: 'https://amdbrs.com/liberty-van'
   },
   {
     id: '3',
-    title: 'Stage Football Laforest',
-    description: 'Logo et maillots pour le club de football',
+    title: 'Club Football Laforest',
+    description: 'Création logo et t-shirts vintage/moderne pour le club',
     category: 'Graphisme',
     image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9zz84ry3_IMG_0348.jpeg',
     link: 'https://amdbrs.com/club-football-laforest'
   },
   {
     id: '4',
-    title: 'Yann Lesly',
-    description: 'Identité visuelle et cartes de visite - Peintre Plâtrier',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/drjnh37d_IMG_0350.png',
-    link: 'https://amdbrs.com'
-  },
-  {
-    id: '5',
     title: 'IRIS',
-    description: 'Identité visuelle marque prêt-à-porter - Tags et étiquettes',
+    description: 'Identité visuelle marque créateur prêt-à-porter',
     category: 'Graphisme',
     image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/lq95pan1_IMG_0349.png',
     link: 'https://amdbrs.com/iris'
   },
   {
-    id: '6',
-    title: 'Rappeur Figurine',
-    description: 'Figurines de rappeurs virtuels avec boîte de collection',
-    category: '3D',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/t8ve9seo_IMG_0333.jpg',
-    link: 'https://amdbrs.com/figurine-rap-3d-ia'
+    id: '5',
+    title: 'Entreprise Lesly',
+    description: 'Logo, carte de visite et signalétique - Peintre & Décorateur',
+    category: 'Graphisme',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/drjnh37d_IMG_0350.png',
+    link: 'https://amdbrs.com/entreprise-lesly'
   },
   {
-    id: '7',
+    id: '6',
     title: 'Sneakers Design',
     description: 'Visuels graphiques de paires de chaussures favorites',
     category: 'Graphisme',
@@ -80,15 +72,7 @@ const FALLBACK_PORTFOLIO = [
     link: 'https://amdbrs.com/print-1'
   },
   {
-    id: '8',
-    title: 'Manga Posters',
-    description: 'Posters de personnages manga',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/yrpzu4yj_IMG_0352.png',
-    link: 'https://amdbrs.com/brook-one-piece'
-  },
-  {
-    id: '9',
+    id: '7',
     title: 'Kates Agency',
     description: 'Logo pour une agence au pair aux États-Unis',
     category: 'Graphisme',
@@ -96,12 +80,28 @@ const FALLBACK_PORTFOLIO = [
     link: 'https://amdbrs.com/kates-agency'
   },
   {
-    id: '10',
-    title: 'More Love Por Favor',
-    description: 'Création 3D rétro TV avec stickers',
-    category: '3D',
+    id: '8',
+    title: 'Manga Posters',
+    description: 'Posters de personnages manga que j\'apprécie',
+    category: 'Graphisme',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/yrpzu4yj_IMG_0352.png',
+    link: 'https://amdbrs.com/brook-one-piece'
+  },
+  {
+    id: '9',
+    title: 'Posters en vrac',
+    description: 'Sélection de posters réalisés lors de projets pro ou perso',
+    category: 'Graphisme',
     image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/228szjo1_IMG_0353.png',
-    link: 'https://amdbrs.com'
+    link: 'https://amdbrs.com/posters-en-vrac'
+  },
+  {
+    id: '10',
+    title: 'Rappeur Figurine',
+    description: 'Figurines de rappeurs virtuels avec boîte de collection',
+    category: '3D',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/t8ve9seo_IMG_0333.jpg',
+    link: 'https://amdbrs.com/figurine-rap-3d-ia'
   }
 ];
 
