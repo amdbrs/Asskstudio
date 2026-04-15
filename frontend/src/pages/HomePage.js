@@ -11,6 +11,7 @@ import { MouseParallax, TiltCard, ParallaxLayer } from '@/hooks/useParallax';
 import { MagneticButton } from '@/components/MagneticButton';
 import { HorizontalScrollCarousel } from '@/components/HorizontalScrollCarousel';
 import { ScrollIndicator } from '@/components/ScrollIndicator';
+import { AnimatedProcessSection } from '@/components/AnimatedProcessSection';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
@@ -530,104 +531,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== PROCESS SECTION ===== */}
-      <section id="process" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white relative overflow-hidden" aria-labelledby="process-title">
-        {/* Background decorations */}
-        <div className="absolute inset-0 pointer-events-none hidden lg:block">
-          <div className="absolute top-1/4 left-0 w-72 h-72 bg-[#0047FF]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#0047FF]/5 rounded-full blur-3xl" />
-        </div>
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <header className="text-center mb-12 sm:mb-16 lg:mb-24">
-            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-3 sm:mb-4">Notre Processus</p>
-            <h2 id="process-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF]">
-              Comment on travaille
-            </h2>
-            <p className="font-futura text-gray-600 text-sm sm:text-base mt-4 max-w-2xl mx-auto">
-              Un processus simple et transparent pour des résultats qui dépassent tes attentes
-            </p>
-          </header>
-
-          {/* Mobile/Tablet view */}
-          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-6">
-            {processSteps.map((step, index) => {
-              const IconComponent = step.icon;
-              return (
-                <article key={index} className="relative group">
-                  <div className="p-6 sm:p-8 bg-[#0047FF]/5 border border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_20px_60px_-15px_rgba(0,71,255,0.15)] transition-all duration-300">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 bg-[#0047FF] flex items-center justify-center">
-                        <IconComponent className="w-6 h-6 text-white" aria-hidden="true" />
-                      </div>
-                      <span className="font-anton text-4xl text-[#0047FF]/20">{step.step}</span>
-                    </div>
-                    <h3 className="font-anton text-xl text-[#0047FF] mb-2">{step.title}</h3>
-                    <p className="font-futura text-gray-600 text-sm">{step.desc}</p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          {/* Desktop view - Timeline style */}
-          <div className="hidden lg:block relative">
-            {/* Central timeline line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#0047FF] via-[#0047FF] to-[#0047FF]/20 -translate-x-1/2" />
-            
-            {processSteps.map((step, index) => {
-              const IconComponent = step.icon;
-              const isLeft = index % 2 === 0;
-              
-              return (
-                <div key={index} className={`relative flex items-center mb-16 last:mb-0 ${isLeft ? 'justify-start' : 'justify-end'}`}>
-                  {/* Content card */}
-                  <div className={`w-[calc(50%-60px)] ${isLeft ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                    <article className="group relative p-8 bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_25px_80px_-20px_rgba(0,71,255,0.2)] transition-all duration-500 transform hover:-translate-y-2">
-                      {/* Step number badge */}
-                      <div className={`absolute top-8 ${isLeft ? '-right-4' : '-left-4'} w-8 h-8 bg-[#0047FF] flex items-center justify-center shadow-lg`}>
-                        <span className="font-anton text-white text-sm">{step.step}</span>
-                      </div>
-                      
-                      {/* Icon */}
-                      <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#0047FF] to-[#0047FF]/80 mb-6 group-hover:scale-110 transition-transform duration-300 ${isLeft ? 'ml-auto' : 'mr-auto'}`}>
-                        <IconComponent className="w-8 h-8 text-white" aria-hidden="true" />
-                      </div>
-                      
-                      {/* Title */}
-                      <h3 className="font-anton text-2xl text-[#0047FF] mb-3 group-hover:text-[#0047FF] transition-colors">
-                        {step.title}
-                      </h3>
-                      
-                      {/* Description */}
-                      <p className="font-futura text-gray-600 text-base leading-relaxed">
-                        {step.desc}
-                      </p>
-
-                      {/* Decorative corner */}
-                      <div className={`absolute bottom-0 ${isLeft ? 'left-0' : 'right-0'} w-16 h-16 border-b-4 border-l-4 border-[#0047FF]/0 group-hover:border-[#0047FF] transition-all duration-300 ${isLeft ? 'border-l-4' : 'border-r-4 border-l-0'}`} style={{ borderLeftWidth: isLeft ? '4px' : '0', borderRightWidth: isLeft ? '0' : '4px' }} />
-                    </article>
-                  </div>
-
-                  {/* Center circle on timeline */}
-                  <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-white border-4 border-[#0047FF] rounded-full z-10 shadow-lg">
-                    <div className="absolute inset-1 bg-[#0047FF] rounded-full animate-pulse" />
-                  </div>
-
-                  {/* Connector line to card */}
-                  <div className={`absolute top-1/2 h-0.5 bg-[#0047FF]/30 ${isLeft ? 'left-[calc(50%+12px)] right-[50%+60px] w-[48px]' : 'right-[calc(50%+12px)] left-[50%+60px] w-[48px]'}`} 
-                    style={{ 
-                      left: isLeft ? 'calc(50% + 12px)' : 'auto',
-                      right: isLeft ? 'auto' : 'calc(50% + 12px)',
-                      width: '48px'
-                    }} 
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* ===== PROCESS SECTION - ANIMATED ===== */}
+      <AnimatedProcessSection steps={processSteps} />
 
       {/* ===== TRUSTED BY SECTION - SLIDER ===== */}
       <section className="py-16 sm:py-20 bg-gradient-to-b from-white to-[#0047FF]/5 overflow-hidden" aria-labelledby="trusted-title">
