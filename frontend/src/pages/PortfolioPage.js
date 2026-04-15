@@ -6,6 +6,82 @@ import { SEO } from '@/components/SEO';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
+// Fallback portfolio data with publicly accessible images
+const FALLBACK_PORTFOLIO = [
+  {
+    id: '1',
+    title: 'Sellerie Garcia',
+    description: 'Site vitrine artisan sellier - Automobile, moto, mobilier',
+    category: 'Site Web',
+    image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    link: 'https://selleriegarcia.fr'
+  },
+  {
+    id: '2',
+    title: 'Posters en vrac',
+    description: 'Nombreux design de posters créatifs',
+    category: 'Graphisme',
+    image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
+    link: 'https://amdbrs.com/posters-en-vrac'
+  },
+  {
+    id: '3',
+    title: 'Rappeur Figurine',
+    description: 'Figurines de rappeurs virtuels avec boîte de collection',
+    category: '3D',
+    image_url: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&q=80',
+    link: 'https://amdbrs.com/figurine-rap-3d-ia'
+  },
+  {
+    id: '4',
+    title: 'Sneakers Design',
+    description: 'Visuels graphiques de paires de chaussures favorites',
+    category: 'Graphisme',
+    image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
+    link: 'https://amdbrs.com/print-1'
+  },
+  {
+    id: '5',
+    title: 'Manga Posters',
+    description: 'Posters de personnages manga',
+    category: 'Graphisme',
+    image_url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&q=80',
+    link: 'https://amdbrs.com/brook-one-piece'
+  },
+  {
+    id: '6',
+    title: 'Blended Worlds',
+    description: 'Alliance numérique et réel en 3D',
+    category: '3D',
+    image_url: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&q=80',
+    link: 'https://amdbrs.com/blended-worlds'
+  },
+  {
+    id: '7',
+    title: 'Kates Agency',
+    description: 'Logo pour une agence au pair aux États-Unis',
+    category: 'Graphisme',
+    image_url: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80',
+    link: 'https://amdbrs.com/kates-agency'
+  },
+  {
+    id: '8',
+    title: 'IRIS',
+    description: 'Identité visuelle marque prêt-à-porter',
+    category: 'Graphisme',
+    image_url: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&q=80',
+    link: 'https://amdbrs.com/iris'
+  },
+  {
+    id: '9',
+    title: 'Club Football Laforest',
+    description: 'Logo et t-shirts pour un stage de football amateur',
+    category: 'Graphisme',
+    image_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
+    link: 'https://amdbrs.com/club-football-laforest'
+  }
+];
+
 export default function PortfolioPage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,10 +96,17 @@ export default function PortfolioPage() {
       const response = await fetch(`${API}/portfolio`);
       if (response.ok) {
         const data = await response.json();
-        setItems(data);
+        if (data && data.length > 0) {
+          setItems(data);
+        } else {
+          setItems(FALLBACK_PORTFOLIO);
+        }
+      } else {
+        setItems(FALLBACK_PORTFOLIO);
       }
     } catch (error) {
       console.error('Error fetching portfolio:', error);
+      setItems(FALLBACK_PORTFOLIO);
     } finally {
       setLoading(false);
     }

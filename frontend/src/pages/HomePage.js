@@ -12,6 +12,58 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 const HERO_BG_MOBILE = 'https://images.unsplash.com/photo-1559032806-99a331d600b4?w=800&q=80';
 
+// Fallback portfolio data with publicly accessible images
+const FALLBACK_PORTFOLIO = [
+  {
+    id: '1',
+    title: 'Sellerie Garcia',
+    description: 'Site vitrine artisan sellier - Automobile, moto, mobilier',
+    category: 'Site Web',
+    image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    link: 'https://selleriegarcia.fr'
+  },
+  {
+    id: '2',
+    title: 'Posters en vrac',
+    description: 'Nombreux design de posters créatifs',
+    category: 'Graphisme',
+    image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
+    link: 'https://amdbrs.com/posters-en-vrac'
+  },
+  {
+    id: '3',
+    title: 'Rappeur Figurine',
+    description: 'Figurines de rappeurs virtuels avec boîte de collection',
+    category: '3D',
+    image_url: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&q=80',
+    link: 'https://amdbrs.com/figurine-rap-3d-ia'
+  },
+  {
+    id: '4',
+    title: 'Sneakers Design',
+    description: 'Visuels graphiques de paires de chaussures favorites',
+    category: 'Graphisme',
+    image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
+    link: 'https://amdbrs.com/print-1'
+  },
+  {
+    id: '5',
+    title: 'Manga Posters',
+    description: 'Posters de personnages manga',
+    category: 'Graphisme',
+    image_url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&q=80',
+    link: 'https://amdbrs.com/brook-one-piece'
+  },
+  {
+    id: '6',
+    title: 'Blended Worlds',
+    description: 'Alliance numérique et réel en 3D',
+    category: '3D',
+    image_url: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&q=80',
+    link: 'https://amdbrs.com/blended-worlds'
+  }
+];
+
 const servicesGraphisme = [
   { name: 'Pack Logo Signature', description: 'Logo professionnel + déclinaisons', icon: PenTool },
   { name: 'Identité Visuelle Complète', description: 'Logo, charte graphique, supports', icon: Layers },
@@ -145,7 +197,20 @@ export default function HomePage() {
 
   useEffect(() => {
     fetch(`${API}/seed`, { method: 'POST' }).catch(() => {});
-    fetch(`${API}/portfolio`).then(r => r.json()).then(setPortfolio).catch(() => {});
+    fetch(`${API}/portfolio`)
+      .then(r => r.json())
+      .then(data => {
+        // If we got data from API, use it; otherwise use fallback
+        if (data && data.length > 0) {
+          setPortfolio(data);
+        } else {
+          setPortfolio(FALLBACK_PORTFOLIO);
+        }
+      })
+      .catch(() => {
+        // API not available (e.g., on Vercel), use fallback
+        setPortfolio(FALLBACK_PORTFOLIO);
+      });
   }, []);
 
   const handleContactSubmit = async (e) => {
