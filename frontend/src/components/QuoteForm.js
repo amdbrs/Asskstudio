@@ -9,63 +9,54 @@ const projectTypes = [
     id: 'logo', 
     label: 'Création de Logo', 
     icon: Palette,
-    price: 'À partir de 450€',
     category: 'graphisme'
   },
   { 
     id: 'identite', 
     label: 'Identité Visuelle Complète', 
     icon: Palette,
-    price: 'À partir de 950€',
     category: 'graphisme'
   },
   { 
     id: 'papeterie', 
     label: 'Papeterie & Édition', 
     icon: Palette,
-    price: 'À partir de 200€',
     category: 'graphisme'
   },
   { 
     id: 'site-vitrine', 
     label: 'Site Web Vitrine', 
     icon: Globe,
-    price: 'À partir de 1200€',
     category: 'web'
   },
   { 
     id: 'site-complet', 
     label: 'Site Web 5-10 pages', 
     icon: Globe,
-    price: 'À partir de 2200€',
     category: 'web'
   },
   { 
     id: 'ecommerce', 
     label: 'Site E-commerce', 
     icon: Globe,
-    price: 'À partir de 3000€',
     category: 'web'
   },
   { 
     id: 'modelisation', 
     label: 'Modélisation 3D', 
     icon: Box,
-    price: 'À partir de 250€',
     category: '3d'
   },
   { 
     id: 'impression', 
     label: 'Impression 3D', 
     icon: Box,
-    price: 'Sur devis',
     category: '3d'
   },
   { 
     id: 'art-toy', 
     label: 'Art Toy Personnalisé', 
     icon: Box,
-    price: 'À partir de 490€',
     category: '3d'
   },
 ];
@@ -228,16 +219,13 @@ ${formData.description}
                       : 'border-[#0047FF]/10 hover:border-[#0047FF]/30'
                   }`}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 flex items-center justify-center transition-colors ${
                       isSelected ? 'bg-[#0047FF] text-white' : 'bg-[#0047FF]/10 text-[#0047FF]'
                     }`}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <div className="flex-1">
-                      <p className="font-anton text-[#0047FF] text-sm">{type.label}</p>
-                      <p className="font-futura text-[#0047FF]/60 text-xs mt-1">{type.price}</p>
-                    </div>
+                    <p className="font-anton text-[#0047FF] text-sm flex-1">{type.label}</p>
                     {isSelected && (
                       <CheckCircle className="w-5 h-5 text-[#0047FF]" />
                     )}
