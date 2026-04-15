@@ -22,7 +22,7 @@ const FALLBACK_PORTFOLIO = [
     title: 'Sellerie Garcia',
     description: 'Site vitrine artisan sellier - Automobile, moto, mobilier',
     category: 'Site Web',
-    image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/xbxushaa_IMG_0412.png',
     link: 'https://selleriegarcia.fr'
   },
   {
