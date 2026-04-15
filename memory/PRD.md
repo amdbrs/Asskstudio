@@ -71,6 +71,8 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - [x] 3 dedicated service pages (Graphisme, Sites Web, 3D)
 - [x] ScrollToTop on navigation
 - [x] Favicon (ASSK logo)
+- [x] Mobile UX: Accordion services, Stacking "Pourquoi nous" cards
+- [x] Removed mobile bottom navigation bar (cleaner mobile UI)
 
 ## Pricing (Current)
 ### Graphisme
@@ -96,6 +98,9 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - [x] Custom cursor + parallax effects (daveholloway.uk inspiration)
 - [x] Preloader with logo animation
 - [x] SEO optimization (local keywords)
+- [x] Removed mobile bottom navigation bar (BottomNavigation)
+- [x] Centered "Découvrir" scroll button on mobile
+- [x] Portfolio images mapped to authentic projects from amdbrs.com
 
 ### P1 - High Priority
 - [ ] Finalize Blog API (create/edit/delete articles via admin dashboard)
