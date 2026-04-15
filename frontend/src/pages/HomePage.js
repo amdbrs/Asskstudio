@@ -313,21 +313,7 @@ export default function HomePage() {
                 <span>Studio Créatif Graphisme & 3D</span>
               </div>
               
-              <h1 className="relative font-anton text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#0047FF] leading-[0.95] uppercase tracking-tight animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }} data-testid="hero-title">
-                {/* Abstract video background behind text */}
-                <div className="absolute -inset-4 sm:-inset-8 -z-10 overflow-hidden rounded-2xl opacity-20">
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover scale-150"
-                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%230047FF' fill-opacity='0.1' width='100' height='100'/%3E%3C/svg%3E"
-                  >
-                    <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4" />
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-white" />
-                </div>
+              <h1 className="font-anton text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#0047FF] leading-[0.95] uppercase tracking-tight animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }} data-testid="hero-title">
                 On crée.<br />
                 <span className="text-[#0047FF]/30">Tu marques.</span>
               </h1>
