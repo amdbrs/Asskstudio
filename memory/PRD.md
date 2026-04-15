@@ -73,8 +73,7 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - [x] Favicon (ASSK logo)
 - [x] Mobile UX: Accordion services, Stacking "Pourquoi nous" cards
 - [x] Removed mobile bottom navigation bar (cleaner mobile UI)
-- [x] Page transitions with Framer Motion (fade + slide up/down)
-- [x] Premium blue curtain transition between pages (ASSK logo reveal)
+- [x] Page transitions with Framer Motion (smooth fade + slide)
 
 ## Pricing (Current)
 ### Graphisme

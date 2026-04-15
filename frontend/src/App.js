@@ -27,112 +27,62 @@ import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
 // Context
 import { AuthProvider } from "@/context/AuthContext";
 
-// Blue curtain transition component
-const BlueCurtain = () => {
-  const location = useLocation();
-  
-  return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={`curtain-${location.pathname}`}
-        className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden"
-      >
-        {/* First curtain - slides down */}
-        <motion.div
-          className="absolute inset-0 bg-[#0047FF] origin-top"
-          initial={{ scaleY: 0 }}
-          animate={{ 
-            scaleY: [0, 1, 1, 0],
-            originY: [0, 0, 1, 1],
-          }}
-          transition={{
-            duration: 1,
-            times: [0, 0.4, 0.6, 1],
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
-          {/* ASSK Logo in center during transition */}
-          <motion.div 
-            className="absolute inset-0 flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ 
-              opacity: [0, 1, 1, 0],
-              scale: [0.8, 1, 1, 0.9],
-            }}
-            transition={{
-              duration: 1,
-              times: [0, 0.3, 0.7, 1],
-              ease: "easeInOut",
-            }}
-          >
-            <span className="font-anton text-4xl md:text-6xl text-white tracking-wider">
-              ASSK
-            </span>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
-  );
-};
-
-// Page content animation
+// Simple fade transition
 const pageVariants = {
   initial: {
     opacity: 0,
+    y: 20,
   },
   enter: {
     opacity: 1,
+    y: 0,
     transition: {
-      duration: 0.4,
-      delay: 0.5, // Wait for curtain to reveal
+      duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
     },
   },
   exit: {
     opacity: 0,
+    y: -15,
     transition: {
-      duration: 0.2,
+      duration: 0.3,
       ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
-// Animated Routes wrapper with curtain transitions
+// Animated Routes wrapper
 function AnimatedRoutes() {
   const location = useLocation();
 
-  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
-    <>
-      <BlueCurtain />
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={location.pathname}
-          initial="initial"
-          animate="enter"
-          exit="exit"
-          variants={pageVariants}
-        >
-          <Routes location={location}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/realisations" element={<PortfolioPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/a-propos" element={<AboutPage />} />
-            <Route path="/graphisme" element={<GraphismePage />} />
-            <Route path="/sites-web" element={<SiteWebPage />} />
-            <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
-            <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/admin/*" element={<AdminDashboard />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </motion.div>
-      </AnimatePresence>
-    </>
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        variants={pageVariants}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/realisations" element={<PortfolioPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/a-propos" element={<AboutPage />} />
+          <Route path="/graphisme" element={<GraphismePage />} />
+          <Route path="/sites-web" element={<SiteWebPage />} />
+          <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
