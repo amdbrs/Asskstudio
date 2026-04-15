@@ -17,9 +17,6 @@ import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import NotFoundPage from "@/pages/NotFoundPage";
 
-// Components
-import { FloatingCTA } from "@/components/FloatingCTA";
-
 // Context
 import { AuthProvider } from "@/context/AuthContext";
 
@@ -53,7 +50,6 @@ function App() {
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-          <FloatingCTA />
           <Toaster position="top-right" />
         </BrowserRouter>
       </AuthProvider>
