@@ -283,7 +283,7 @@ export default function HomePage() {
       <Header />
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
+      <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-14 sm:pt-16" aria-label="Présentation ASSK Studio">
         {/* Background Marquee Text */}
         <HeroBackgroundMarquee text="ASSK STUDIO • GRAPHISME • WEB • 3D" />
         
@@ -306,29 +306,29 @@ export default function HomePage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-[#0047FF]/5 rounded-full animate-[spin_45s_linear_infinite_reverse]" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6 animate-fadeInUp" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+              <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-[10px] sm:text-sm mb-3 sm:mb-6 animate-fadeInUp" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
                 <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 animate-pulse" aria-hidden="true" />
                 <span>Studio Créatif Graphisme & 3D</span>
               </div>
               
-              <h1 className="font-anton text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#0047FF] leading-[0.95] uppercase tracking-tight animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }} data-testid="hero-title">
+              <h1 className="font-anton text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#0047FF] leading-[0.95] uppercase tracking-tight animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }} data-testid="hero-title">
                 On crée.<br />
                 <span className="text-[#0047FF]/30">Tu marques.</span>
               </h1>
               
-              <p className="font-futura text-gray-700 text-base sm:text-lg lg:text-xl mt-6 sm:mt-8 max-w-lg mx-auto lg:mx-0 leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+              <p className="font-futura text-gray-700 text-sm sm:text-lg lg:text-xl mt-4 sm:mt-8 max-w-lg mx-auto lg:mx-0 leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
                 Studio créatif spécialisé en identité visuelle, sites web, modélisation 3D et création d'art toys uniques.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 sm:mt-10 justify-center lg:justify-start animate-fadeInUp" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
+              <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 mt-6 sm:mt-10 justify-center lg:justify-start animate-fadeInUp" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
                 <MagneticButton 
                   as="a" 
                   href="#contact" 
                   strength={0.3}
-                  className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-500 hover:gap-5 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.5)] active:scale-95" 
+                  className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-5 sm:px-8 py-3 sm:py-4 bg-[#0047FF] text-white font-anton text-sm sm:text-lg uppercase transition-all duration-500 hover:gap-5 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.5)] active:scale-95" 
                   data-testid="hero-cta-button" 
                   data-cursor-text="Go!" 
                   aria-label="Démarrer un projet avec ASSK Studio"
@@ -340,7 +340,7 @@ export default function HomePage() {
                   as="a" 
                   href="#realisations" 
                   strength={0.3}
-                  className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-500 hover:bg-[#0047FF] hover:text-white active:scale-95" 
+                  className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-5 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-sm sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-500 hover:bg-[#0047FF] hover:text-white active:scale-95" 
                   data-cursor-text="Voir" 
                   aria-label="Voir nos réalisations"
                 >
@@ -375,54 +375,54 @@ export default function HomePage() {
       </section>
 
       {/* Marquee */}
-      <div className="bg-[#0047FF] py-3 sm:py-4 overflow-hidden" aria-hidden="true">
+      <div className="bg-[#0047FF] py-2.5 sm:py-4 overflow-hidden" aria-hidden="true">
         <Marquee gradient={false} speed={60}>
           {['GRAPHISME', 'SITES WEB', 'MODÉLISATION 3D', 'ART TOYS', 'IMPRESSION 3D', 'IDENTITÉ VISUELLE', 'E-COMMERCE', 'BRANDING'].map((item, i) => (
-            <span key={i} className="font-anton text-lg sm:text-2xl text-white mx-6 sm:mx-12 opacity-80">{item}</span>
+            <span key={i} className="font-anton text-base sm:text-2xl text-white mx-4 sm:mx-12 opacity-80">{item}</span>
           ))}
         </Marquee>
       </div>
 
       {/* ===== STATS BANNER - COMPACT ===== */}
-      <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-12 bg-[#0047FF]/10" id="stats-section">
+      <section className="py-4 sm:py-8 px-4 sm:px-6 lg:px-12 bg-[#0047FF]/10" id="stats-section">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-8 items-center">
             {/* Stat 1 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
+              <p className="font-anton text-xl sm:text-3xl text-[#0047FF] leading-none">
                 <AnimatedCounter end={75} suffix="%" duration={2000} />
               </p>
-              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-futura text-gray-600 text-[9px] sm:text-xs mt-0.5 sm:mt-1 leading-tight">
                 jugent sur l'identité visuelle
               </p>
             </div>
             
             {/* Stat 2 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
+              <p className="font-anton text-xl sm:text-3xl text-[#0047FF] leading-none">
                 x<AnimatedCounter end={2} duration={1500} />.<AnimatedCounter end={6} duration={1800} />
               </p>
-              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-futura text-gray-600 text-[9px] sm:text-xs mt-0.5 sm:mt-1 leading-tight">
                 plus d'engagement
               </p>
             </div>
 
             {/* Stat 3 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
+              <p className="font-anton text-xl sm:text-3xl text-[#0047FF] leading-none">
                 <AnimatedCounter end={72} suffix="%" duration={2200} />
               </p>
-              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-futura text-gray-600 text-[9px] sm:text-xs mt-0.5 sm:mt-1 leading-tight">
                 jugent sur les supports print
               </p>
             </div>
 
             {/* Stat 4 */}
             <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
+              <p className="font-anton text-xl sm:text-3xl text-[#0047FF] leading-none">
                 <AnimatedCounter end={94} suffix="%" duration={2500} />
               </p>
-              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-futura text-gray-600 text-[9px] sm:text-xs mt-0.5 sm:mt-1 leading-tight">
                 premières impressions = design
               </p>
             </div>
@@ -431,18 +431,18 @@ export default function HomePage() {
       </section>
 
       {/* ===== SERVICES SECTION ===== */}
-      <section id="services" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="services-section" aria-labelledby="services-title">
+      <section id="services" className="py-10 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="services-section" aria-labelledby="services-title">
         <div className="max-w-7xl mx-auto">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16 lg:mb-20">
-            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Nos Services</p>
-            <h2 id="services-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF]">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-8 sm:mb-16 lg:mb-20">
+            <p className="font-futura text-[#0047FF] text-[10px] sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Nos Services</p>
+            <h2 id="services-title" className="font-anton text-2xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF] leading-tight">
               Tout ce qu'il te faut.<br />
               <span className="text-[#0047FF]/30">Rien de superflu.</span>
             </h2>
           </AnimatedSection>
 
           {/* Mobile: Accordion with + */}
-          <div className="space-y-8 sm:hidden">
+          <div className="space-y-6 sm:hidden">
             <MobileServiceAccordion 
               title="GRAPHISME" 
               services={servicesGraphisme} 
@@ -597,54 +597,54 @@ export default function HomePage() {
       </section>
 
       {/* ===== CONTACT SECTION ===== */}
-      <section id="contact" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="contact-section" aria-labelledby="contact-title">
+      <section id="contact" className="py-10 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="contact-section" aria-labelledby="contact-title">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16">
             <AnimatedSection animation="slideLeft">
-              <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">Contact</p>
-              <h2 id="contact-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF] leading-tight">
+              <p className="font-futura text-[#0047FF] text-[10px] sm:text-sm uppercase tracking-widest mb-1.5 sm:mb-4">Contact</p>
+              <h2 id="contact-title" className="font-anton text-2xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF] leading-tight">
                 Discutons de<br />ton projet
               </h2>
-              <p className="font-futura text-gray-700 text-sm sm:text-base lg:text-lg mt-4 sm:mt-6 max-w-md">
+              <p className="font-futura text-gray-700 text-xs sm:text-base lg:text-lg mt-3 sm:mt-6 max-w-md">
                 Une idée en tête ? Un projet qui te tient à cœur ? Contacte-nous et transformons ta vision en réalité.
               </p>
 
-              <address className="space-y-3 sm:space-y-4 mt-8 sm:mt-12 not-italic">
-                <a href="mailto:amaurydebarros1607@gmail.com" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_15px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 hover:-translate-y-1" aria-label="Envoyer un email à ASSK Studio">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
+              <address className="space-y-2 sm:space-y-4 mt-6 sm:mt-12 not-italic">
+                <a href="mailto:amaurydebarros1607@gmail.com" className="group flex items-center gap-2.5 sm:gap-4 p-3 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_15px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 hover:-translate-y-1" aria-label="Envoyer un email à ASSK Studio">
+                  <div className="w-9 h-9 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
                     <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div className="min-w-0">
-                    <p className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase">Email</p>
-                    <p className="font-anton text-sm sm:text-base text-[#0047FF] truncate">amaurydebarros1607@gmail.com</p>
+                    <p className="font-futura text-[#0047FF]/50 text-[9px] sm:text-xs uppercase">Email</p>
+                    <p className="font-anton text-xs sm:text-base text-[#0047FF] truncate">amaurydebarros1607@gmail.com</p>
                   </div>
                 </a>
-                <a href="tel:+33665097008" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_15px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 hover:-translate-y-1" aria-label="Appeler ASSK Studio">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
+                <a href="tel:+33665097008" className="group flex items-center gap-2.5 sm:gap-4 p-3 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_15px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 hover:-translate-y-1" aria-label="Appeler ASSK Studio">
+                  <div className="w-9 h-9 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
                     <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
-                    <p className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase">Téléphone</p>
-                    <p className="font-anton text-sm sm:text-base text-[#0047FF]">06 65 09 70 08</p>
+                    <p className="font-futura text-[#0047FF]/50 text-[9px] sm:text-xs uppercase">Téléphone</p>
+                    <p className="font-anton text-xs sm:text-base text-[#0047FF]">06 65 09 70 08</p>
                   </div>
                 </a>
-                <a href="https://instagram.com/amau.psd" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_15px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 hover:-translate-y-1" aria-label="Suivre ASSK Studio sur Instagram">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
+                <a href="https://instagram.com/amau.psd" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-2.5 sm:gap-4 p-3 sm:p-5 border border-[#0047FF]/20 hover:border-[#0047FF] hover:shadow-[0_15px_40px_-10px_rgba(0,71,255,0.2)] transition-all duration-500 hover:-translate-y-1" aria-label="Suivre ASSK Studio sur Instagram">
+                  <div className="w-9 h-9 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
                     <Instagram className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
-                    <p className="font-futura text-[#0047FF]/50 text-[10px] sm:text-xs uppercase">Instagram</p>
-                    <p className="font-anton text-sm sm:text-base text-[#0047FF]">@amau.psd</p>
+                    <p className="font-futura text-[#0047FF]/50 text-[9px] sm:text-xs uppercase">Instagram</p>
+                    <p className="font-anton text-xs sm:text-base text-[#0047FF]">@amau.psd</p>
                   </div>
                 </a>
               </address>
             </AnimatedSection>
 
             <AnimatedSection animation="slideRight">
-              <div className="bg-[#fafbff] p-6 sm:p-8 lg:p-10">
-                <div className="mb-6">
-                  <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF]">Demande de devis</h3>
-                  <p className="font-futura text-gray-600 text-sm mt-1">Réponse personnalisée sous 24h</p>
+              <div className="bg-[#fafbff] p-5 sm:p-8 lg:p-10">
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="font-anton text-lg sm:text-2xl text-[#0047FF]">Demande de devis</h3>
+                  <p className="font-futura text-gray-600 text-xs sm:text-sm mt-0.5 sm:mt-1">Réponse personnalisée sous 24h</p>
                 </div>
                 <QuoteForm />
               </div>
@@ -654,16 +654,16 @@ export default function HomePage() {
       </section>
 
       {/* ===== CTA SECTION ===== */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF] relative overflow-hidden" aria-labelledby="cta-title">
+      <section className="py-10 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF] relative overflow-hidden" aria-labelledby="cta-title">
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 id="cta-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white leading-tight">
+          <h2 id="cta-title" className="font-anton text-2xl sm:text-4xl lg:text-5xl xl:text-6xl text-white leading-tight">
             Prêt à laisser<br />ta marque ?
           </h2>
-          <p className="font-futura text-white/70 text-sm sm:text-base lg:text-lg mt-4 sm:mt-6 max-w-lg mx-auto">
+          <p className="font-futura text-white/70 text-xs sm:text-base lg:text-lg mt-3 sm:mt-6 max-w-lg mx-auto">
             Plus tu attends, plus tes concurrents avancent. Changeons ça ensemble.
           </p>
-          <div className="mt-8 sm:mt-10">
-            <a href="#contact" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#0047FF] font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)]" aria-label="Commencer un projet maintenant">
+          <div className="mt-6 sm:mt-10">
+            <a href="#contact" className="group inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-8 py-3 sm:py-4 bg-white text-[#0047FF] font-anton text-sm sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)]" aria-label="Commencer un projet maintenant">
               Commencer maintenant
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
@@ -672,54 +672,46 @@ export default function HomePage() {
       </section>
 
       {/* ===== FAQ SECTION - SEO ===== */}
-      <section id="faq" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="faq-section" aria-labelledby="faq-title" itemScope itemType="https://schema.org/FAQPage">
+      <section id="faq" className="py-10 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="faq-section" aria-labelledby="faq-title" itemScope itemType="https://schema.org/FAQPage">
         <div className="max-w-4xl mx-auto">
-          <header className="text-center mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4">
+          <header className="text-center mb-8 sm:mb-16">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-[9px] sm:text-sm mb-3 sm:mb-4">
               <MapPin className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
-              <span>Clermont-Ferrand • Vichy • Moulins • Allier • Auvergne</span>
+              <span>Clermont-Ferrand • Vichy • Moulins</span>
             </div>
-            <h2 id="faq-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">
+            <h2 id="faq-title" className="font-anton text-2xl sm:text-4xl lg:text-5xl text-[#0047FF]">
               Questions Fréquentes
             </h2>
-            <p className="font-futura text-gray-600 text-sm sm:text-base mt-4 max-w-2xl mx-auto">
-              Tout ce que vous devez savoir sur nos services de graphisme, création de sites web et impression 3D en Auvergne
+            <p className="font-futura text-gray-600 text-xs sm:text-base mt-3 sm:mt-4 max-w-2xl mx-auto">
+              Tout ce que vous devez savoir sur nos services
             </p>
           </header>
 
-          <div className="space-y-4">
+          <div className="space-y-2 sm:space-y-4">
             {[
               {
-                question: "Quels services de graphisme proposez-vous à Clermont-Ferrand et en Auvergne ?",
+                question: "Quels services de graphisme proposez-vous ?",
                 answer: "Nous proposons des services complets de graphisme : création de logo, identité visuelle, charte graphique, design de supports print (cartes de visite, flyers, brochures) et design digital. Basés en Auvergne, nous intervenons sur Clermont-Ferrand, Vichy, Moulins et tout le département de l'Allier."
               },
               {
-                question: "Combien coûte la création d'un site web vitrine ?",
-                answer: "Nos sites web vitrine démarrent à 1200€ pour une landing page responsive. Pour un site complet de 5 à 10 pages avec optimisation SEO, comptez à partir de 2200€. Nous créons également des sites e-commerce à partir de 3000€. Chaque projet est personnalisé selon vos besoins."
+                question: "Combien coûte un site web vitrine ?",
+                answer: "Nos sites web vitrine démarrent à 1200€ pour une landing page responsive. Pour un site complet de 5 à 10 pages avec optimisation SEO, comptez à partir de 2200€. Nous créons également des sites e-commerce à partir de 3000€."
               },
               {
-                question: "Proposez-vous des services d'impression 3D dans l'Allier ?",
-                answer: "Oui ! Nous réalisons de l'impression 3D filament sur demande : porte-clés personnalisés, totems, figurines, prototypes et objets sur-mesure. Pour la modélisation 3D avec ZBrush, les tarifs démarrent à 250€. Contactez-nous pour un devis personnalisé."
+                question: "Proposez-vous l'impression 3D ?",
+                answer: "Oui ! Nous réalisons de l'impression 3D filament sur demande : porte-clés personnalisés, totems, figurines, prototypes et objets sur-mesure. Pour la modélisation 3D avec ZBrush, les tarifs démarrent à 250€."
               },
               {
-                question: "Pourquoi choisir un studio créatif familial plutôt qu'une grande agence ?",
-                answer: "On travaille en famille, ce qui garantit une relation de confiance et une proximité avec nos clients. Vous avez un interlocuteur unique de A à Z, des tarifs transparents sans intermédiaire, et un suivi personnalisé. Avec plus de 50 projets réalisés, nous allions qualité professionnelle et accompagnement humain."
+                question: "Pourquoi choisir un studio familial ?",
+                answer: "On travaille en famille, ce qui garantit une relation de confiance et une proximité avec nos clients. Vous avez un interlocuteur unique de A à Z, des tarifs transparents sans intermédiaire, et un suivi personnalisé."
               },
               {
-                question: "Quels sont vos délais de livraison pour un logo ou une identité visuelle ?",
-                answer: "Pour un pack logo signature, comptez environ 1 à 2 semaines. Une identité visuelle complète (logo, charte graphique, supports) nécessite 3 à 4 semaines. Nous privilégions la qualité et les échanges avec nos clients plutôt que la rapidité à tout prix."
+                question: "Quels sont vos délais de livraison ?",
+                answer: "Pour un pack logo signature, comptez environ 1 à 2 semaines. Une identité visuelle complète nécessite 3 à 4 semaines. Nous privilégions la qualité et les échanges avec nos clients."
               },
               {
-                question: "Intervenez-vous en dehors de l'Auvergne ?",
-                answer: "Absolument ! Bien que basés près de Clermont-Ferrand, Vichy et Moulins, nous travaillons avec des clients dans toute la France. La majorité de nos échanges se font en visio et par email. Seules les impressions 3D nécessitent une livraison ou un retrait sur place."
-              },
-              {
-                question: "Comment se déroule un projet de création de site web ?",
-                answer: "Nous commençons par un brief pour comprendre vos besoins, votre cible et vos objectifs. Ensuite, nous créons des maquettes que vous validez. Une fois le design approuvé, nous développons votre site responsive et optimisé SEO. Vous bénéficiez d'un support continu même après la livraison."
-              },
-              {
-                question: "Faites-vous des Art Toys et figurines personnalisées ?",
-                answer: "Oui, c'est notre spécialité ! Avec plus de 10 Art Toys créés, nous proposons des packs complets incluant design, modélisation 3D et impression. Chaque création est unique et réalisée sur-mesure selon vos envies."
+                question: "Intervenez-vous hors Auvergne ?",
+                answer: "Absolument ! Bien que basés près de Clermont-Ferrand, nous travaillons avec des clients dans toute la France. La majorité de nos échanges se font en visio et par email."
               }
             ].map((faq, index) => (
               <details 
@@ -729,12 +721,12 @@ export default function HomePage() {
                 itemProp="mainEntity" 
                 itemType="https://schema.org/Question"
               >
-                <summary className="flex items-center justify-between p-4 sm:p-6 cursor-pointer list-none font-anton text-base sm:text-lg text-[#0047FF]">
+                <summary className="flex items-center justify-between p-3 sm:p-6 cursor-pointer list-none font-anton text-sm sm:text-lg text-[#0047FF]">
                   <span itemProp="name">{faq.question}</span>
-                  <ChevronDown className="w-5 h-5 text-[#0047FF] transition-transform duration-300 group-open:rotate-180 flex-shrink-0 ml-4" aria-hidden="true" />
+                  <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-[#0047FF] transition-transform duration-300 group-open:rotate-180 flex-shrink-0 ml-3" aria-hidden="true" />
                 </summary>
                 <div 
-                  className="px-4 sm:px-6 pb-4 sm:pb-6 font-futura text-gray-700 text-sm sm:text-base leading-relaxed"
+                  className="px-3 sm:px-6 pb-3 sm:pb-6 font-futura text-gray-700 text-xs sm:text-base leading-relaxed"
                   itemScope 
                   itemProp="acceptedAnswer" 
                   itemType="https://schema.org/Answer"
@@ -745,11 +737,11 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
-            <p className="font-futura text-gray-600 text-sm mb-4">Une autre question ?</p>
-            <a href="#contact" className="group inline-flex items-center gap-3 px-6 py-3 bg-[#0047FF] text-white font-anton text-base uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]">
+          <div className="mt-8 sm:mt-12 text-center">
+            <p className="font-futura text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Une autre question ?</p>
+            <a href="#contact" className="group inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#0047FF] text-white font-anton text-sm sm:text-base uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]">
               Contactez-nous
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
           </div>
         </div>

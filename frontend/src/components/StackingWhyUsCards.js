@@ -1,9 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, Heart, Users, Headphones, Award } from 'lucide-react';
+
+// Icon mapping for variety
+const iconMap = [Heart, Users, Headphones, Award];
 
 export const StackingWhyUsCards = ({ items }) => {
   const containerRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,91 +16,92 @@ export const StackingWhyUsCards = ({ items }) => {
       const windowHeight = window.innerHeight;
       const containerHeight = containerRef.current.offsetHeight;
       
-      // Calculate progress through section
-      const startOffset = windowHeight * 0.5;
-      const endOffset = -containerHeight * 0.5;
-      const progress = (startOffset - rect.top) / (startOffset - endOffset);
-      
-      setScrollProgress(Math.max(0, Math.min(1, progress)));
+      // Calculate which card should be active based on scroll
+      const scrollProgress = (windowHeight * 0.4 - rect.top) / (containerHeight * 0.7);
+      const newIndex = Math.floor(scrollProgress * items.length);
+      setActiveIndex(Math.max(0, Math.min(items.length - 1, newIndex)));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [items.length]);
 
   return (
     <section 
       ref={containerRef}
-      className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" 
+      className="py-12 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" 
       aria-labelledby="why-us-title"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <header className="text-center mb-12 sm:mb-16 lg:mb-20">
-          <p className="font-futura text-white/60 text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">
+        {/* Header - Compact on mobile */}
+        <header className="text-center mb-8 sm:mb-16 lg:mb-20">
+          <p className="font-futura text-white/60 text-[10px] sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">
             Pourquoi Nous ?
           </p>
-          <h2 id="why-us-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white">
-            Ce qui nous différencie
+          <h2 id="why-us-title" className="font-anton text-2xl sm:text-4xl lg:text-5xl xl:text-6xl text-white leading-tight">
+            Ce qui nous<br className="sm:hidden" /> différencie
           </h2>
         </header>
 
-        {/* Mobile: Stacking Cards */}
-        <div className="sm:hidden relative" style={{ minHeight: `${items.length * 120 + 200}px` }}>
-          {items.map((item, index) => {
-            // Calculate individual card progress
-            const cardStart = index / items.length;
-            const cardEnd = (index + 1) / items.length;
-            const cardProgress = Math.max(0, Math.min(1, (scrollProgress - cardStart) / (cardEnd - cardStart)));
-            
-            // Calculate stacking offset
-            const stackOffset = Math.max(0, (items.length - 1 - index) * 12 - scrollProgress * items.length * 12);
-            const rotation = (items.length - 1 - index) * 1 - scrollProgress * items.length * 1;
-            
-            return (
-              <article
+        {/* Mobile: Horizontal scroll cards */}
+        <div className="sm:hidden">
+          <div className="flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4">
+            {items.map((item, index) => {
+              const IconComponent = iconMap[index % iconMap.length];
+              return (
+                <article
+                  key={index}
+                  className="flex-shrink-0 w-[280px] p-5 bg-white/10 backdrop-blur-sm border border-white/20 snap-center"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 bg-white/20 flex items-center justify-center flex-shrink-0">
+                      <IconComponent className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-anton text-base text-white leading-tight">{item.title}</h3>
+                      <p className="font-futura text-white/70 text-xs mt-1.5 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          {/* Scroll indicator dots */}
+          <div className="flex justify-center gap-2 mt-4">
+            {items.map((_, index) => (
+              <div 
                 key={index}
-                className="sticky top-24 p-6 bg-white border-2 border-white shadow-[0_10px_40px_rgba(0,0,0,0.15)] transition-all duration-300"
-                style={{
-                  transform: `translateY(${index * 8}px) rotate(${rotation}deg)`,
-                  zIndex: index + 1,
-                  marginBottom: index === items.length - 1 ? '0' : '-80%',
-                }}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0">
-                    <Check className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-anton text-xl text-[#0047FF]">{item.title}</h3>
-                    <p className="font-futura text-gray-600 text-sm mt-2">{item.desc}</p>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === activeIndex ? 'bg-white w-6' : 'bg-white/30'
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Desktop: Grid */}
         <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {items.map((item, index) => (
-            <article 
-              key={index} 
-              className="group p-6 sm:p-8 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white hover:border-white transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.25)]"
-            >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 group-hover:bg-[#0047FF] flex items-center justify-center mb-4 sm:mb-6 transition-all duration-500 group-hover:scale-110">
-                <Check className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </div>
-              <h3 className="font-anton text-lg sm:text-xl text-white group-hover:text-[#0047FF] transition-colors duration-500">
-                {item.title}
-              </h3>
-              <p className="font-futura text-white/70 group-hover:text-[#0047FF]/70 text-xs sm:text-sm mt-2 transition-colors duration-500">
-                {item.desc}
-              </p>
-            </article>
-          ))}
+          {items.map((item, index) => {
+            const IconComponent = iconMap[index % iconMap.length];
+            return (
+              <article 
+                key={index} 
+                className="group p-6 sm:p-8 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white hover:border-white transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.25)]"
+              >
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 group-hover:bg-[#0047FF] flex items-center justify-center mb-4 sm:mb-6 transition-all duration-500 group-hover:scale-110">
+                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
+                <h3 className="font-anton text-lg sm:text-xl text-white group-hover:text-[#0047FF] transition-colors duration-500">
+                  {item.title}
+                </h3>
+                <p className="font-futura text-white/70 group-hover:text-[#0047FF]/70 text-xs sm:text-sm mt-2 transition-colors duration-500">
+                  {item.desc}
+                </p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

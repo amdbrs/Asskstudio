@@ -16,17 +16,17 @@ export const MobileServiceAccordion = ({
 
   return (
     <div className="sm:hidden">
-      {/* Section Title */}
-      <div className="flex items-center gap-3 mb-4">
+      {/* Section Title - More compact */}
+      <div className="flex items-center gap-2 mb-3">
         <div 
-          className="w-1 h-8" 
+          className="w-1 h-6" 
           style={{ backgroundColor: color }}
         />
-        <h3 className="font-anton text-2xl text-[#0047FF]">{title}</h3>
+        <h3 className="font-anton text-xl text-[#0047FF]">{title}</h3>
       </div>
 
-      {/* Accordion Services */}
-      <div className="space-y-2">
+      {/* Accordion Services - Tighter spacing */}
+      <div className="space-y-1.5">
         {services.map((service, index) => {
           const IconComponent = service.icon;
           const isExpanded = expandedIndex === index;
@@ -34,46 +34,46 @@ export const MobileServiceAccordion = ({
           return (
             <div 
               key={index}
-              className={`border-2 transition-all duration-300 ${
+              className={`border transition-all duration-300 ${
                 isExpanded 
                   ? 'border-[#0047FF] bg-[#0047FF]/5' 
                   : 'border-[#0047FF]/10 bg-white'
               }`}
             >
-              {/* Header - Always visible */}
+              {/* Header - Compact */}
               <button
                 onClick={() => toggleService(index)}
-                className="w-full flex items-center justify-between p-4 touch-feedback"
+                className="w-full flex items-center justify-between p-3 touch-feedback"
               >
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 flex items-center justify-center transition-colors duration-300 ${
+                <div className="flex items-center gap-2.5">
+                  <div className={`w-8 h-8 flex items-center justify-center transition-colors duration-300 ${
                     isExpanded ? 'bg-[#0047FF]' : 'bg-[#0047FF]/10'
                   }`}>
-                    <IconComponent className={`w-5 h-5 transition-colors duration-300 ${
+                    <IconComponent className={`w-4 h-4 transition-colors duration-300 ${
                       isExpanded ? 'text-white' : 'text-[#0047FF]'
                     }`} />
                   </div>
-                  <span className="font-anton text-[#0047FF] text-lg">{service.name}</span>
+                  <span className="font-anton text-[#0047FF] text-base">{service.name}</span>
                 </div>
-                <div className={`w-8 h-8 flex items-center justify-center border-2 transition-all duration-300 ${
+                <div className={`w-6 h-6 flex items-center justify-center transition-all duration-300 ${
                   isExpanded 
-                    ? 'border-[#0047FF] bg-[#0047FF] rotate-180' 
-                    : 'border-[#0047FF]/20'
+                    ? 'bg-[#0047FF] rotate-0' 
+                    : 'bg-transparent'
                 }`}>
                   {isExpanded ? (
-                    <Minus className="w-4 h-4 text-white" />
+                    <Minus className="w-3.5 h-3.5 text-white" />
                   ) : (
-                    <Plus className="w-4 h-4 text-[#0047FF]" />
+                    <Plus className="w-3.5 h-3.5 text-[#0047FF]" />
                   )}
                 </div>
               </button>
 
               {/* Expanded Content */}
               <div className={`overflow-hidden transition-all duration-300 ${
-                isExpanded ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                isExpanded ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
               }`}>
-                <div className="px-4 pb-4">
-                  <p className="font-futura text-gray-600 text-sm pl-[52px]">
+                <div className="px-3 pb-3">
+                  <p className="font-futura text-gray-600 text-xs pl-[42px] leading-relaxed">
                     {service.description}
                   </p>
                 </div>
@@ -83,13 +83,13 @@ export const MobileServiceAccordion = ({
         })}
       </div>
 
-      {/* Link */}
+      {/* Link - Compact */}
       <Link 
         to={linkTo} 
-        className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] mt-4 touch-feedback"
+        className="inline-flex items-center gap-1.5 font-futura text-xs text-[#0047FF] mt-3 touch-feedback"
       >
         En savoir plus 
-        <ArrowRight className="w-4 h-4" />
+        <ArrowRight className="w-3.5 h-3.5" />
       </Link>
     </div>
   );
