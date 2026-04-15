@@ -10,6 +10,7 @@ import { useScrollAnimation, AnimatedSection } from '@/hooks/useScrollAnimation'
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
+const HERO_BG_MOBILE = 'https://images.unsplash.com/photo-1559032806-99a331d600b4?w=800&q=80';
 
 const servicesGraphisme = [
   { name: 'Pack Logo Signature', description: 'Logo professionnel + déclinaisons', icon: PenTool },
@@ -125,7 +126,7 @@ const ServiceCard = ({ service, index }) => {
         </div>
         <div className="flex-1 min-w-0">
           <h4 className="font-anton text-base sm:text-lg text-[#0047FF] group-hover:text-[#0047FF]" itemProp="name">{service.name}</h4>
-          <p className="font-futura text-[#0047FF]/60 text-xs sm:text-sm" itemProp="description">{service.description}</p>
+          <p className="font-futura text-gray-600 text-xs sm:text-sm" itemProp="description">{service.description}</p>
         </div>
         <ArrowRight className="w-5 h-5 text-[#0047FF]/30 group-hover:text-[#0047FF] group-hover:translate-x-2 transition-all duration-500 flex-shrink-0" />
       </div>
@@ -177,12 +178,23 @@ export default function HomePage() {
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-          <div className="absolute bottom-20 right-10 w-64 sm:w-96 h-64 sm:h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] border border-[#0047FF]/10 rounded-full hidden sm:block animate-[spin_60s_linear_infinite]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] border border-[#0047FF]/5 rounded-full hidden sm:block animate-[spin_45s_linear_infinite_reverse]" />
+        {/* Mobile background image */}
+        <div className="absolute inset-0 lg:hidden">
+          <img 
+            src={HERO_BG_MOBILE} 
+            alt="" 
+            className="w-full h-full object-cover opacity-10"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white" />
+        </div>
+        
+        {/* Animated background elements - desktop only */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none hidden sm:block" aria-hidden="true">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-[#0047FF]/10 rounded-full animate-[spin_60s_linear_infinite]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-[#0047FF]/5 rounded-full animate-[spin_45s_linear_infinite_reverse]" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-24">
@@ -198,7 +210,7 @@ export default function HomePage() {
                 <span className="text-[#0047FF]/30">Tu marques.</span>
               </h1>
               
-              <p className="font-futura text-[#0047FF]/70 text-base sm:text-lg lg:text-xl mt-6 sm:mt-8 max-w-lg mx-auto lg:mx-0 leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+              <p className="font-futura text-gray-700 text-base sm:text-lg lg:text-xl mt-6 sm:mt-8 max-w-lg mx-auto lg:mx-0 leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
                 Studio créatif spécialisé en identité visuelle, sites web, modélisation 3D et création d'art toys uniques.
               </p>
               
@@ -255,7 +267,7 @@ export default function HomePage() {
             {/* Stat 1 */}
             <div className="text-center">
               <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">75%</p>
-              <p className="font-futura text-[#0047FF]/70 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
                 jugent sur l'identité visuelle
               </p>
             </div>
@@ -263,7 +275,7 @@ export default function HomePage() {
             {/* Stat 2 */}
             <div className="text-center">
               <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">x2.6</p>
-              <p className="font-futura text-[#0047FF]/70 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
                 plus d'engagement
               </p>
             </div>
@@ -271,7 +283,7 @@ export default function HomePage() {
             {/* Stat 3 */}
             <div className="text-center">
               <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">72%</p>
-              <p className="font-futura text-[#0047FF]/70 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
                 jugent sur les supports print
               </p>
             </div>
@@ -279,7 +291,7 @@ export default function HomePage() {
             {/* Stat 4 */}
             <div className="text-center">
               <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">94%</p>
-              <p className="font-futura text-[#0047FF]/70 text-[10px] sm:text-xs mt-1 leading-tight">
+              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
                 premières impressions = design
               </p>
             </div>
@@ -407,7 +419,7 @@ export default function HomePage() {
             <h2 id="process-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF]">
               Comment on travaille
             </h2>
-            <p className="font-futura text-[#0047FF]/60 text-sm sm:text-base mt-4 max-w-2xl mx-auto">
+            <p className="font-futura text-gray-600 text-sm sm:text-base mt-4 max-w-2xl mx-auto">
               Un processus simple et transparent pour des résultats qui dépassent tes attentes
             </p>
           </header>
@@ -426,7 +438,7 @@ export default function HomePage() {
                       <span className="font-anton text-4xl text-[#0047FF]/20">{step.step}</span>
                     </div>
                     <h3 className="font-anton text-xl text-[#0047FF] mb-2">{step.title}</h3>
-                    <p className="font-futura text-[#0047FF]/70 text-sm">{step.desc}</p>
+                    <p className="font-futura text-gray-600 text-sm">{step.desc}</p>
                   </div>
                 </article>
               );
@@ -463,7 +475,7 @@ export default function HomePage() {
                       </h3>
                       
                       {/* Description */}
-                      <p className="font-futura text-[#0047FF]/60 text-base leading-relaxed">
+                      <p className="font-futura text-gray-600 text-base leading-relaxed">
                         {step.desc}
                       </p>
 
@@ -548,7 +560,7 @@ export default function HomePage() {
           <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16">
             <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] mb-3 sm:mb-4">Notre Travail</p>
             <h2 id="portfolio-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Réalisations</h2>
-            <p className="font-futura text-[#0047FF]/60 text-sm sm:text-base mt-4 max-w-xl mx-auto">
+            <p className="font-futura text-gray-600 text-sm sm:text-base mt-4 max-w-xl mx-auto">
               Découvrez nos derniers projets en graphisme, web et 3D
             </p>
           </AnimatedSection>
@@ -594,7 +606,7 @@ export default function HomePage() {
                       <h3 className="font-anton text-lg sm:text-xl text-[#0047FF] group-hover:text-[#0047FF] transition-colors">
                         {item.title}
                       </h3>
-                      <p className="font-futura text-[#0047FF]/60 text-xs sm:text-sm mt-1 line-clamp-1">
+                      <p className="font-futura text-gray-600 text-xs sm:text-sm mt-1 line-clamp-1">
                         {item.description}
                       </p>
                       
@@ -634,7 +646,7 @@ export default function HomePage() {
               <h2 id="contact-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF] leading-tight">
                 Discutons de<br />ton projet
               </h2>
-              <p className="font-futura text-[#0047FF]/70 text-sm sm:text-base lg:text-lg mt-4 sm:mt-6 max-w-md">
+              <p className="font-futura text-gray-700 text-sm sm:text-base lg:text-lg mt-4 sm:mt-6 max-w-md">
                 Une idée en tête ? Un projet qui te tient à cœur ? Contacte-nous et transformons ta vision en réalité.
               </p>
 
@@ -773,7 +785,7 @@ export default function HomePage() {
             <h2 id="faq-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">
               Questions Fréquentes
             </h2>
-            <p className="font-futura text-[#0047FF]/60 text-sm sm:text-base mt-4 max-w-2xl mx-auto">
+            <p className="font-futura text-gray-600 text-sm sm:text-base mt-4 max-w-2xl mx-auto">
               Tout ce que vous devez savoir sur nos services de graphisme, création de sites web et impression 3D en Auvergne
             </p>
           </header>
@@ -825,7 +837,7 @@ export default function HomePage() {
                   <ChevronDown className="w-5 h-5 text-[#0047FF] transition-transform duration-300 group-open:rotate-180 flex-shrink-0 ml-4" aria-hidden="true" />
                 </summary>
                 <div 
-                  className="px-4 sm:px-6 pb-4 sm:pb-6 font-futura text-[#0047FF]/70 text-sm sm:text-base leading-relaxed"
+                  className="px-4 sm:px-6 pb-4 sm:pb-6 font-futura text-gray-700 text-sm sm:text-base leading-relaxed"
                   itemScope 
                   itemProp="acceptedAnswer" 
                   itemType="https://schema.org/Answer"
@@ -837,7 +849,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="font-futura text-[#0047FF]/60 text-sm mb-4">Une autre question ?</p>
+            <p className="font-futura text-gray-600 text-sm mb-4">Une autre question ?</p>
             <a href="#contact" className="group inline-flex items-center gap-3 px-6 py-3 bg-[#0047FF] text-white font-anton text-base uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]">
               Contactez-nous
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
