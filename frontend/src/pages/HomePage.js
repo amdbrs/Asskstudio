@@ -30,7 +30,7 @@ const FALLBACK_PORTFOLIO = [
     title: 'Posters en vrac',
     description: 'Nombreux design de posters créatifs',
     category: 'Graphisme',
-    image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/228szjo1_IMG_0353.png',
     link: 'https://amdbrs.com/posters-en-vrac'
   },
   {
@@ -38,7 +38,7 @@ const FALLBACK_PORTFOLIO = [
     title: 'Rappeur Figurine',
     description: 'Figurines de rappeurs virtuels avec boîte de collection',
     category: '3D',
-    image_url: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&q=80',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/t8ve9seo_IMG_0333.jpg',
     link: 'https://amdbrs.com/figurine-rap-3d-ia'
   },
   {
@@ -46,7 +46,7 @@ const FALLBACK_PORTFOLIO = [
     title: 'Sneakers Design',
     description: 'Visuels graphiques de paires de chaussures favorites',
     category: 'Graphisme',
-    image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/zlk12w3k_IMG_0356.png',
     link: 'https://amdbrs.com/print-1'
   },
   {
@@ -54,16 +54,16 @@ const FALLBACK_PORTFOLIO = [
     title: 'Manga Posters',
     description: 'Posters de personnages manga',
     category: 'Graphisme',
-    image_url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&q=80',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/yrpzu4yj_IMG_0352.png',
     link: 'https://amdbrs.com/brook-one-piece'
   },
   {
     id: '6',
-    title: 'Blended Worlds',
-    description: 'Alliance numérique et réel en 3D',
-    category: '3D',
-    image_url: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&q=80',
-    link: 'https://amdbrs.com/blended-worlds'
+    title: 'Kates Agency',
+    description: 'Logo pour une agence au pair aux États-Unis',
+    category: 'Graphisme',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/nzex1bji_IMG_0157.png',
+    link: 'https://amdbrs.com/kates-agency'
   }
 ];
 
