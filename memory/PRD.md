@@ -45,6 +45,11 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - [x] **MouseParallax** - Hero logo follows mouse movement with smooth easing
 - [x] **TiltCard** - Portfolio cards have 3D perspective rotation on hover (maxTilt=8, scale=1.02)
 - [x] **Scroll animations** - fadeInUp, slideLeft, slideRight with staggered delays
+- [x] **MagneticButton** - CTAs attract towards cursor when mouse approaches (strength=0.3, radius=200px)
+- [x] **HorizontalScrollCarousel** - Portfolio scrolls horizontally on vertical scroll
+  - Sticky section with min-h-[200vh]
+  - Progress bar showing scroll percentage
+  - Moved to position right after Services section
 
 **SEO & Performance**
 - [x] **react-helmet-async** - Dynamic meta tags per page
