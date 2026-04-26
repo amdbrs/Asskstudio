@@ -1,24 +1,35 @@
 # ASSK Studio - Portfolio & Agency Website
 
 ## Original Problem Statement
-Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Modern, smooth, animated design inspired by daveholloway.uk with cobalt blue (#0047FF) and white color scheme.
+Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Modern, smooth, animated design inspired by **chkstepan.com** with a dark minimalist aesthetic featuring #0047FF blue accents.
 
 ## Core Requirements
-- Modern landing page showcasing services (Graphisme, Sites Web, 3D & Toys)
-- Portfolio section with 6 items + "Voir plus" button linking to external portfolio (www.amdbrs.com)
-- Admin dashboard with drag-and-drop image upload for portfolio management
-- Functional contact form
+- Modern dark-themed landing page showcasing services (Graphisme, Sites Web, 3D & Toys)
+- Portfolio section with client projects
+- Admin dashboard for portfolio management
+- Functional contact form with devis request
 - Mobile responsive design
-- Smooth animations: preloader, custom cursor, parallax effects
+- Smooth animations: Lenis smooth scroll, Framer Motion page transitions
 
 ## User Personas
 - **Potential Clients**: Looking for graphic design, web development, or 3D printing services
 - **Admin (Amaury)**: Managing portfolio content and viewing contact messages
 
 ## Tech Stack
-- **Frontend**: React.js, Tailwind CSS, Shadcn UI, react-helmet-async (SEO)
+- **Frontend**: React.js, Tailwind CSS, Framer Motion, Lenis (smooth scroll)
 - **Backend**: FastAPI, Motor (Async MongoDB)
 - **Database**: MongoDB
+- **Fonts**: Outfit (headings), Manrope (body), Space Mono (numbers/labels)
+
+## Design System (chkstepan.com inspired)
+- **Background**: #0a0a0a (dark)
+- **Foreground**: #ffffff (white)
+- **Primary/Accent**: #0047FF (blue)
+- **Secondary**: #171717 (cards)
+- **Border**: rgba(255,255,255,0.1)
+- **Typography**: Large headlines, numbered sections (01), (02), monospace labels
+- **Cards**: Dark backgrounds with subtle borders, hover lift effects
+- **Animations**: Page transitions with blur/fade, smooth scroll
 
 ## Key DB Schema
 - `portfolio`: {title, desc, image_url, category, created_at}
@@ -34,83 +45,113 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## What's Been Implemented
 
-### December 2025 - January 2026 (Latest Updates)
+### April 2026 - Dark Theme Redesign (chkstepan.com inspired)
 
-**Animations & Effects (Latest - Jan 2026)**
-- [x] **Preloader** - Animated logo with progress bar (0-100%), ~3s duration, appears once per session
-- [x] **Custom Cursor** - White dot (8px) + ring (40px→80px on hover) with mix-blend-difference
-  - Shows text from `data-cursor-text` attribute on hover
-  - Hidden on touch devices
-  - CSS `cursor: none !important` for all elements
-- [x] **MouseParallax** - Hero logo follows mouse movement with smooth easing
-- [x] **TiltCard** - Portfolio cards have 3D perspective rotation on hover (maxTilt=8, scale=1.02)
-- [x] **Scroll animations** - fadeInUp, slideLeft, slideRight with staggered delays
-- [x] **MagneticButton** - CTAs attract towards cursor when mouse approaches (strength=0.3, radius=200px)
-- [x] **HorizontalScrollCarousel** - Portfolio scrolls horizontally on vertical scroll
-  - Sticky section with min-h-[200vh]
-  - Progress bar showing scroll percentage
-  - Moved to position right after Services section
+**Complete UI Overhaul**
+- [x] Dark theme (#0a0a0a background) replacing bright white/blue
+- [x] New typography: Outfit for headings, Manrope for body, Space Mono for labels
+- [x] Numbered sections: (01) À propos, (02) Services, (03) Réalisations, etc.
+- [x] Cards with #171717 background and subtle white/10 borders
+- [x] Header with glassmorphism effect on scroll
+- [x] Mobile menu with numbered navigation links
+- [x] Lenis smooth scrolling integration
 
-**SEO & Performance**
-- [x] **react-helmet-async** - Dynamic meta tags per page
-- [x] **sitemap.xml & robots.txt** - For Google indexing
-- [x] **404 page** - Custom NotFoundPage with navigation
-- [x] **Static portfolio fallback** - Unsplash images for Vercel deployment (backend not deployed)
+**HomePage Redesign**
+- [x] Hero with animated stats (50+ Projets, 5+ Années, 98% Satisfaction)
+- [x] Large headline: "On crée des marques qui marquent."
+- [x] Two CTAs: "Démarrer un projet" (white) + "Voir les projets" (outline)
+- [x] Marquee with services
+- [x] About section with asymmetric layout
+- [x] Services grid (3 cards with icons and numbered)
+- [x] Portfolio grid (6 items from real projects)
+- [x] "Pourquoi nous choisir" section with 4 value cards
+- [x] Contact section with form and contact cards
 
-**UI/UX**
-- [x] Mobile responsiveness and layout adaptation
-- [x] Admin authentication and Drag & Drop image upload
-- [x] "Sites Web" service category
-- [x] Stats compact banner with 4 key metrics
-- [x] FAQ SEO section with 8 questions (Schema.org markup)
-- [x] WhatsApp floating button (+33 6 65 09 70 08)
-- [x] "Notre Processus" timeline section (4 steps)
-- [x] "Ils nous font confiance" marquee slider (6 clients)
-- [x] Blog page with search and filters
-- [x] About page with founder info
-- [x] 3 dedicated service pages (Graphisme, Sites Web, 3D)
-- [x] ScrollToTop on navigation
-- [x] Favicon (ASSK logo)
-- [x] Mobile UX: Accordion services, Stacking "Pourquoi nous" cards
-- [x] Removed mobile bottom navigation bar (cleaner mobile UI)
-- [x] Page transitions with Framer Motion (smooth fade + slide)
+**PortfolioPage**
+- [x] Category filters (Tous, Graphisme, Site Web, 3D)
+- [x] Grid layout with project cards
+- [x] Real portfolio images from customer assets
+- [x] CTA section at bottom
 
-## Pricing (Current)
-### Graphisme
-- Pack Logo Signature: 450€
-- Identité Visuelle Complète: 950€
-- Papeterie & Édition: 200€
+**ContactPage**
+- [x] Two-column layout: contact info + form
+- [x] Contact cards (Email, Phone, Instagram, Location)
+- [x] Full devis form with service/budget selects
+- [x] Success state after submission
 
-### Sites Web
-- Site Vitrine: 1200€
-- Site Web 5-10 pages: 2200€
-- E-commerce: 3000€
+**AboutPage**
+- [x] Hero with ASSK logo
+- [x] Story section (01)
+- [x] Values section (02) with 4 cards
+- [x] Timeline section (03) with company history
+- [x] CTA section
 
-### 3D & Toys
-- Modélisation 3D (ZBrush): 250€
-- Impression 3D Filament: Sur devis
-- Pack Art Toy Custom: 490€
+**Header/Footer**
+- [x] Sticky header with glassmorphism on scroll
+- [x] Mobile menu with numbered links
+- [x] Footer with 4-column layout
+- [x] Social icons, navigation, services, contact info
+
+**Animations & Performance**
+- [x] Lenis smooth scroll
+- [x] Framer Motion page transitions (fade + blur)
+- [x] Staggered reveal animations
+- [x] Grain texture overlay
+- [x] Hover effects on cards and buttons
+
+### Previous Features (Still Active)
+- [x] Admin dashboard with portfolio management
+- [x] JWT authentication for admin
+- [x] Contact form API integration
+- [x] SEO optimization with react-helmet-async
+- [x] Responsive design (mobile, tablet, desktop)
 
 ---
 
 ## Prioritized Backlog
 
 ### P0 - Completed ✅
-- [x] Custom cursor + parallax effects (daveholloway.uk inspiration)
-- [x] Preloader with logo animation
-- [x] SEO optimization (local keywords)
-- [x] Removed mobile bottom navigation bar (BottomNavigation)
-- [x] Centered "Découvrir" scroll button on mobile
-- [x] Portfolio images mapped to authentic projects from amdbrs.com
+- [x] Dark theme redesign (chkstepan.com style)
+- [x] All main pages updated (Home, Portfolio, Contact, About)
+- [x] Lenis smooth scroll
+- [x] Page transitions
 
 ### P1 - High Priority
-- [ ] Finalize Blog API (create/edit/delete articles via admin dashboard)
+- [ ] Update remaining pages (Blog, Service pages) to dark theme
+- [ ] Finalize Blog API (create/edit/delete articles)
 
 ### P2 - Medium Priority  
-- [ ] Deploy backend to Render/Railway for production admin dashboard
+- [ ] Deploy backend to Render/Railway for production
 - [ ] Connect Vercel frontend to deployed backend
+- [ ] Admin dashboard dark theme update
 
 ### P3 - Low Priority / Future
 - [ ] Client testimonials section
 - [ ] 3D printing gallery showcase
 - [ ] "Zone d'intervention" map section for local SEO
+- [ ] Blog articles management in admin
+
+---
+
+## File Structure
+```
+/app/
+├── backend/
+│   ├── server.py
+│   └── requirements.txt
+└── frontend/
+    ├── src/
+    │   ├── App.js (Lenis + Page transitions)
+    │   ├── index.css (Dark theme CSS)
+    │   ├── pages/
+    │   │   ├── HomePage.js (Dark redesign)
+    │   │   ├── PortfolioPage.js (Dark redesign)
+    │   │   ├── ContactPage.js (Dark redesign)
+    │   │   ├── AboutPage.js (Dark redesign)
+    │   │   └── ...
+    │   └── components/
+    │       ├── Header.js (Dark + glassmorphism)
+    │       ├── Footer.js (Dark theme)
+    │       └── ...
+    └── package.json
+```

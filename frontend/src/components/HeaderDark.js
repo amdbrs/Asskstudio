@@ -71,7 +71,7 @@ export const Header = () => {
                       ? 'text-white' 
                       : 'text-white/50 hover:text-white'
                   }`}
-                  data-testid={`nav-${link.name.toLowerCase().replace(' ', '-')}`}
+                  data-testid={`nav-${link.name.toLowerCase()}`}
                 >
                   {link.name}
                 </Link>
@@ -129,7 +129,7 @@ export const Header = () => {
                     : 'text-white hover:text-[#0047FF]'
                 }`}
                 style={{ transitionDelay: `${index * 50}ms` }}
-                data-testid={`mobile-nav-${link.name.toLowerCase().replace(' ', '-')}`}
+                data-testid={`mobile-nav-${link.name.toLowerCase()}`}
               >
                 <span className="font-mono text-sm text-white/30 mr-4">0{index + 1}</span>
                 {link.name}

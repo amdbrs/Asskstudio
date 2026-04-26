@@ -1,9 +1,10 @@
 import "@/App.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { HelmetProvider } from "react-helmet-async";
+import Lenis from "@studio-freight/lenis";
 
 // Pages
 import HomePage from "@/pages/HomePage";
@@ -18,38 +19,69 @@ import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import NotFoundPage from "@/pages/NotFoundPage";
 
-// Components
-import { Preloader } from "@/components/Preloader";
-import { CustomCursor } from "@/components/CustomCursor";
-import { GrainOverlay } from "@/components/GrainOverlay";
-import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
-
 // Context
 import { AuthProvider } from "@/context/AuthContext";
 
-// Simple fade transition
+// Page transition variants
 const pageVariants = {
   initial: {
     opacity: 0,
-    y: 20,
+    y: 30,
+    filter: "blur(8px)",
   },
   enter: {
     opacity: 1,
     y: 0,
+    filter: "blur(0px)",
     transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
+      duration: 0.6,
+      ease: [0.22, 1, 0.3, 1],
     },
   },
   exit: {
     opacity: 0,
-    y: -15,
+    y: -20,
+    filter: "blur(4px)",
     transition: {
-      duration: 0.3,
-      ease: [0.22, 1, 0.36, 1],
+      duration: 0.4,
+      ease: [0.22, 1, 0.3, 1],
     },
   },
 };
+
+// Lenis smooth scroll provider
+function SmoothScrollProvider({ children }) {
+  const lenisRef = useRef(null);
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: "vertical",
+      gestureDirection: "vertical",
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    lenisRef.current = lenis;
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  return children;
+}
 
 // Animated Routes wrapper
 function AnimatedRoutes() {
@@ -87,33 +119,28 @@ function AnimatedRoutes() {
 }
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Check if preloader was already shown this session
-  useEffect(() => {
-    const hasLoaded = sessionStorage.getItem('assk_loaded');
-    if (hasLoaded) {
-      setIsLoading(false);
-    }
-  }, []);
-
-  const handlePreloaderComplete = () => {
-    sessionStorage.setItem('assk_loaded', 'true');
-    setIsLoading(false);
-  };
-
   return (
     <HelmetProvider>
-      {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
-      <CustomCursor />
-      <GrainOverlay />
-      <AuthProvider>
-        <BrowserRouter>
-          <AnimatedRoutes />
-          <FloatingQuoteButton />
-          <Toaster position="top-right" />
-        </BrowserRouter>
-      </AuthProvider>
+      <SmoothScrollProvider>
+        {/* Grain texture overlay */}
+        <div className="grain-overlay" aria-hidden="true" />
+        
+        <AuthProvider>
+          <BrowserRouter>
+            <AnimatedRoutes />
+            <Toaster 
+              position="top-right" 
+              toastOptions={{
+                style: {
+                  background: '#171717',
+                  color: '#fff',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                }
+              }}
+            />
+          </BrowserRouter>
+        </AuthProvider>
+      </SmoothScrollProvider>
     </HelmetProvider>
   );
 }
