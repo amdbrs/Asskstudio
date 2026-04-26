@@ -22,6 +22,8 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import { Preloader } from "@/components/Preloader";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
+import { FeatherCursor } from "@/components/FeatherCursor";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 // Context
 import { AuthProvider } from "@/context/AuthContext";
@@ -154,11 +156,13 @@ function App() {
   return (
     <HelmetProvider>
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
+      <FeatherCursor />
       <GrainOverlay />
       <AuthProvider>
         <BrowserRouter>
           <AnimatedRoutes />
           <FloatingQuoteButton />
+          <WhatsAppButton />
           <Toaster position="top-right" />
         </BrowserRouter>
       </AuthProvider>
