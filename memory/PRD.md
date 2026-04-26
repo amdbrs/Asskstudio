@@ -45,14 +45,16 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## What's Been Implemented
 
-### April 2026 - Optimisations Mobile & Modernisation
+### April 2026 - Améliorations UX & SEO
 
-**Modifications récentes :**
-- [x] Suppression du curseur personnalisé (CustomCursor)
-- [x] Page Réalisations mise à jour avec 12 vraies images portfolio
-- [x] Page Contact avec formulaire de devis multi-étapes
-- [x] Formulaire QuoteForm optimisé pour mobile (touch-friendly)
-- [x] Optimisations responsive sur tout le site
+**Dernières modifications :**
+- [x] Curseur personnalisé point noir (remplace le curseur plume)
+- [x] Bouton WhatsApp flottant avec popup de chat
+- [x] Badge "Réponse garantie sous 24h" sur le formulaire de devis
+- [x] Micro-animations au scroll (ScrollReveal component)
+- [x] Blog avec articles SEO locaux (Clermont-Ferrand, Vichy, Moulins)
+- [x] Schema.org enrichi (LocalBusiness, BlogPosting, FAQ)
+- [x] Carrousel portfolio modernisé avec drag & drop
 - [x] Admin dashboard with portfolio management
 - [x] JWT authentication for admin
 - [x] Contact form API integration

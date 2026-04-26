@@ -22,7 +22,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import { Preloader } from "@/components/Preloader";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
-import { FeatherCursor } from "@/components/FeatherCursor";
+import { DotCursor } from "@/components/DotCursor";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 // Context
@@ -156,7 +156,7 @@ function App() {
   return (
     <HelmetProvider>
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
-      <FeatherCursor />
+      <DotCursor />
       <GrainOverlay />
       <AuthProvider>
         <BrowserRouter>

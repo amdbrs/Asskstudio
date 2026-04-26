@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Send, CheckCircle, Palette, Globe, Box, ChevronDown } from 'lucide-react';
+import { Send, CheckCircle, Palette, Globe, Box, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -175,6 +175,12 @@ ${formData.description}
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+      {/* Badge 24h */}
+      <div className="flex items-center justify-center gap-2 py-2.5 px-4 bg-gradient-to-r from-[#0047FF]/10 via-[#0047FF]/5 to-[#0047FF]/10 border border-[#0047FF]/20 animate-pulse-slow">
+        <Clock className="w-4 h-4 text-[#0047FF]" />
+        <span className="font-futura text-xs sm:text-sm text-[#0047FF] font-medium">Réponse garantie sous 24h</span>
+      </div>
+
       {/* Progress bar */}
       <div className="flex items-center gap-1 sm:gap-2 mb-6 sm:mb-8">
         {[1, 2, 3].map((s) => (
