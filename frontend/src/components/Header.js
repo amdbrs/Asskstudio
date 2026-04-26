@@ -1,155 +1,191 @@
-import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 
-const navLinks = [
-  { name: 'Studio', href: '/' },
-  { name: 'Réalisations', href: '/realisations' },
-  { name: 'À propos', href: '/a-propos' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
-];
-
 export const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on route change
   useEffect(() => {
-    setIsMobileMenuOpen(false);
+    setMobileMenuOpen(false);
   }, [location.pathname]);
 
-  // Prevent body scroll when mobile menu is open
+  // Prevent body scroll when menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
+    if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = 'unset';
     }
-    return () => { document.body.style.overflow = ''; };
-  }, [isMobileMenuOpen]);
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
+
+  const navLinks = [
+    { name: 'Studio', path: '/' },
+    { name: 'Réalisations', path: '/realisations' },
+    { name: 'À propos', path: '/a-propos' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Contact', path: '/contact' }
+  ];
+
+  const isActive = (path) => location.pathname === path;
+  const isHomePage = location.pathname === '/';
 
   return (
     <>
-      <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled 
-            ? 'bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-white/10' 
-            : 'bg-transparent'
-        }`}
-        data-testid="header"
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          !isHomePage
+            ? 'bg-white shadow-[0_4px_30px_rgba(0,71,255,0.1)]'
+            : scrolled 
+              ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,71,255,0.1)]' 
+              : 'bg-transparent'
+        } ${scrolled ? 'header-compact' : ''}`}
+        data-testid="main-header"
       >
-        <nav className="max-w-[1400px] mx-auto px-6 md:px-12">
-          <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+          <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'py-2 sm:py-3' : 'py-4'}`}>
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-3 group" data-testid="header-logo">
-              <img 
-                src={LOGO_URL} 
-                alt="ASSK Studio" 
-                className="h-10 md:h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+            <Link
+              to="/"
+              className="flex items-center group relative z-50 touch-feedback"
+              data-testid="logo-link"
+            >
+              <img
+                src={LOGO_URL}
+                alt="ASSK Studio - Logo"
+                className={`w-auto transition-all duration-300 group-hover:scale-105 ${scrolled ? 'h-8' : 'h-10'}`}
               />
             </Link>
 
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-1">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <Link
-                  key={link.name}
-                  to={link.href}
-                  className={`px-4 py-2 font-body text-sm transition-colors duration-300 ${
-                    location.pathname === link.href 
-                      ? 'text-white' 
-                      : 'text-white/50 hover:text-white'
+                  key={link.path}
+                  to={link.path}
+                  className={`relative font-futura font-medium text-sm uppercase tracking-wider transition-colors duration-200 ${
+                    isActive(link.path)
+                      ? 'text-[#0047FF]'
+                      : 'text-[#0047FF]/60 hover:text-[#0047FF]'
                   }`}
-                  data-testid={`nav-${link.name.toLowerCase().replace(' ', '-')}`}
+                  data-testid={`nav-${link.name.toLowerCase()}`}
                 >
                   {link.name}
+                  {isActive(link.path) && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#0047FF]" />
+                  )}
                 </Link>
               ))}
-            </div>
+            </nav>
 
-            {/* CTA Button */}
-            <div className="hidden md:block">
-              <Link
-                to="/contact"
-                className="inline-flex items-center px-5 py-2.5 bg-white text-[#0a0a0a] font-heading font-medium text-sm transition-all duration-300 hover:bg-[#0047FF] hover:text-white"
-                data-testid="header-cta"
-              >
-                Démarrer
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Animated Hamburger (j) */}
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden w-10 h-10 flex items-center justify-center text-white"
-              aria-label="Toggle menu"
+              className="md:hidden w-10 h-10 flex items-center justify-center relative z-50"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               data-testid="mobile-menu-button"
+              aria-label="Menu de navigation"
+              aria-expanded={mobileMenuOpen}
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <div className="w-6 h-5 relative flex flex-col justify-between">
+                <span 
+                  className={`block h-0.5 bg-[#0047FF] transition-all duration-300 origin-center ${
+                    mobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                  }`} 
+                />
+                <span 
+                  className={`block h-0.5 bg-[#0047FF] transition-all duration-300 ${
+                    mobileMenuOpen ? 'opacity-0 scale-0' : ''
+                  }`} 
+                />
+                <span 
+                  className={`block h-0.5 bg-[#0047FF] transition-all duration-300 origin-center ${
+                    mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                  }`} 
+                />
+              </div>
             </button>
           </div>
-        </nav>
+        </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation - Full Screen Overlay (j) */}
       <div 
         className={`fixed inset-0 z-40 md:hidden transition-all duration-500 ${
-          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          mobileMenuOpen ? 'visible' : 'invisible'
         }`}
       >
         {/* Backdrop */}
         <div 
-          className="absolute inset-0 bg-[#0a0a0a]/95 backdrop-blur-xl"
-          onClick={() => setIsMobileMenuOpen(false)}
+          className={`absolute inset-0 bg-[#0047FF]/10 backdrop-blur-sm transition-opacity duration-500 ${
+            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
         />
         
-        {/* Menu content */}
-        <div className={`relative h-full flex flex-col pt-24 px-6 transition-transform duration-500 ${
-          isMobileMenuOpen ? 'translate-y-0' : '-translate-y-8'
-        }`}>
-          <nav className="flex flex-col gap-2">
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                className={`py-4 border-b border-white/10 font-heading text-3xl font-medium transition-all duration-300 ${
-                  location.pathname === link.href 
-                    ? 'text-[#0047FF]' 
-                    : 'text-white hover:text-[#0047FF]'
-                }`}
-                style={{ transitionDelay: `${index * 50}ms` }}
-                data-testid={`mobile-nav-${link.name.toLowerCase().replace(' ', '-')}`}
-              >
-                <span className="font-mono text-sm text-white/30 mr-4">0{index + 1}</span>
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="mt-auto pb-12">
+        {/* Menu Panel */}
+        <nav 
+          className={`absolute top-0 right-0 h-full w-full max-w-sm bg-white shadow-[-10px_0_40px_rgba(0,71,255,0.1)] transition-transform duration-500 ease-out ${
+            mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          <div className="pt-24 px-8 pb-8 h-full flex flex-col">
+            {/* Nav Links */}
+            <div className="flex-1 space-y-2">
+              {navLinks.map((link, index) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block py-4 font-anton text-2xl uppercase transition-all duration-300 ${
+                    isActive(link.path)
+                      ? 'text-[#0047FF]'
+                      : 'text-[#0047FF]/60 hover:text-[#0047FF] hover:translate-x-2'
+                  }`}
+                  style={{ 
+                    transitionDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms',
+                    opacity: mobileMenuOpen ? 1 : 0,
+                    transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(20px)'
+                  }}
+                  data-testid={`mobile-nav-${link.name.toLowerCase()}`}
+                >
+                  {link.name}
+                  {isActive(link.path) && (
+                    <span className="block w-12 h-1 bg-[#0047FF] mt-2" />
+                  )}
+                </Link>
+              ))}
+            </div>
+            
+            {/* CTA Button */}
             <Link
               to="/contact"
-              className="block w-full py-4 bg-white text-[#0a0a0a] font-heading font-medium text-center text-lg"
-              data-testid="mobile-cta"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-8 block w-full py-4 bg-[#0047FF] text-white font-anton text-lg text-center uppercase transition-all duration-300 hover:shadow-[0_10px_30px_-10px_rgba(0,71,255,0.5)]"
+              style={{ 
+                transitionDelay: mobileMenuOpen ? '250ms' : '0ms',
+                opacity: mobileMenuOpen ? 1 : 0
+              }}
             >
-              Démarrer un projet
+              Demander un devis
             </Link>
           </div>
-        </div>
+        </nav>
       </div>
     </>
   );
 };
-
-export default Header;
