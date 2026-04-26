@@ -45,61 +45,14 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## What's Been Implemented
 
-### April 2026 - Dark Theme Redesign (chkstepan.com inspired)
+### April 2026 - Optimisations Mobile & Modernisation
 
-**Complete UI Overhaul**
-- [x] Dark theme (#0a0a0a background) replacing bright white/blue
-- [x] New typography: Outfit for headings, Manrope for body, Space Mono for labels
-- [x] Numbered sections: (01) À propos, (02) Services, (03) Réalisations, etc.
-- [x] Cards with #171717 background and subtle white/10 borders
-- [x] Header with glassmorphism effect on scroll
-- [x] Mobile menu with numbered navigation links
-- [x] Lenis smooth scrolling integration
-
-**HomePage Redesign**
-- [x] Hero with animated stats (50+ Projets, 5+ Années, 98% Satisfaction)
-- [x] Large headline: "On crée des marques qui marquent."
-- [x] Two CTAs: "Démarrer un projet" (white) + "Voir les projets" (outline)
-- [x] Marquee with services
-- [x] About section with asymmetric layout
-- [x] Services grid (3 cards with icons and numbered)
-- [x] Portfolio grid (6 items from real projects)
-- [x] "Pourquoi nous choisir" section with 4 value cards
-- [x] Contact section with form and contact cards
-
-**PortfolioPage**
-- [x] Category filters (Tous, Graphisme, Site Web, 3D)
-- [x] Grid layout with project cards
-- [x] Real portfolio images from customer assets
-- [x] CTA section at bottom
-
-**ContactPage**
-- [x] Two-column layout: contact info + form
-- [x] Contact cards (Email, Phone, Instagram, Location)
-- [x] Full devis form with service/budget selects
-- [x] Success state after submission
-
-**AboutPage**
-- [x] Hero with ASSK logo
-- [x] Story section (01)
-- [x] Values section (02) with 4 cards
-- [x] Timeline section (03) with company history
-- [x] CTA section
-
-**Header/Footer**
-- [x] Sticky header with glassmorphism on scroll
-- [x] Mobile menu with numbered links
-- [x] Footer with 4-column layout
-- [x] Social icons, navigation, services, contact info
-
-**Animations & Performance**
-- [x] Lenis smooth scroll
-- [x] Framer Motion page transitions (fade + blur)
-- [x] Staggered reveal animations
-- [x] Grain texture overlay
-- [x] Hover effects on cards and buttons
-
-### Previous Features (Still Active)
+**Modifications récentes :**
+- [x] Suppression du curseur personnalisé (CustomCursor)
+- [x] Page Réalisations mise à jour avec 12 vraies images portfolio
+- [x] Page Contact avec formulaire de devis multi-étapes
+- [x] Formulaire QuoteForm optimisé pour mobile (touch-friendly)
+- [x] Optimisations responsive sur tout le site
 - [x] Admin dashboard with portfolio management
 - [x] JWT authentication for admin
 - [x] Contact form API integration

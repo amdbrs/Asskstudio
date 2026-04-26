@@ -1,90 +1,117 @@
 import { useState, useEffect } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Filter } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
-// Fallback portfolio data with publicly accessible images
+// Portfolio avec les vraies images
 const FALLBACK_PORTFOLIO = [
   {
     id: '1',
     title: 'Sellerie Garcia',
     description: 'Site vitrine artisan sellier - Automobile, moto, mobilier',
     category: 'Site Web',
-    image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/xbxushaa_IMG_0412.png',
     link: 'https://selleriegarcia.fr'
   },
   {
     id: '2',
-    title: 'Posters en vrac',
-    description: 'Nombreux design de posters créatifs',
+    title: 'Liberty Van',
+    description: 'Entreprise de location de Vans dans l\'Allier 03',
     category: 'Graphisme',
-    image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
-    link: 'https://amdbrs.com/posters-en-vrac'
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/1aifryat_IMG_0347.png',
+    link: '#'
   },
   {
     id: '3',
-    title: 'Rappeur Figurine',
-    description: 'Figurines de rappeurs virtuels avec boîte de collection',
-    category: '3D',
-    image_url: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&q=80',
-    link: 'https://amdbrs.com/figurine-rap-3d-ia'
+    title: 'Club Football Laforest',
+    description: 'Création logo et t-shirts vintage/moderne pour le club',
+    category: 'Graphisme',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9zz84ry3_IMG_0348.jpeg',
+    link: '#'
   },
   {
     id: '4',
-    title: 'Sneakers Design',
-    description: 'Visuels graphiques de paires de chaussures favorites',
+    title: 'IRIS',
+    description: 'Identité visuelle marque créateur prêt-à-porter',
     category: 'Graphisme',
-    image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
-    link: 'https://amdbrs.com/print-1'
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/lq95pan1_IMG_0349.png',
+    link: '#'
   },
   {
     id: '5',
-    title: 'Manga Posters',
-    description: 'Posters de personnages manga',
+    title: 'Entreprise Lesly',
+    description: 'Logo, carte de visite et signalétique - Peintre & Décorateur',
     category: 'Graphisme',
-    image_url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&q=80',
-    link: 'https://amdbrs.com/brook-one-piece'
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/drjnh37d_IMG_0350.png',
+    link: '#'
   },
   {
     id: '6',
-    title: 'Blended Worlds',
-    description: 'Alliance numérique et réel en 3D',
-    category: '3D',
-    image_url: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&q=80',
-    link: 'https://amdbrs.com/blended-worlds'
+    title: 'Sneakers Design',
+    description: 'Visuels graphiques de paires de chaussures favorites',
+    category: 'Graphisme',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/zlk12w3k_IMG_0356.png',
+    link: '#'
   },
   {
     id: '7',
     title: 'Kates Agency',
     description: 'Logo pour une agence au pair aux États-Unis',
     category: 'Graphisme',
-    image_url: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80',
-    link: 'https://amdbrs.com/kates-agency'
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/nzex1bji_IMG_0157.png',
+    link: '#'
   },
   {
     id: '8',
-    title: 'IRIS',
-    description: 'Identité visuelle marque prêt-à-porter',
+    title: 'Manga Posters',
+    description: 'Posters de personnages manga que j\'apprécie',
     category: 'Graphisme',
-    image_url: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&q=80',
-    link: 'https://amdbrs.com/iris'
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/yrpzu4yj_IMG_0352.png',
+    link: '#'
   },
   {
     id: '9',
-    title: 'Club Football Laforest',
-    description: 'Logo et t-shirts pour un stage de football amateur',
+    title: 'Posters en vrac',
+    description: 'Sélection de posters réalisés lors de projets pro ou perso',
     category: 'Graphisme',
-    image_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
-    link: 'https://amdbrs.com/club-football-laforest'
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/228szjo1_IMG_0353.png',
+    link: '#'
+  },
+  {
+    id: '10',
+    title: 'Rappeur Figurine',
+    description: 'Figurines de rappeurs virtuels avec boîte de collection',
+    category: '3D',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/t8ve9seo_IMG_0333.jpg',
+    link: '#'
+  },
+  {
+    id: '11',
+    title: 'Other Posters',
+    description: 'Autres créations graphiques personnelles',
+    category: 'Graphisme',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/5lixsbhf_IMG_0354.png',
+    link: '#'
+  },
+  {
+    id: '12',
+    title: 'Liberty Van Blueprint',
+    description: 'Design technique van pour Liberty Van',
+    category: 'Graphisme',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/p3o8ddqr_IMG_0357.png',
+    link: '#'
   }
 ];
 
 export default function PortfolioPage() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(FALLBACK_PORTFOLIO);
+  const [filter, setFilter] = useState('Tous');
   const [loading, setLoading] = useState(true);
+
+  const categories = ['Tous', 'Graphisme', 'Site Web', '3D'];
 
   useEffect(() => {
     fetchPortfolio();
@@ -97,94 +124,142 @@ export default function PortfolioPage() {
         const data = await response.json();
         if (data && data.length > 0) {
           setItems(data);
-        } else {
-          setItems(FALLBACK_PORTFOLIO);
         }
-      } else {
-        setItems(FALLBACK_PORTFOLIO);
       }
     } catch (error) {
-      console.error('Error fetching portfolio:', error);
-      setItems(FALLBACK_PORTFOLIO);
+      console.log('Using fallback portfolio data');
     } finally {
       setLoading(false);
     }
   };
 
+  const filteredItems = filter === 'Tous' 
+    ? items 
+    : items.filter(item => item.category === filter);
+
   return (
     <div className="min-h-screen bg-white" data-testid="portfolio-page">
-      <SEO page="realisations" />
+      <SEO 
+        title="Réalisations | ASSK Studio - Portfolio Graphisme & Web"
+        description="Découvrez nos réalisations en graphisme, création de sites web et modélisation 3D. Portfolio de projets créatifs réalisés en Auvergne."
+      />
+      
       <Header />
 
-      {/* Hero */}
-      <section className="bg-[#0047FF] pt-28 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-12">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="font-anton text-5xl sm:text-6xl lg:text-7xl text-white uppercase">
-            RÉALISATIONS
+      {/* Hero Section */}
+      <section className="pt-24 sm:pt-32 pb-8 sm:pb-16 px-4 sm:px-6 lg:px-12 bg-gradient-to-b from-[#0047FF]/5 to-white">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">
+            Portfolio
+          </p>
+          <h1 className="font-anton text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#0047FF] leading-tight mb-4 sm:mb-6">
+            Nos Réalisations
           </h1>
-          <p className="font-futura text-white/80 text-lg mt-4 max-w-xl">
-            Découvrez nos projets en graphisme, 3D et création d'identités visuelles.
+          <p className="font-futura text-gray-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
+            Une sélection de projets en graphisme, développement web et modélisation 3D réalisés pour nos clients.
           </p>
         </div>
       </section>
 
+      {/* Filters */}
+      <section className="px-4 sm:px-6 lg:px-12 py-6 sm:py-8 border-b border-[#0047FF]/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-4 sm:px-6 py-2 sm:py-2.5 font-futura text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 ${
+                  filter === cat 
+                    ? 'bg-[#0047FF] text-white' 
+                    : 'bg-white text-[#0047FF] border border-[#0047FF]/20 hover:border-[#0047FF]'
+                }`}
+                data-testid={`filter-${cat.toLowerCase()}`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Portfolio Grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-12">
+      <section className="px-4 sm:px-6 lg:px-12 py-8 sm:py-16">
         <div className="max-w-7xl mx-auto">
           {loading ? (
-            <div className="text-center py-12">
-              <div className="inline-block w-8 h-8 border-4 border-[#0047FF] border-t-transparent animate-spin" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+              {[1,2,3,4,5,6].map(i => (
+                <div key={i} className="aspect-[4/3] bg-[#0047FF]/5 animate-pulse" />
+              ))}
             </div>
-          ) : items.length === 0 ? (
-            <p className="text-center font-futura text-[#0047FF] py-12">
-              Aucun projet disponible
-            </p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {items.map((item) => (
-                <a
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+              {filteredItems.map((item, index) => (
+                <article 
                   key={item.id}
-                  href={item.link || '#'}
-                  target={item.link ? '_blank' : '_self'}
-                  rel="noopener noreferrer"
-                  className="border-2 border-[#0047FF] bg-white portfolio-item group block"
-                  data-testid={`portfolio-item-${item.id}`}
+                  className="group relative overflow-hidden bg-white border border-[#0047FF]/10 hover:border-[#0047FF]/30 transition-all duration-500 hover:shadow-[0_20px_50px_-15px_rgba(0,71,255,0.15)]"
+                  data-testid={`portfolio-item-${index}`}
                 >
                   {/* Image */}
-                  <div className="relative aspect-[4/3] overflow-hidden border-b-2 border-[#0047FF] bg-[#0047FF]/10">
-                    <img
-                      src={item.image_url}
+                  <div className="aspect-[4/3] overflow-hidden bg-[#0047FF]/5">
+                    <img 
+                      src={item.image_url} 
                       alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = `https://placehold.co/600x400/0047FF/FFFFFF?text=${encodeURIComponent(item.title)}`;
-                      }}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-[#0047FF]/0 group-hover:bg-[#0047FF]/20 transition-colors duration-300" />
-                    {item.link && (
-                      <div className="absolute top-3 right-3 p-2 bg-white border-2 border-[#0047FF] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        <ExternalLink className="w-4 h-4 text-[#0047FF]" />
-                      </div>
-                    )}
                   </div>
-
+                  
                   {/* Content */}
-                  <div className="p-4">
-                    <span className="font-futura text-xs text-[#0047FF]/70 uppercase tracking-wider">
-                      {item.category}
-                    </span>
-                    <h3 className="font-anton text-xl text-[#0047FF] uppercase mt-1">
-                      {item.title}
-                    </h3>
-                    <p className="font-futura text-[#0047FF]/70 text-sm mt-2 line-clamp-2">
-                      {item.description}
-                    </p>
+                  <div className="p-4 sm:p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-futura text-[10px] sm:text-xs text-[#0047FF] uppercase tracking-wider">
+                        {item.category}
+                      </span>
+                      {item.link && item.link !== '#' && (
+                        <a 
+                          href={item.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-[#0047FF]/40 hover:text-[#0047FF] transition-colors"
+                          aria-label={`Voir le projet ${item.title}`}
+                        >
+                          <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </a>
+                      )}
+                    </div>
+                    <h3 className="font-anton text-lg sm:text-xl text-[#0047FF]">{item.title}</h3>
+                    <p className="font-futura text-gray-500 text-xs sm:text-sm mt-1 line-clamp-2">{item.description}</p>
                   </div>
-                </a>
+                </article>
               ))}
             </div>
           )}
+
+          {filteredItems.length === 0 && !loading && (
+            <div className="text-center py-16">
+              <p className="font-futura text-gray-500 text-lg">Aucun projet dans cette catégorie.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="px-4 sm:px-6 lg:px-12 py-12 sm:py-20 bg-[#0047FF]">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="font-anton text-2xl sm:text-3xl lg:text-4xl text-white mb-4 sm:mb-6">
+            Un projet en tête ?
+          </h2>
+          <p className="font-futura text-white/70 text-sm sm:text-base mb-6 sm:mb-8 max-w-lg mx-auto">
+            Discutons de votre vision et créons ensemble quelque chose d'unique.
+          </p>
+          <a 
+            href="/contact" 
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#0047FF] font-anton text-sm sm:text-base uppercase transition-all duration-300 hover:bg-[#0047FF] hover:text-white hover:shadow-lg border-2 border-white"
+          >
+            Démarrer un projet
+            <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </a>
         </div>
       </section>
 

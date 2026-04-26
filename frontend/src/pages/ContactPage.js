@@ -1,213 +1,121 @@
-import { useState } from 'react';
-import { Mail, Phone, Instagram, Send } from 'lucide-react';
+import { Mail, Phone, Instagram, MapPin } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
-import { toast } from 'sonner';
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+import { QuoteForm } from '@/components/QuoteForm';
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-      toast.error('Veuillez remplir tous les champs');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const response = await fetch(`${API}/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Erreur lors de l\'envoi');
-      }
-
-      toast.success('Message envoyé avec succès !');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      toast.error('Erreur lors de l\'envoi du message');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white" data-testid="contact-page">
-      <SEO page="contact" />
+      <SEO 
+        title="Contact | ASSK Studio - Demande de Devis"
+        description="Contactez ASSK Studio pour vos projets de graphisme, création de sites web et modélisation 3D en Auvergne. Devis gratuit sous 24h."
+      />
+      
       <Header />
 
-      {/* Hero */}
-      <section className="bg-[#0047FF] pt-28 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-12">
+      {/* Hero Section */}
+      <section className="pt-24 sm:pt-32 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-12 bg-gradient-to-b from-[#0047FF]/5 to-white">
         <div className="max-w-7xl mx-auto">
-          <h1 className="font-anton text-5xl sm:text-6xl lg:text-7xl text-white uppercase">
-            DISCUTONS DE TON PROJET
-          </h1>
-          <p className="font-futura text-white/80 text-lg mt-4 max-w-xl">
-            Une idée ? Un projet ? Contacte-nous et donnons vie à ta vision.
-          </p>
+          <div className="text-center mb-8 sm:mb-12">
+            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-4">
+              Contact
+            </p>
+            <h1 className="font-anton text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#0047FF] leading-tight mb-3 sm:mb-4">
+              Discutons de<br className="sm:hidden" /> votre projet
+            </h1>
+            <p className="font-futura text-gray-600 text-sm sm:text-base max-w-lg mx-auto">
+              Une idée en tête ? Contactez-nous et transformons votre vision en réalité.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-12">
+      {/* Main Content */}
+      <section className="px-4 sm:px-6 lg:px-12 pb-12 sm:pb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Contact Info */}
-            <div>
-              <h2 className="font-anton text-3xl text-[#0047FF] mb-8">
-                COORDONNÉES
-              </h2>
-              
-              <div className="space-y-6">
-                <a
-                  href="mailto:amaurydebarros1607@gmail.com"
-                  className="flex items-center gap-4 p-6 border-2 border-[#0047FF] bg-white service-card"
-                  data-testid="contact-email"
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
+            
+            {/* Contact Info - Mobile: After form on smaller screens */}
+            <div className="lg:col-span-4 order-2 lg:order-1">
+              <div className="lg:sticky lg:top-32 space-y-4 sm:space-y-6">
+                <h2 className="font-anton text-xl sm:text-2xl text-[#0047FF] mb-4 sm:mb-6">
+                  Coordonnées
+                </h2>
+                
+                {/* Contact Cards */}
+                <a 
+                  href="mailto:amaurydebarros1607@gmail.com" 
+                  className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border-2 border-[#0047FF]/10 hover:border-[#0047FF] hover:bg-[#0047FF]/5 transition-all duration-300"
                 >
-                  <div className="p-3 bg-[#0047FF]">
-                    <Mail className="w-6 h-6 text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-110">
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
-                  <div>
-                    <span className="font-futura text-sm text-[#0047FF]/70">Email</span>
-                    <p className="font-anton text-lg text-[#0047FF]">
-                      amaurydebarros1607@gmail.com
-                    </p>
+                  <div className="min-w-0">
+                    <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider">Email</p>
+                    <p className="font-anton text-[#0047FF] text-sm sm:text-base truncate">amaurydebarros1607@gmail.com</p>
                   </div>
                 </a>
 
-                <a
-                  href="tel:+33665097008"
-                  className="flex items-center gap-4 p-6 border-2 border-[#0047FF] bg-white service-card"
-                  data-testid="contact-phone"
+                <a 
+                  href="tel:+33665097008" 
+                  className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border-2 border-[#0047FF]/10 hover:border-[#0047FF] hover:bg-[#0047FF]/5 transition-all duration-300"
                 >
-                  <div className="p-3 bg-[#0047FF]">
-                    <Phone className="w-6 h-6 text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-110">
+                    <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
-                    <span className="font-futura text-sm text-[#0047FF]/70">Téléphone</span>
-                    <p className="font-anton text-lg text-[#0047FF]">
-                      06 65 09 70 08
-                    </p>
+                    <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider">Téléphone</p>
+                    <p className="font-anton text-[#0047FF] text-sm sm:text-base">06 65 09 70 08</p>
                   </div>
                 </a>
 
-                <a
-                  href="https://instagram.com/amau.psd"
-                  target="_blank"
+                <a 
+                  href="https://instagram.com/amau.psd" 
+                  target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-6 border-2 border-[#0047FF] bg-white service-card"
-                  data-testid="contact-instagram"
+                  className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border-2 border-[#0047FF]/10 hover:border-[#0047FF] hover:bg-[#0047FF]/5 transition-all duration-300"
                 >
-                  <div className="p-3 bg-[#0047FF]">
-                    <Instagram className="w-6 h-6 text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-110">
+                    <Instagram className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
-                    <span className="font-futura text-sm text-[#0047FF]/70">Instagram</span>
-                    <p className="font-anton text-lg text-[#0047FF]">
-                      @amau.psd
-                    </p>
+                    <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider">Instagram</p>
+                    <p className="font-anton text-[#0047FF] text-sm sm:text-base">@amau.psd</p>
                   </div>
                 </a>
+
+                <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5 border-2 border-[#0047FF]/10 bg-[#0047FF]/5">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF]/20 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#0047FF]" />
+                  </div>
+                  <div>
+                    <p className="font-futura text-[#0047FF]/60 text-[10px] sm:text-xs uppercase tracking-wider">Localisation</p>
+                    <p className="font-futura text-[#0047FF]/70 text-xs sm:text-sm">Clermont-Ferrand, Vichy, Moulins</p>
+                    <p className="font-futura text-[#0047FF]/50 text-xs">Auvergne, France</p>
+                  </div>
+                </div>
+
+                {/* Réponse rapide badge */}
+                <div className="mt-6 p-4 bg-[#0047FF] text-white text-center">
+                  <p className="font-anton text-sm sm:text-base">Réponse sous 24h</p>
+                  <p className="font-futura text-white/70 text-xs sm:text-sm">Du lundi au vendredi</p>
+                </div>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div>
-              <h2 className="font-anton text-3xl text-[#0047FF] mb-8">
-                ENVOYER UN MESSAGE
-              </h2>
-
-              <form onSubmit={handleSubmit} className="space-y-6" data-testid="contact-form">
-                <div>
-                  <label className="font-futura text-sm text-[#0047FF] block mb-2">
-                    Nom complet
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura focus:shadow-[4px_4px_0_0_#0047FF] outline-none"
-                    placeholder="Jean Dupont"
-                    data-testid="contact-name-input"
-                  />
+            {/* Quote Form */}
+            <div className="lg:col-span-8 order-1 lg:order-2">
+              <div className="bg-white border-2 border-[#0047FF]/10 p-4 sm:p-8 lg:p-10">
+                <div className="mb-6 sm:mb-8">
+                  <h2 className="font-anton text-xl sm:text-2xl lg:text-3xl text-[#0047FF]">Demande de devis</h2>
+                  <p className="font-futura text-gray-600 text-xs sm:text-sm mt-1">
+                    Remplissez ce formulaire pour recevoir votre devis personnalisé
+                  </p>
                 </div>
-
-                <div>
-                  <label className="font-futura text-sm text-[#0047FF] block mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura focus:shadow-[4px_4px_0_0_#0047FF] outline-none"
-                    placeholder="jean@exemple.com"
-                    data-testid="contact-email-input"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-futura text-sm text-[#0047FF] block mb-2">
-                    Sujet
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura focus:shadow-[4px_4px_0_0_#0047FF] outline-none"
-                    placeholder="Demande de devis"
-                    data-testid="contact-subject-input"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-futura text-sm text-[#0047FF] block mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={6}
-                    className="w-full px-4 py-3 border-2 border-[#0047FF] bg-white text-[#0047FF] placeholder-[#0047FF]/50 font-futura focus:shadow-[4px_4px_0_0_#0047FF] outline-none resize-none"
-                    placeholder="Décrivez votre projet..."
-                    data-testid="contact-message-input"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-[#0047FF] text-white font-anton text-xl uppercase border-2 border-[#0047FF] shadow-[6px_6px_0_0_#0047FF] hover:bg-white hover:text-[#0047FF] transition-colors duration-200 disabled:opacity-50"
-                  data-testid="contact-submit-button"
-                >
-                  {loading ? 'ENVOI EN COURS...' : 'ENVOYER'}
-                  <Send className="w-5 h-5" />
-                </button>
-              </form>
+                
+                <QuoteForm />
+              </div>
             </div>
           </div>
         </div>

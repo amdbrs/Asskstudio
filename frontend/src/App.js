@@ -20,7 +20,6 @@ import NotFoundPage from "@/pages/NotFoundPage";
 
 // Components
 import { Preloader } from "@/components/Preloader";
-import { CustomCursor } from "@/components/CustomCursor";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
 
@@ -155,7 +154,6 @@ function App() {
   return (
     <HelmetProvider>
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
-      <CustomCursor />
       <GrainOverlay />
       <AuthProvider>
         <BrowserRouter>
