@@ -1,35 +1,35 @@
 # ASSK Studio - Portfolio & Agency Website
 
 ## Original Problem Statement
-Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Modern, smooth, animated design inspired by **chkstepan.com** with a dark minimalist aesthetic featuring #0047FF blue accents.
+Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Modern, smooth, animated design with a **blue (#0047FF) and white** premium aesthetic.
 
 ## Core Requirements
-- Modern dark-themed landing page showcasing services (Graphisme, Sites Web, 3D & Toys)
-- Portfolio section with client projects
+- Modern landing page showcasing services (Graphisme, Sites Web, 3D & Toys)
+- Portfolio section with client projects (horizontal scroll carousel)
 - Admin dashboard for portfolio management
-- Functional contact form with devis request
+- Functional contact form with multi-step devis request (connected to Resend API)
 - Mobile responsive design
 - Smooth animations: Lenis smooth scroll, Framer Motion page transitions
+- Custom cursor (black dot)
+- WhatsApp floating button
 
 ## User Personas
 - **Potential Clients**: Looking for graphic design, web development, or 3D printing services
 - **Admin (Amaury)**: Managing portfolio content and viewing contact messages
 
 ## Tech Stack
-- **Frontend**: React.js, Tailwind CSS, Framer Motion, Lenis (smooth scroll)
+- **Frontend**: React.js, Tailwind CSS, Framer Motion, @studio-freight/lenis (smooth scroll)
 - **Backend**: FastAPI, Motor (Async MongoDB)
 - **Database**: MongoDB
-- **Fonts**: Outfit (headings), Manrope (body), Space Mono (numbers/labels)
+- **External Services**: Resend (Email delivery)
+- **Fonts**: Anton (headings), Futura (body)
 
-## Design System (chkstepan.com inspired)
-- **Background**: #0a0a0a (dark)
-- **Foreground**: #ffffff (white)
+## Design System (Blue/White Theme)
+- **Background**: #ffffff (white)
 - **Primary/Accent**: #0047FF (blue)
-- **Secondary**: #171717 (cards)
-- **Border**: rgba(255,255,255,0.1)
-- **Typography**: Large headlines, numbered sections (01), (02), monospace labels
-- **Cards**: Dark backgrounds with subtle borders, hover lift effects
-- **Animations**: Page transitions with blur/fade, smooth scroll
+- **Text**: #0047FF (blue headings), gray-500 (body)
+- **Cards**: White backgrounds with subtle blue borders, hover lift effects
+- **Animations**: Blue curtain page transitions with ASSK logo, smooth scroll
 
 ## Key DB Schema
 - `portfolio`: {title, desc, image_url, category, created_at}
@@ -39,46 +39,52 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 ## Key API Endpoints
 - POST /api/admin/login
 - GET/POST/DELETE /api/portfolio
-- POST /api/contact
+- POST /api/contact (connected to Resend API → amaurydebarros1607@gmail.com)
 
 ---
 
 ## What's Been Implemented
 
-### April 2026 - Améliorations UX & SEO
+### April 29, 2026 - Smooth Scrolling
+- [x] Lenis smooth scroll integration via SmoothScroll.js wrapper
+- [x] Buttery-smooth scrolling experience across all pages
+- [x] Compatible with Framer Motion page transitions
+- [x] Works on both desktop and mobile
 
-**Dernières modifications :**
-- [x] Curseur personnalisé point noir (remplace le curseur plume)
-- [x] Bouton WhatsApp flottant avec popup de chat
-- [x] Badge "Réponse garantie sous 24h" sur le formulaire de devis
-- [x] Micro-animations au scroll (ScrollReveal component)
-- [x] Blog avec articles SEO locaux (Clermont-Ferrand, Vichy, Moulins)
-- [x] Schema.org enrichi (LocalBusiness, BlogPosting, FAQ)
-- [x] Carrousel portfolio modernisé avec drag & drop
-- [x] Admin dashboard with portfolio management
-- [x] JWT authentication for admin
-- [x] Contact form API integration
+### April 2026 - Core Features
+- [x] Blue curtain page transitions with ASSK logo (Framer Motion)
+- [x] Custom black dot cursor (DotCursor.js)
+- [x] WhatsApp floating button with chat popup
+- [x] Multi-step QuoteForm connected to user email via Resend API
+- [x] Horizontal scroll carousel for portfolio (drag & drop support)
+- [x] Preloader with ASSK branding
+- [x] Grain overlay effect
 - [x] SEO optimization with react-helmet-async
+- [x] Schema.org enrichi (LocalBusiness, BlogPosting, FAQ)
+- [x] Blog with local SEO articles (Clermont-Ferrand, Vichy, Moulins)
+- [x] Admin dashboard with JWT authentication
 - [x] Responsive design (mobile, tablet, desktop)
+- [x] Vercel deployment build fixes (ESLint CI=true compatibility)
 
 ---
 
 ## Prioritized Backlog
 
 ### P0 - Completed ✅
-- [x] Dark theme redesign (chkstepan.com style)
-- [x] All main pages updated (Home, Portfolio, Contact, About)
+- [x] Blue/white premium design
+- [x] All main pages (Home, Portfolio, Contact, About, Blog)
 - [x] Lenis smooth scroll
 - [x] Page transitions
+- [x] Contact form email delivery
+- [x] Vercel build compatibility
 
 ### P1 - High Priority
-- [ ] Update remaining pages (Blog, Service pages) to dark theme
-- [ ] Finalize Blog API (create/edit/delete articles)
+- [ ] Deploy backend to Render/Railway for production (currently portfolio uses static fallback images on Vercel)
+- [ ] Finalize Blog API (create/edit/delete articles dynamically)
 
 ### P2 - Medium Priority  
-- [ ] Deploy backend to Render/Railway for production
 - [ ] Connect Vercel frontend to deployed backend
-- [ ] Admin dashboard dark theme update
+- [ ] Admin dashboard enhancements
 
 ### P3 - Low Priority / Future
 - [ ] Client testimonials section
@@ -92,21 +98,33 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 ```
 /app/
 ├── backend/
-│   ├── server.py
+│   ├── server.py (FastAPI + Resend email)
+│   ├── .env (RESEND_API_KEY, MONGO_URL)
 │   └── requirements.txt
 └── frontend/
     ├── src/
     │   ├── App.js (Lenis + Page transitions)
-    │   ├── index.css (Dark theme CSS)
+    │   ├── App.css (Global styles)
     │   ├── pages/
-    │   │   ├── HomePage.js (Dark redesign)
-    │   │   ├── PortfolioPage.js (Dark redesign)
-    │   │   ├── ContactPage.js (Dark redesign)
-    │   │   ├── AboutPage.js (Dark redesign)
+    │   │   ├── HomePage.js
+    │   │   ├── PortfolioPage.js
+    │   │   ├── ContactPage.js
+    │   │   ├── AboutPage.js
+    │   │   ├── BlogPage.js
     │   │   └── ...
     │   └── components/
-    │       ├── Header.js (Dark + glassmorphism)
-    │       ├── Footer.js (Dark theme)
+    │       ├── SmoothScroll.js (Lenis wrapper)
+    │       ├── DotCursor.js (Custom cursor)
+    │       ├── WhatsAppButton.js
+    │       ├── HorizontalScrollCarousel.js
+    │       ├── QuoteForm.js
+    │       ├── Header.js
+    │       ├── Footer.js
     │       └── ...
     └── package.json
 ```
+
+## Important Notes
+- **Theme**: User explicitly requested blue/white theme. Do NOT change to dark theme.
+- **Vercel**: Project deploys to Vercel with CI=true, fix all ESLint warnings before finishing tasks.
+- **Email**: Contact form connected to amaurydebarros1607@gmail.com via Resend API.
