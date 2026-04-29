@@ -57,6 +57,7 @@ export const HorizontalScrollCarousel = ({ items = [] }) => {
     checkScrollability();
     window.addEventListener('resize', checkScrollability);
     return () => window.removeEventListener('resize', checkScrollability);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
   return (
