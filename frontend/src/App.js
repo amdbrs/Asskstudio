@@ -24,7 +24,6 @@ import { GrainOverlay } from "@/components/GrainOverlay";
 import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
 import { DotCursor } from "@/components/DotCursor";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { SmoothScroll } from "@/components/SmoothScroll";
 
 // Context
 import { AuthProvider } from "@/context/AuthContext";
@@ -159,16 +158,14 @@ function App() {
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       <DotCursor />
       <GrainOverlay />
-      <SmoothScroll>
-        <AuthProvider>
-          <BrowserRouter>
-            <AnimatedRoutes />
-            <FloatingQuoteButton />
-            <WhatsAppButton />
-            <Toaster position="top-right" />
-          </BrowserRouter>
-        </AuthProvider>
-      </SmoothScroll>
+      <AuthProvider>
+        <BrowserRouter>
+          <AnimatedRoutes />
+          <FloatingQuoteButton />
+          <WhatsAppButton />
+          <Toaster position="top-right" />
+        </BrowserRouter>
+      </AuthProvider>
     </HelmetProvider>
   );
 }
