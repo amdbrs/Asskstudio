@@ -23,7 +23,7 @@ export const ScrollIndicator = () => {
   return (
     <button
       onClick={scrollToServices}
-      className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#0047FF] animate-bounce cursor-pointer z-20 group"
+      className="absolute bottom-8 left-0 right-0 mx-auto w-fit flex flex-col items-center gap-2 text-[#0047FF] animate-bounce cursor-pointer z-20 group"
       aria-label="Défiler vers le bas"
       data-cursor-text="↓"
     >
