@@ -441,82 +441,72 @@ export default function HomePage() {
             </h2>
           </AnimatedSection>
 
-          {/* Mobile: Accordion with + */}
-          <div className="space-y-8 sm:hidden">
-            <MobileServiceAccordion 
-              title="GRAPHISME" 
-              services={servicesGraphisme} 
-              linkTo="/graphisme" 
-            />
-            <MobileServiceAccordion 
-              title="SITES WEB" 
-              services={servicesWeb} 
-              linkTo="/sites-web" 
-            />
-            <MobileServiceAccordion 
-              title="3D & TOYS" 
-              services={services3D} 
-              linkTo="/modelisation-3d" 
-            />
-          </div>
-
-          {/* Desktop: Grid */}
-          <div className="hidden sm:grid sm:grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-            {/* Pôle Graphisme */}
+          {/* Services Cards - 3 clickable boxes */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            {/* Graphisme */}
             <AnimatedSection animation="fadeInUp" delay={0}>
-              <div className="space-y-3 sm:space-y-4">
-                <Link to="/graphisme" className="flex items-center gap-3 mb-4 sm:mb-6 group">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-all duration-500 group-hover:scale-110" aria-hidden="true">
-                    <Palette className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <Link 
+                to="/graphisme" 
+                className="group relative block p-6 sm:p-8 lg:p-10 bg-white border-2 border-[#0047FF]/20 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.25)] hover:-translate-y-2"
+                data-testid="service-graphisme"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#0047FF] flex items-center justify-center mb-4 sm:mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                    <Palette className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                   </div>
-                  <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">GRAPHISME</h3>
-                  <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500" />
-                </Link>
-                {servicesGraphisme.map((service, index) => (
-                  <ServiceCard key={index} service={service} index={`graphisme-${index}`} />
-                ))}
-                <Link to="/graphisme" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-4 transition-all duration-500 mt-2 group">
-                  En savoir plus <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
+                  <h3 className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF] mb-2 sm:mb-3">GRAPHISME</h3>
+                  <p className="font-futura text-gray-500 text-sm sm:text-base mb-4">Logo, identité visuelle, supports print & digital</p>
+                  <span className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] group-hover:gap-4 transition-all duration-300">
+                    Découvrir <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+                {/* Corner accent */}
+                <div className="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-t-[#0047FF] border-l-[40px] border-l-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Link>
             </AnimatedSection>
 
-            {/* Pôle Web */}
+            {/* Sites Web */}
             <AnimatedSection animation="fadeInUp" delay={150}>
-              <div className="space-y-3 sm:space-y-4">
-                <Link to="/sites-web" className="flex items-center gap-3 mb-4 sm:mb-6 group">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-all duration-500 group-hover:scale-110" aria-hidden="true">
-                    <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <Link 
+                to="/sites-web" 
+                className="group relative block p-6 sm:p-8 lg:p-10 bg-white border-2 border-[#0047FF]/20 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.25)] hover:-translate-y-2"
+                data-testid="service-sites-web"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#0047FF] flex items-center justify-center mb-4 sm:mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                    <Globe className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                   </div>
-                  <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">SITES WEB</h3>
-                  <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500" />
-                </Link>
-                {servicesWeb.map((service, index) => (
-                  <ServiceCard key={index} service={service} index={`web-${index}`} />
-                ))}
-                <Link to="/sites-web" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-4 transition-all duration-500 mt-2 group">
-                  En savoir plus <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
+                  <h3 className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF] mb-2 sm:mb-3">SITES WEB</h3>
+                  <p className="font-futura text-gray-500 text-sm sm:text-base mb-4">Sites vitrines, e-commerce, applications web</p>
+                  <span className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] group-hover:gap-4 transition-all duration-300">
+                    Découvrir <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+                {/* Corner accent */}
+                <div className="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-t-[#0047FF] border-l-[40px] border-l-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Link>
             </AnimatedSection>
 
-            {/* Pôle 3D & Toys */}
+            {/* 3D */}
             <AnimatedSection animation="fadeInUp" delay={300}>
-              <div className="space-y-3 sm:space-y-4">
-                <Link to="/modelisation-3d" className="flex items-center gap-3 mb-4 sm:mb-6 group">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0047FF] group-hover:bg-[#0047FF]/80 flex items-center justify-center transition-all duration-500 group-hover:scale-110" aria-hidden="true">
-                    <Box className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <Link 
+                to="/modelisation-3d" 
+                className="group relative block p-6 sm:p-8 lg:p-10 bg-white border-2 border-[#0047FF]/20 hover:border-[#0047FF] transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(0,71,255,0.25)] hover:-translate-y-2"
+                data-testid="service-3d"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#0047FF] flex items-center justify-center mb-4 sm:mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                    <Box className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                   </div>
-                  <h3 className="font-anton text-xl sm:text-2xl text-[#0047FF] group-hover:text-[#0047FF]/80 transition-colors">3D & TOYS</h3>
-                  <ArrowRight className="w-5 h-5 text-[#0047FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500" />
-                </Link>
-                {services3D.map((service, index) => (
-                  <ServiceCard key={index} service={service} index={`3d-${index}`} />
-                ))}
-                <Link to="/modelisation-3d" className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] hover:gap-4 transition-all duration-500 mt-2 group">
-                  En savoir plus <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
+                  <h3 className="font-anton text-2xl sm:text-3xl lg:text-4xl text-[#0047FF] mb-2 sm:mb-3">3D</h3>
+                  <p className="font-futura text-gray-500 text-sm sm:text-base mb-4">Modélisation, impression 3D, art toys</p>
+                  <span className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF] group-hover:gap-4 transition-all duration-300">
+                    Découvrir <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+                {/* Corner accent */}
+                <div className="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-t-[#0047FF] border-l-[40px] border-l-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Link>
             </AnimatedSection>
           </div>
 
