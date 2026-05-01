@@ -227,6 +227,87 @@ const ServiceCard = ({ service, index }) => {
   );
 };
 
+// Services Carousel for Mobile
+const ServicesCarousel = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const trackRef = useRef(null);
+
+  const services = [
+    { id: 'graphisme', title: 'GRAPHISME', description: 'Logo, identité visuelle, supports print & digital', icon: Palette, link: '/graphisme' },
+    { id: 'sites-web', title: 'SITES WEB', description: 'Sites vitrines, e-commerce, applications web', icon: Globe, link: '/sites-web' },
+    { id: '3d', title: '3D', description: 'Modélisation, impression 3D, art toys', icon: Box, link: '/modelisation-3d' }
+  ];
+
+  const handleScroll = () => {
+    if (!trackRef.current) return;
+    const { scrollLeft, clientWidth } = trackRef.current;
+    const cardWidth = clientWidth * 0.75;
+    const newIndex = Math.round(scrollLeft / cardWidth);
+    setActiveIndex(Math.min(newIndex, services.length - 1));
+  };
+
+  const scrollToIndex = (index) => {
+    if (!trackRef.current) return;
+    const cardWidth = trackRef.current.clientWidth * 0.75;
+    trackRef.current.scrollTo({
+      left: index * cardWidth,
+      behavior: 'smooth'
+    });
+  };
+
+  return (
+    <div className="relative">
+      {/* Carousel Track */}
+      <div
+        ref={trackRef}
+        className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth px-4 pb-2"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollSnapType: 'x mandatory' }}
+        onScroll={handleScroll}
+      >
+        {services.map((service, index) => {
+          const IconComponent = service.icon;
+          return (
+            <Link
+              key={service.id}
+              to={service.link}
+              className="group flex-shrink-0 w-[75vw] p-6 bg-white border-2 border-[#0047FF]/20 active:border-[#0047FF] transition-all duration-300"
+              style={{ scrollSnapAlign: 'start' }}
+              data-testid={`mobile-service-${service.id}`}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 bg-[#0047FF] flex items-center justify-center mb-4 transition-transform duration-300 group-active:scale-110">
+                  <IconComponent className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-anton text-2xl text-[#0047FF] mb-2">{service.title}</h3>
+                <p className="font-futura text-gray-500 text-sm mb-4">{service.description}</p>
+                <span className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF]">
+                  Découvrir <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Dots Indicator */}
+      <div className="flex justify-center gap-2 mt-6">
+        {services.map((_, index) => (
+          <button
+            key={index}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === activeIndex 
+                ? 'w-6 bg-[#0047FF]' 
+                : 'w-2 bg-[#0047FF]/20'
+            }`}
+            onClick={() => scrollToIndex(index)}
+            aria-label={`Voir service ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export default function HomePage() {
   const [portfolio, setPortfolio] = useState([]);
   const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' });
@@ -431,9 +512,9 @@ export default function HomePage() {
       </section>
 
       {/* ===== SERVICES SECTION ===== */}
-      <section id="services" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="services-section" aria-labelledby="services-title">
+      <section id="services" className="py-16 sm:py-24 lg:py-32 bg-white" data-testid="services-section" aria-labelledby="services-title">
         <div className="max-w-7xl mx-auto">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-10 sm:mb-16 lg:mb-20 px-4 sm:px-6 lg:px-12">
             <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">Nos Services</p>
             <h2 id="services-title" className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF]">
               Tout ce qu'il te faut.<br />
@@ -441,8 +522,13 @@ export default function HomePage() {
             </h2>
           </AnimatedSection>
 
-          {/* Services Cards - 3 clickable boxes */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          {/* Mobile: Horizontal Carousel */}
+          <div className="sm:hidden">
+            <ServicesCarousel />
+          </div>
+
+          {/* Desktop: Grid */}
+          <div className="hidden sm:grid sm:grid-cols-3 gap-6 lg:gap-8 px-4 sm:px-6 lg:px-12">
             {/* Graphisme */}
             <AnimatedSection animation="fadeInUp" delay={0}>
               <Link 
@@ -460,7 +546,6 @@ export default function HomePage() {
                     Découvrir <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </div>
-                {/* Corner accent */}
                 <div className="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-t-[#0047FF] border-l-[40px] border-l-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             </AnimatedSection>
@@ -482,7 +567,6 @@ export default function HomePage() {
                     Découvrir <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </div>
-                {/* Corner accent */}
                 <div className="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-t-[#0047FF] border-l-[40px] border-l-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             </AnimatedSection>
@@ -504,14 +588,13 @@ export default function HomePage() {
                     Découvrir <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </div>
-                {/* Corner accent */}
                 <div className="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-t-[#0047FF] border-l-[40px] border-l-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             </AnimatedSection>
           </div>
 
           {/* CTA */}
-          <AnimatedSection animation="fadeInUp" delay={450} className="mt-12 sm:mt-16 text-center">
+          <AnimatedSection animation="fadeInUp" delay={450} className="mt-12 sm:mt-16 text-center px-4 sm:px-6 lg:px-12">
             <MagneticButton 
               as="a" 
               href="#contact" 
