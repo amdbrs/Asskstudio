@@ -1,32 +1,38 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
-// Hook for scroll-triggered animations
+// Hook for scroll-triggered animations - optimized for performance
 export const useScrollAnimation = (options = {}) => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          // Use requestAnimationFrame for smoother state updates
+          requestAnimationFrame(() => {
+            setIsVisible(true);
+          });
           // Optionally unobserve after animation triggers
           if (options.once !== false) {
             observer.unobserve(entry.target);
           }
         } else if (options.once === false) {
-          setIsVisible(false);
+          requestAnimationFrame(() => {
+            setIsVisible(false);
+          });
         }
       },
       {
-        threshold: options.threshold || 0.1,
-        rootMargin: options.rootMargin || '0px 0px -50px 0px'
+        threshold: options.threshold || 0.15,
+        rootMargin: options.rootMargin || '0px 0px -80px 0px'
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(element);
 
     return () => observer.disconnect();
   }, [options.threshold, options.rootMargin, options.once]);
@@ -35,18 +41,19 @@ export const useScrollAnimation = (options = {}) => {
 };
 
 // Hook for staggered children animations
-export const useStaggerAnimation = (itemCount, baseDelay = 100) => {
-  const getDelay = (index) => `${index * baseDelay}ms`;
+export const useStaggerAnimation = (itemCount, baseDelay = 80) => {
+  const getDelay = useCallback((index) => `${index * baseDelay}ms`, [baseDelay]);
   return { getDelay };
 };
 
-// Animated section wrapper component
+// Animated section wrapper component - optimized
 export const AnimatedSection = ({ 
   children, 
   className = '', 
   animation = 'fadeInUp',
   delay = 0,
-  threshold = 0.1 
+  threshold = 0.15,
+  as: Component = 'div'
 }) => {
   const { ref, isVisible } = useScrollAnimation({ threshold });
   
@@ -58,13 +65,16 @@ export const AnimatedSection = ({
   };
 
   return (
-    <div
+    <Component
       ref={ref}
       className={`${animationClasses[animation] || 'scroll-animate'} ${isVisible ? 'visible' : ''} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ 
+        transitionDelay: `${delay}ms`,
+        willChange: isVisible ? 'auto' : 'transform, opacity'
+      }}
     >
       {children}
-    </div>
+    </Component>
   );
 };
 

@@ -132,11 +132,49 @@
 
 /* ===== DAVE HOLLOWAY INSPIRED ANIMATIONS ===== */
 
-/* Smooth cubic bezier for all transitions */
+/* Smooth cubic bezier for all transitions - optimized */
 :root {
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
     --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== GLOBAL PERFORMANCE OPTIMIZATIONS ===== */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU acceleration for animated elements */
+.animate-fadeInUp,
+.animate-fadeIn,
+.animate-scaleIn,
+.animate-slideInLeft,
+.animate-slideInRight,
+.animate-float,
+.services-card,
+.portfolio-card {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* Text reveal animation - clip from bottom */
@@ -151,15 +189,15 @@
     }
 }
 
-/* Fade in up animation - smoother */
+/* Fade in up animation - smoother with less distance */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(60px);
+        transform: translate3d(0, 40px, 0);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -256,23 +294,23 @@
 
 /* Animation utility classes - smoother with expo easing */
 .animate-fadeInUp {
-    animation: fadeInUp 1s var(--ease-out-expo) forwards;
+    animation: fadeInUp 0.8s var(--ease-out-expo) forwards;
 }
 
 .animate-fadeIn {
-    animation: fadeIn 0.8s var(--ease-out-expo) forwards;
+    animation: fadeIn 0.6s var(--ease-out-expo) forwards;
 }
 
 .animate-scaleIn {
-    animation: scaleIn 0.8s var(--ease-out-expo) forwards;
+    animation: scaleIn 0.6s var(--ease-out-expo) forwards;
 }
 
 .animate-slideInLeft {
-    animation: slideInLeft 1s var(--ease-out-expo) forwards;
+    animation: slideInLeft 0.8s var(--ease-out-expo) forwards;
 }
 
 .animate-slideInRight {
-    animation: slideInRight 1s var(--ease-out-expo) forwards;
+    animation: slideInRight 0.8s var(--ease-out-expo) forwards;
 }
 
 .animate-float {
@@ -288,11 +326,41 @@
 }
 
 .animate-text-reveal {
-    animation: textReveal 1s var(--ease-out-expo) forwards;
+    animation: textReveal 0.8s var(--ease-out-expo) forwards;
 }
 
 .animate-rotate-in {
-    animation: rotateIn 1s var(--ease-out-expo) forwards;
+    animation: rotateIn 0.8s var(--ease-out-expo) forwards;
+}
+
+/* ===== SERVICES CAROUSEL MOBILE STYLES ===== */
+.services-card {
+    transform: translateZ(0);
+    transition: all 0.5s var(--ease-out-expo);
+}
+
+.services-card:active {
+    transform: scale(0.98) translateZ(0);
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* ===== ENHANCED LINK/BUTTON TRANSITIONS ===== */
+a, button {
+    transition: all 0.3s var(--ease-out-quart);
+}
+
+/* ===== CARD HOVER EFFECTS - SMOOTHER ===== */
+.group {
+    transition: all 0.4s var(--ease-out-expo);
 }
 
 /* Staggered delays - more options */
@@ -307,44 +375,44 @@
 .delay-900 { animation-delay: 900ms; }
 .delay-1000 { animation-delay: 1000ms; }
 
-/* Scroll-triggered animations - smoother transitions */
+/* Scroll-triggered animations - optimized for smoothness */
 .scroll-animate {
     opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    transform: translate3d(0, 30px, 0);
+    transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
 }
 
 .scroll-animate.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
 }
 
 .scroll-animate-left {
     opacity: 0;
-    transform: translateX(-60px);
-    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    transform: translate3d(-40px, 0, 0);
+    transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
 }
 
 .scroll-animate-left.visible {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
 }
 
 .scroll-animate-right {
     opacity: 0;
-    transform: translateX(60px);
-    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    transform: translate3d(40px, 0, 0);
+    transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
 }
 
 .scroll-animate-right.visible {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
 }
 
 .scroll-animate-scale {
     opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    transform: scale(0.95);
+    transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
 }
 
 .scroll-animate-scale.visible {

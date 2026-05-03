@@ -227,10 +227,13 @@ const ServiceCard = ({ service, index }) => {
   );
 };
 
-// Services Carousel for Mobile
+// Services Carousel for Mobile - Enhanced with smooth animations
 const ServicesCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const trackRef = useRef(null);
+  const startX = useRef(0);
+  const scrollStart = useRef(0);
 
   const services = [
     { id: 'graphisme', title: 'GRAPHISME', description: 'Logo, identité visuelle, supports print & digital', icon: Palette, link: '/graphisme' },
@@ -238,49 +241,104 @@ const ServicesCarousel = () => {
     { id: '3d', title: '3D', description: 'Modélisation, impression 3D, art toys', icon: Box, link: '/modelisation-3d' }
   ];
 
+  const getCardWidth = () => {
+    if (!trackRef.current) return 280;
+    return trackRef.current.clientWidth * 0.8 + 16; // card width + gap
+  };
+
   const handleScroll = () => {
-    if (!trackRef.current) return;
-    const { scrollLeft, clientWidth } = trackRef.current;
-    const cardWidth = clientWidth * 0.75;
+    if (!trackRef.current || isDragging) return;
+    const { scrollLeft } = trackRef.current;
+    const cardWidth = getCardWidth();
     const newIndex = Math.round(scrollLeft / cardWidth);
-    setActiveIndex(Math.min(newIndex, services.length - 1));
+    setActiveIndex(Math.max(0, Math.min(newIndex, services.length - 1)));
   };
 
   const scrollToIndex = (index) => {
     if (!trackRef.current) return;
-    const cardWidth = trackRef.current.clientWidth * 0.75;
+    const cardWidth = getCardWidth();
     trackRef.current.scrollTo({
       left: index * cardWidth,
       behavior: 'smooth'
     });
+    setActiveIndex(index);
+  };
+
+  // Touch handlers for smooth dragging
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    startX.current = e.touches[0].clientX;
+    scrollStart.current = trackRef.current?.scrollLeft || 0;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging || !trackRef.current) return;
+    const x = e.touches[0].clientX;
+    const diff = startX.current - x;
+    trackRef.current.scrollLeft = scrollStart.current + diff;
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    if (!trackRef.current) return;
+    
+    // Snap to nearest card
+    const cardWidth = getCardWidth();
+    const scrollLeft = trackRef.current.scrollLeft;
+    const nearestIndex = Math.round(scrollLeft / cardWidth);
+    scrollToIndex(Math.max(0, Math.min(nearestIndex, services.length - 1)));
   };
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       {/* Carousel Track */}
       <div
         ref={trackRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth px-4 pb-2"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollSnapType: 'x mandatory' }}
+        className="flex gap-4 overflow-x-auto scrollbar-hide px-4 pb-4 pt-2"
+        style={{ 
+          scrollbarWidth: 'none', 
+          msOverflowStyle: 'none',
+          scrollSnapType: 'x mandatory',
+          WebkitOverflowScrolling: 'touch'
+        }}
         onScroll={handleScroll}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         {services.map((service, index) => {
           const IconComponent = service.icon;
+          const isActive = index === activeIndex;
           return (
             <Link
               key={service.id}
               to={service.link}
-              className="group flex-shrink-0 w-[75vw] p-6 bg-white border-2 border-[#0047FF]/20 active:border-[#0047FF] transition-all duration-300"
-              style={{ scrollSnapAlign: 'start' }}
+              className={`services-card group flex-shrink-0 w-[80vw] p-6 bg-white border-2 rounded-2xl
+                transition-all duration-500 ease-out
+                ${isActive 
+                  ? 'border-[#0047FF] shadow-[0_20px_40px_-15px_rgba(0,71,255,0.3)] scale-100' 
+                  : 'border-[#0047FF]/10 shadow-sm scale-[0.95] opacity-70'
+                }`}
+              style={{ scrollSnapAlign: 'center' }}
               data-testid={`mobile-service-${service.id}`}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-[#0047FF] flex items-center justify-center mb-4 transition-transform duration-300 group-active:scale-110">
-                  <IconComponent className="w-8 h-8 text-white" />
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br from-[#0047FF] to-[#0033CC] flex items-center justify-center mb-5
+                  transition-all duration-500 ease-out
+                  ${isActive ? 'scale-100 rotate-0' : 'scale-90 rotate-[-5deg]'}`}>
+                  <IconComponent className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="font-anton text-2xl text-[#0047FF] mb-2">{service.title}</h3>
-                <p className="font-futura text-gray-500 text-sm mb-4">{service.description}</p>
-                <span className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF]">
+                <h3 className={`font-anton text-3xl text-[#0047FF] mb-3 transition-all duration-500
+                  ${isActive ? 'opacity-100 translate-y-0' : 'opacity-50 translate-y-1'}`}>
+                  {service.title}
+                </h3>
+                <p className={`font-futura text-gray-500 text-sm mb-5 transition-all duration-500
+                  ${isActive ? 'opacity-100' : 'opacity-40'}`}>
+                  {service.description}
+                </p>
+                <span className={`inline-flex items-center gap-2 font-futura text-sm font-medium text-[#0047FF]
+                  px-4 py-2 bg-[#0047FF]/5 rounded-full transition-all duration-300
+                  ${isActive ? 'opacity-100' : 'opacity-0'}`}>
                   Découvrir <ArrowRight className="w-4 h-4" />
                 </span>
               </div>
@@ -289,21 +347,26 @@ const ServicesCarousel = () => {
         })}
       </div>
 
-      {/* Dots Indicator */}
-      <div className="flex justify-center gap-2 mt-6">
+      {/* Enhanced Dots Indicator */}
+      <div className="flex justify-center items-center gap-3 mt-4">
         {services.map((_, index) => (
           <button
             key={index}
-            className={`h-2 rounded-full transition-all duration-300 ${
+            className={`rounded-full transition-all duration-500 ease-out ${
               index === activeIndex 
-                ? 'w-6 bg-[#0047FF]' 
-                : 'w-2 bg-[#0047FF]/20'
+                ? 'w-8 h-2 bg-[#0047FF]' 
+                : 'w-2 h-2 bg-[#0047FF]/20 hover:bg-[#0047FF]/40'
             }`}
             onClick={() => scrollToIndex(index)}
             aria-label={`Voir service ${index + 1}`}
           />
         ))}
       </div>
+
+      {/* Swipe hint - only on first load */}
+      <p className="text-center text-xs text-gray-400 mt-3 font-futura">
+        Glissez pour explorer
+      </p>
     </div>
   );
 };
