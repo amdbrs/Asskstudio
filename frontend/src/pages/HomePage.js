@@ -241,24 +241,25 @@ const ServicesCarousel = () => {
     { id: '3d', title: '3D', description: 'Modélisation, impression 3D, art toys', icon: Box, link: '/modelisation-3d' }
   ];
 
-  const getCardWidth = () => {
-    if (!trackRef.current) return 280;
-    return trackRef.current.clientWidth * 0.8 + 16; // card width + gap
-  };
+  const cardWidth = 280; // Fixed card width
+  const gap = 16; // Gap between cards
 
   const handleScroll = () => {
     if (!trackRef.current || isDragging) return;
-    const { scrollLeft } = trackRef.current;
-    const cardWidth = getCardWidth();
-    const newIndex = Math.round(scrollLeft / cardWidth);
+    const { scrollLeft, clientWidth } = trackRef.current;
+    const centerOffset = (clientWidth - cardWidth) / 2;
+    const adjustedScroll = scrollLeft + centerOffset;
+    const newIndex = Math.round(adjustedScroll / (cardWidth + gap));
     setActiveIndex(Math.max(0, Math.min(newIndex, services.length - 1)));
   };
 
   const scrollToIndex = (index) => {
     if (!trackRef.current) return;
-    const cardWidth = getCardWidth();
+    const { clientWidth } = trackRef.current;
+    const centerOffset = (clientWidth - cardWidth) / 2;
+    const scrollPosition = index * (cardWidth + gap) - centerOffset + gap;
     trackRef.current.scrollTo({
-      left: index * cardWidth,
+      left: Math.max(0, scrollPosition),
       behavior: 'smooth'
     });
     setActiveIndex(index);
@@ -283,23 +284,35 @@ const ServicesCarousel = () => {
     if (!trackRef.current) return;
     
     // Snap to nearest card
-    const cardWidth = getCardWidth();
-    const scrollLeft = trackRef.current.scrollLeft;
-    const nearestIndex = Math.round(scrollLeft / cardWidth);
+    const { scrollLeft, clientWidth } = trackRef.current;
+    const centerOffset = (clientWidth - cardWidth) / 2;
+    const adjustedScroll = scrollLeft + centerOffset;
+    const nearestIndex = Math.round(adjustedScroll / (cardWidth + gap));
     scrollToIndex(Math.max(0, Math.min(nearestIndex, services.length - 1)));
   };
+
+  // Center first card on mount
+  useEffect(() => {
+    if (trackRef.current) {
+      const { clientWidth } = trackRef.current;
+      const centerOffset = (clientWidth - cardWidth) / 2;
+      trackRef.current.scrollLeft = 0;
+    }
+  }, []);
 
   return (
     <div className="relative overflow-hidden">
       {/* Carousel Track */}
       <div
         ref={trackRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide px-4 pb-4 pt-2"
+        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 pt-2"
         style={{ 
           scrollbarWidth: 'none', 
           msOverflowStyle: 'none',
           scrollSnapType: 'x mandatory',
-          WebkitOverflowScrolling: 'touch'
+          WebkitOverflowScrolling: 'touch',
+          paddingLeft: 'calc(50% - 140px)',
+          paddingRight: 'calc(50% - 140px)'
         }}
         onScroll={handleScroll}
         onTouchStart={handleTouchStart}
@@ -313,13 +326,17 @@ const ServicesCarousel = () => {
             <Link
               key={service.id}
               to={service.link}
-              className={`services-card group flex-shrink-0 w-[80vw] p-6 bg-white border-2 rounded-2xl
+              className={`services-card group flex-shrink-0 p-6 bg-white border-2 rounded-2xl
                 transition-all duration-500 ease-out
                 ${isActive 
                   ? 'border-[#0047FF] shadow-[0_20px_40px_-15px_rgba(0,71,255,0.3)] scale-100' 
                   : 'border-[#0047FF]/10 shadow-sm scale-[0.95] opacity-70'
                 }`}
-              style={{ scrollSnapAlign: 'center' }}
+              style={{ 
+                scrollSnapAlign: 'center',
+                width: `${cardWidth}px`,
+                minWidth: `${cardWidth}px`
+              }}
               data-testid={`mobile-service-${service.id}`}
             >
               <div className="flex flex-col items-center text-center">
