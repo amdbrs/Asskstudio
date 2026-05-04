@@ -326,7 +326,7 @@ const ServicesCarousel = () => {
             <Link
               key={service.id}
               to={service.link}
-              className={`services-card group flex-shrink-0 p-6 bg-white border-2 rounded-2xl
+              className={`services-card group flex-shrink-0 p-6 bg-white border-2
                 transition-all duration-500 ease-out
                 ${isActive 
                   ? 'border-[#0047FF] shadow-[0_20px_40px_-15px_rgba(0,71,255,0.3)] scale-100' 
@@ -340,7 +340,7 @@ const ServicesCarousel = () => {
               data-testid={`mobile-service-${service.id}`}
             >
               <div className="flex flex-col items-center text-center">
-                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br from-[#0047FF] to-[#0033CC] flex items-center justify-center mb-5
+                <div className={`w-20 h-20 bg-gradient-to-br from-[#0047FF] to-[#0033CC] flex items-center justify-center mb-5
                   transition-all duration-500 ease-out
                   ${isActive ? 'scale-100 rotate-0' : 'scale-90 rotate-[-5deg]'}`}>
                   <IconComponent className="w-10 h-10 text-white" />
