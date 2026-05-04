@@ -6,56 +6,20 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const projectTypes = [
   { 
-    id: 'logo', 
-    label: 'Création de Logo', 
+    id: 'graphisme', 
+    label: 'Graphisme', 
     icon: Palette,
     category: 'graphisme'
   },
   { 
-    id: 'identite', 
-    label: 'Identité Visuelle Complète', 
-    icon: Palette,
-    category: 'graphisme'
-  },
-  { 
-    id: 'papeterie', 
-    label: 'Papeterie & Édition', 
-    icon: Palette,
-    category: 'graphisme'
-  },
-  { 
-    id: 'site-vitrine', 
-    label: 'Site Web Vitrine', 
+    id: 'site-web', 
+    label: 'Site Web', 
     icon: Globe,
     category: 'web'
   },
   { 
-    id: 'site-complet', 
-    label: 'Site Web 5-10 pages', 
-    icon: Globe,
-    category: 'web'
-  },
-  { 
-    id: 'ecommerce', 
-    label: 'Site E-commerce', 
-    icon: Globe,
-    category: 'web'
-  },
-  { 
-    id: 'modelisation', 
-    label: 'Modélisation 3D', 
-    icon: Box,
-    category: '3d'
-  },
-  { 
-    id: 'impression', 
-    label: 'Impression 3D', 
-    icon: Box,
-    category: '3d'
-  },
-  { 
-    id: 'art-toy', 
-    label: 'Art Toy Personnalisé', 
+    id: '3d', 
+    label: '3D', 
     icon: Box,
     category: '3d'
   },
