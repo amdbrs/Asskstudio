@@ -137,123 +137,92 @@ export const AnimatedProcessSection = ({ steps }) => {
           </p>
         </div>
 
-        {/* Desktop view - Animated Timeline */}
+        {/* Desktop view - Horizontal Timeline */}
         <div className="hidden lg:block relative">
-          {/* Central timeline line - background */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-[#0047FF]/10 -translate-x-1/2" />
+          {/* Horizontal timeline line - background */}
+          <div className="absolute top-[60px] left-0 right-0 h-1 bg-[#0047FF]/10" />
           
-          {/* Central timeline line - fill */}
+          {/* Horizontal timeline line - fill */}
           <div 
-            className="absolute left-1/2 top-0 w-1 bg-gradient-to-b from-[#0047FF] to-[#0047FF]/80 -translate-x-1/2 transition-all duration-300 ease-out"
-            style={{ height: `${timelineFill}%` }}
+            className="absolute top-[60px] left-0 h-1 bg-gradient-to-r from-[#0047FF] to-[#0047FF]/80 transition-all duration-500 ease-out"
+            style={{ width: `${timelineFill}%` }}
           />
           
-          {steps.map((step, index) => {
-            const IconComponent = step.icon;
-            const isLeft = index % 2 === 0;
-            
-            // Calculate individual step progress (0 to 1)
-            const stepStart = index / steps.length;
-            const stepEnd = (index + 1) / steps.length;
-            const stepProgress = Math.max(0, Math.min(1, (progress - stepStart) / (stepEnd - stepStart) * 1.5));
-            
-            const isActive = index <= activeStep;
-            const isCurrentlyAnimating = index === activeStep;
-            
-            return (
-              <div 
-                key={index} 
-                className={`relative flex items-center mb-20 last:mb-0 ${isLeft ? 'justify-start' : 'justify-end'}`}
-              >
-                {/* Content card */}
+          {/* Steps container */}
+          <div className="flex justify-between gap-6">
+            {steps.map((step, index) => {
+              const IconComponent = step.icon;
+              
+              // Calculate individual step progress (0 to 1)
+              const stepStart = index / steps.length;
+              const stepEnd = (index + 1) / steps.length;
+              const stepProgress = Math.max(0, Math.min(1, (progress - stepStart) / (stepEnd - stepStart) * 1.5));
+              
+              const isActive = index <= activeStep;
+              const isCurrentlyAnimating = index === activeStep;
+              
+              return (
                 <div 
-                  className={`w-[calc(50%-60px)] transition-all duration-700 ease-out ${isLeft ? 'pr-8 text-right' : 'pl-8 text-left'}`}
+                  key={index} 
+                  className="flex-1 relative"
                   style={{
                     opacity: stepProgress,
-                    transform: `translateX(${isLeft ? -1 : 1} * ${(1 - stepProgress) * 60}px) translateY(${(1 - stepProgress) * 20}px)`.replace('* ', '')
+                    transform: `translateY(${(1 - stepProgress) * 30}px)`
                   }}
                 >
-                  <article className={`group relative p-8 bg-white border-2 transition-all duration-500 transform hover:-translate-y-2 ${
-                    isActive 
-                      ? 'border-[#0047FF] shadow-[0_25px_80px_-20px_rgba(0,71,255,0.25)]' 
-                      : 'border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_25px_80px_-20px_rgba(0,71,255,0.2)]'
-                  }`}>
-                    {/* Step number badge */}
+                  {/* Circle on timeline */}
+                  <div className="flex justify-center mb-6">
                     <div 
-                      className={`absolute top-8 ${isLeft ? '-right-4' : '-left-4'} w-8 h-8 flex items-center justify-center shadow-lg transition-all duration-500 ${
-                        isActive ? 'bg-[#0047FF] scale-110' : 'bg-[#0047FF]/50'
+                      className={`w-8 h-8 rounded-full z-10 shadow-lg transition-all duration-500 flex items-center justify-center ${
+                        isActive 
+                          ? 'bg-[#0047FF] scale-110' 
+                          : 'bg-white border-4 border-[#0047FF]/20'
                       }`}
                     >
-                      <span className="font-anton text-white text-sm">{step.step}</span>
+                      <span className={`font-anton text-sm ${isActive ? 'text-white' : 'text-[#0047FF]/40'}`}>
+                        {step.step}
+                      </span>
                     </div>
-                    
+                  </div>
+                  
+                  {/* Content card */}
+                  <article 
+                    className={`group relative p-6 bg-white border-2 transition-all duration-500 hover:-translate-y-2 ${
+                      isActive 
+                        ? 'border-[#0047FF] shadow-[0_20px_50px_-15px_rgba(0,71,255,0.25)]' 
+                        : 'border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_20px_50px_-15px_rgba(0,71,255,0.2)]'
+                    }`}
+                  >
                     {/* Icon */}
                     <div 
-                      className={`inline-flex items-center justify-center w-16 h-16 mb-6 transition-all duration-500 ${isLeft ? 'ml-auto' : 'mr-auto'} ${
+                      className={`w-16 h-16 mb-5 flex items-center justify-center mx-auto transition-all duration-500 ${
                         isActive 
-                          ? 'bg-gradient-to-br from-[#0047FF] to-[#0047FF]/80 scale-110' 
-                          : 'bg-gradient-to-br from-[#0047FF]/60 to-[#0047FF]/40'
+                          ? 'bg-gradient-to-br from-[#0047FF] to-[#0033CC]' 
+                          : 'bg-[#0047FF]/20'
                       }`}
                       style={{ 
-                        transform: `scale(${0.9 + stepProgress * 0.2}) ${isCurrentlyAnimating ? 'rotate(5deg)' : 'rotate(0deg)'}`,
+                        transform: `scale(${0.9 + stepProgress * 0.1}) ${isCurrentlyAnimating ? 'rotate(3deg)' : 'rotate(0deg)'}`,
                       }}
                     >
-                      <IconComponent className="w-8 h-8 text-white" aria-hidden="true" />
+                      <IconComponent className={`w-8 h-8 ${isActive ? 'text-white' : 'text-[#0047FF]'}`} aria-hidden="true" />
                     </div>
                     
                     {/* Title */}
-                    <h3 className={`font-anton text-2xl mb-3 transition-colors duration-500 ${
+                    <h3 className={`font-anton text-xl text-center mb-3 transition-colors duration-500 ${
                       isActive ? 'text-[#0047FF]' : 'text-[#0047FF]/60'
                     }`}>
                       {step.title}
                     </h3>
                     
                     {/* Description */}
-                    <p className="font-futura text-gray-600 text-base leading-relaxed">
+                    <p className="font-futura text-gray-600 text-sm text-center leading-relaxed">
                       {step.desc}
                     </p>
-
-                    {/* Decorative corner - animated */}
-                    <div 
-                      className={`absolute bottom-0 ${isLeft ? 'left-0 border-l-4' : 'right-0 border-r-4'} w-16 h-16 border-b-4 transition-all duration-500`}
-                      style={{
-                        borderColor: isActive ? '#0047FF' : 'transparent',
-                        width: `${stepProgress * 64}px`,
-                        height: `${stepProgress * 64}px`
-                      }}
-                    />
                   </article>
                 </div>
-
-                {/* Center circle on timeline */}
-                <div 
-                  className={`absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full z-10 shadow-lg transition-all duration-500 ${
-                    isActive 
-                      ? 'bg-white border-4 border-[#0047FF] scale-125' 
-                      : 'bg-[#0047FF]/20 border-4 border-[#0047FF]/30'
-                  }`}
-                >
-                  {isActive && (
-                    <div 
-                      className="absolute inset-1 bg-[#0047FF] rounded-full"
-                      style={{
-                        animation: isCurrentlyAnimating ? 'pulse 1.5s ease-in-out infinite' : 'none'
-                      }}
-                    />
-                  )}
-                </div>
-
-                {/* Connector line to card - animated */}
-                <div 
-                  className={`absolute top-1/2 h-0.5 transition-all duration-500 ${isLeft ? 'left-[calc(50%+12px)]' : 'right-[calc(50%+12px)]'}`}
-                  style={{ 
-                    width: `${stepProgress * 48}px`,
-                    backgroundColor: isActive ? 'rgba(0, 71, 255, 0.5)' : 'rgba(0, 71, 255, 0.2)'
-                  }}
-                />
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
