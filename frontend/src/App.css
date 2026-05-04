@@ -161,9 +161,42 @@
     backface-visibility: hidden;
 }
 
-/* Smooth scrolling for the entire page */
+/* ===== SMOOTH SCROLLING - ENHANCED FOR MOBILE ===== */
 html {
     scroll-behavior: smooth;
+}
+
+/* Mobile-specific smooth scrolling */
+@media (max-width: 1024px) {
+    html, body {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+    }
+    
+    /* Smoother momentum scrolling on iOS */
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Horizontal scroll containers */
+    .scrollbar-hide {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        overscroll-behavior-x: contain;
+    }
+}
+
+/* Touch optimizations */
+@supports (-webkit-touch-callout: none) {
+    /* iOS specific */
+    html {
+        height: -webkit-fill-available;
+    }
+    
+    body {
+        min-height: -webkit-fill-available;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

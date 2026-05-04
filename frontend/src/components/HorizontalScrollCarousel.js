@@ -124,7 +124,12 @@ export const HorizontalScrollCarousel = ({ items = [] }) => {
           className={`flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-12 overflow-x-auto scrollbar-hide scroll-smooth ${
             isDragging ? 'cursor-grabbing' : 'cursor-grab'
           }`}
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          style={{ 
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+            scrollSnapType: 'x proximity'
+          }}
           onScroll={checkScrollability}
           onMouseDown={handleDragStart}
           onMouseMove={handleDragMove}

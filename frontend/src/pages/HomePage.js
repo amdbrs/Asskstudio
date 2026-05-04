@@ -305,14 +305,16 @@ const ServicesCarousel = () => {
       {/* Carousel Track */}
       <div
         ref={trackRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 pt-2"
+        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 pt-2 scroll-smooth"
         style={{ 
           scrollbarWidth: 'none', 
           msOverflowStyle: 'none',
           scrollSnapType: 'x mandatory',
           WebkitOverflowScrolling: 'touch',
           paddingLeft: 'calc(50% - 140px)',
-          paddingRight: 'calc(50% - 140px)'
+          paddingRight: 'calc(50% - 140px)',
+          scrollPaddingLeft: 'calc(50% - 140px)',
+          scrollPaddingRight: 'calc(50% - 140px)'
         }}
         onScroll={handleScroll}
         onTouchStart={handleTouchStart}
