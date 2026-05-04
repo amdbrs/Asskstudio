@@ -76,37 +76,65 @@ export const AnimatedProcessSection = ({ steps }) => {
           </p>
         </header>
 
-        {/* Mobile/Tablet view */}
-        <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-6">
-          {steps.map((step, index) => {
-            const IconComponent = step.icon;
-            const stepProgress = Math.max(0, Math.min(1, (progress * steps.length) - index + 0.5));
-            
-            return (
-              <article 
-                key={index} 
-                className="relative group transition-all duration-700 ease-out"
-                style={{
-                  opacity: stepProgress,
-                  transform: `translateY(${(1 - stepProgress) * 40}px)`
-                }}
-              >
-                <div className="p-6 sm:p-8 bg-[#0047FF]/5 border border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_20px_60px_-15px_rgba(0,71,255,0.15)] transition-all duration-300">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div 
-                      className="w-12 h-12 bg-[#0047FF] flex items-center justify-center transition-transform duration-500"
-                      style={{ transform: `scale(${0.8 + stepProgress * 0.2})` }}
-                    >
-                      <IconComponent className="w-6 h-6 text-white" aria-hidden="true" />
+        {/* Mobile/Tablet view - Horizontal Timeline */}
+        <div className="lg:hidden overflow-hidden">
+          {/* Horizontal scroll container */}
+          <div 
+            className="flex gap-4 overflow-x-auto pb-6 px-4 scrollbar-hide"
+            style={{ 
+              scrollbarWidth: 'none', 
+              msOverflowStyle: 'none',
+              scrollSnapType: 'x mandatory',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
+            {steps.map((step, index) => {
+              const IconComponent = step.icon;
+              const stepProgress = Math.max(0, Math.min(1, (progress * steps.length) - index + 0.5));
+              
+              return (
+                <article 
+                  key={index} 
+                  className="relative flex-shrink-0 w-[280px] transition-all duration-700 ease-out"
+                  style={{
+                    opacity: stepProgress,
+                    transform: `translateY(${(1 - stepProgress) * 20}px)`,
+                    scrollSnapAlign: 'center'
+                  }}
+                >
+                  {/* Connector line */}
+                  {index < steps.length - 1 && (
+                    <div className="absolute top-8 left-[calc(100%-8px)] w-8 h-0.5 bg-[#0047FF]/20 z-0" />
+                  )}
+                  
+                  <div className="relative p-5 bg-white border-2 border-[#0047FF]/20 h-full">
+                    {/* Step number */}
+                    <div className="absolute -top-3 left-5 px-2 bg-white">
+                      <span className="font-anton text-sm text-[#0047FF]/40">{step.step}</span>
                     </div>
-                    <span className="font-anton text-4xl text-[#0047FF]/20">{step.step}</span>
+                    
+                    <div className="flex items-start gap-4 mt-2">
+                      <div 
+                        className="w-14 h-14 bg-[#0047FF] flex items-center justify-center flex-shrink-0"
+                        style={{ transform: `scale(${0.9 + stepProgress * 0.1})` }}
+                      >
+                        <IconComponent className="w-7 h-7 text-white" aria-hidden="true" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-anton text-lg text-[#0047FF] mb-1">{step.title}</h3>
+                        <p className="font-futura text-gray-600 text-xs leading-relaxed">{step.desc}</p>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="font-anton text-xl text-[#0047FF] mb-2">{step.title}</h3>
-                  <p className="font-futura text-gray-600 text-sm">{step.desc}</p>
-                </div>
-              </article>
-            );
-          })}
+                </article>
+              );
+            })}
+          </div>
+          
+          {/* Scroll hint */}
+          <p className="text-center text-xs text-gray-400 font-futura mt-2">
+            Glissez pour voir les étapes
+          </p>
         </div>
 
         {/* Desktop view - Animated Timeline */}
