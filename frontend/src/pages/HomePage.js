@@ -11,15 +11,12 @@ import { MagneticButton } from '@/components/MagneticButton';
 import { HorizontalScrollCarousel } from '@/components/HorizontalScrollCarousel';
 import { ScrollIndicator } from '@/components/ScrollIndicator';
 import { AnimatedProcessSection } from '@/components/AnimatedProcessSection';
-import { HeroBackgroundMarquee } from '@/components/HeroBackgroundMarquee';
-import { AnimatedCounter } from '@/components/AnimatedCounter';
 import { QuoteForm } from '@/components/QuoteForm';
 import { StackingWhyUsCards } from '@/components/StackingWhyUsCards';
-import { MobileServiceAccordion } from '@/components/MobileServiceAccordion';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
-const HERO_BG_MOBILE = 'https://images.unsplash.com/photo-1559032806-99a331d600b4?w=800&q=80';
+const HERO_BANNER_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/t01eevyp_IMG_2167.jpg';
 
 // Fallback portfolio data with publicly accessible images
 const FALLBACK_PORTFOLIO = [
@@ -227,13 +224,10 @@ const ServiceCard = ({ service, index }) => {
   );
 };
 
-// Services Carousel for Mobile - Enhanced with smooth animations
+// Services Carousel for Mobile - Simplified for better fluidity
 const ServicesCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
   const trackRef = useRef(null);
-  const startX = useRef(0);
-  const scrollStart = useRef(0);
 
   const services = [
     { id: 'graphisme', title: 'GRAPHISME', description: 'Logo, identité visuelle, supports print & digital', icon: Palette, link: '/graphisme' },
@@ -241,86 +235,39 @@ const ServicesCarousel = () => {
     { id: '3d', title: '3D', description: 'Modélisation, impression 3D, art toys', icon: Box, link: '/modelisation-3d' }
   ];
 
-  const cardWidth = 280; // Fixed card width
-  const gap = 16; // Gap between cards
-
   const handleScroll = () => {
-    if (!trackRef.current || isDragging) return;
+    if (!trackRef.current) return;
     const { scrollLeft, clientWidth } = trackRef.current;
-    const centerOffset = (clientWidth - cardWidth) / 2;
-    const adjustedScroll = scrollLeft + centerOffset;
-    const newIndex = Math.round(adjustedScroll / (cardWidth + gap));
+    const cardWidth = clientWidth * 0.75;
+    const newIndex = Math.round(scrollLeft / cardWidth);
     setActiveIndex(Math.max(0, Math.min(newIndex, services.length - 1)));
   };
 
   const scrollToIndex = (index) => {
     if (!trackRef.current) return;
-    const { clientWidth } = trackRef.current;
-    const centerOffset = (clientWidth - cardWidth) / 2;
-    const scrollPosition = index * (cardWidth + gap) - centerOffset + gap;
+    const cardWidth = trackRef.current.clientWidth * 0.75;
     trackRef.current.scrollTo({
-      left: Math.max(0, scrollPosition),
+      left: index * cardWidth,
       behavior: 'smooth'
     });
     setActiveIndex(index);
   };
 
-  // Touch handlers for smooth dragging
-  const handleTouchStart = (e) => {
-    setIsDragging(true);
-    startX.current = e.touches[0].clientX;
-    scrollStart.current = trackRef.current?.scrollLeft || 0;
-  };
-
-  const handleTouchMove = (e) => {
-    if (!isDragging || !trackRef.current) return;
-    const x = e.touches[0].clientX;
-    const diff = startX.current - x;
-    trackRef.current.scrollLeft = scrollStart.current + diff;
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-    if (!trackRef.current) return;
-    
-    // Snap to nearest card
-    const { scrollLeft, clientWidth } = trackRef.current;
-    const centerOffset = (clientWidth - cardWidth) / 2;
-    const adjustedScroll = scrollLeft + centerOffset;
-    const nearestIndex = Math.round(adjustedScroll / (cardWidth + gap));
-    scrollToIndex(Math.max(0, Math.min(nearestIndex, services.length - 1)));
-  };
-
-  // Center first card on mount
-  useEffect(() => {
-    if (trackRef.current) {
-      const { clientWidth } = trackRef.current;
-      const centerOffset = (clientWidth - cardWidth) / 2;
-      trackRef.current.scrollLeft = 0;
-    }
-  }, []);
-
   return (
-    <div className="relative overflow-hidden">
-      {/* Carousel Track */}
+    <div className="relative">
+      {/* Carousel Track - Native scroll for maximum fluidity */}
       <div
         ref={trackRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 pt-2 scroll-smooth"
+        className="flex gap-4 overflow-x-auto pb-4 pt-2 px-[12.5%]"
         style={{ 
           scrollbarWidth: 'none', 
           msOverflowStyle: 'none',
           scrollSnapType: 'x mandatory',
-          WebkitOverflowScrolling: 'touch',
-          paddingLeft: 'calc(50% - 140px)',
-          paddingRight: 'calc(50% - 140px)',
-          scrollPaddingLeft: 'calc(50% - 140px)',
-          scrollPaddingRight: 'calc(50% - 140px)'
+          WebkitOverflowScrolling: 'touch'
         }}
         onScroll={handleScroll}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
       >
+        <style>{`.scrollbar-hide::-webkit-scrollbar { display: none; }`}</style>
         {services.map((service, index) => {
           const IconComponent = service.icon;
           const isActive = index === activeIndex;
@@ -328,36 +275,21 @@ const ServicesCarousel = () => {
             <Link
               key={service.id}
               to={service.link}
-              className={`services-card group flex-shrink-0 p-6 bg-white border-2
-                transition-all duration-500 ease-out
+              className={`services-card flex-shrink-0 w-[75vw] p-6 bg-white border-2 transition-all duration-300
                 ${isActive 
-                  ? 'border-[#0047FF] shadow-[0_20px_40px_-15px_rgba(0,71,255,0.3)] scale-100' 
-                  : 'border-[#0047FF]/10 shadow-sm scale-[0.95] opacity-70'
+                  ? 'border-[#0047FF] shadow-lg' 
+                  : 'border-[#0047FF]/10'
                 }`}
-              style={{ 
-                scrollSnapAlign: 'center',
-                width: `${cardWidth}px`,
-                minWidth: `${cardWidth}px`
-              }}
+              style={{ scrollSnapAlign: 'center' }}
               data-testid={`mobile-service-${service.id}`}
             >
               <div className="flex flex-col items-center text-center">
-                <div className={`w-20 h-20 bg-gradient-to-br from-[#0047FF] to-[#0033CC] flex items-center justify-center mb-5
-                  transition-all duration-500 ease-out
-                  ${isActive ? 'scale-100 rotate-0' : 'scale-90 rotate-[-5deg]'}`}>
-                  <IconComponent className="w-10 h-10 text-white" />
+                <div className="w-16 h-16 bg-[#0047FF] flex items-center justify-center mb-4">
+                  <IconComponent className="w-8 h-8 text-white" />
                 </div>
-                <h3 className={`font-anton text-3xl text-[#0047FF] mb-3 transition-all duration-500
-                  ${isActive ? 'opacity-100 translate-y-0' : 'opacity-50 translate-y-1'}`}>
-                  {service.title}
-                </h3>
-                <p className={`font-futura text-gray-500 text-sm mb-5 transition-all duration-500
-                  ${isActive ? 'opacity-100' : 'opacity-40'}`}>
-                  {service.description}
-                </p>
-                <span className={`inline-flex items-center gap-2 font-futura text-sm font-medium text-[#0047FF]
-                  px-4 py-2 bg-[#0047FF]/5 rounded-full transition-all duration-300
-                  ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+                <h3 className="font-anton text-2xl text-[#0047FF] mb-2">{service.title}</h3>
+                <p className="font-futura text-gray-500 text-sm mb-4">{service.description}</p>
+                <span className="inline-flex items-center gap-2 font-futura text-sm text-[#0047FF]">
                   Découvrir <ArrowRight className="w-4 h-4" />
                 </span>
               </div>
@@ -366,26 +298,21 @@ const ServicesCarousel = () => {
         })}
       </div>
 
-      {/* Enhanced Dots Indicator */}
-      <div className="flex justify-center items-center gap-3 mt-4">
+      {/* Dots Indicator */}
+      <div className="flex justify-center items-center gap-2 mt-4">
         {services.map((_, index) => (
           <button
             key={index}
-            className={`rounded-full transition-all duration-500 ease-out ${
+            className={`rounded-full transition-all duration-300 ${
               index === activeIndex 
-                ? 'w-8 h-2 bg-[#0047FF]' 
-                : 'w-2 h-2 bg-[#0047FF]/20 hover:bg-[#0047FF]/40'
+                ? 'w-6 h-2 bg-[#0047FF]' 
+                : 'w-2 h-2 bg-[#0047FF]/20'
             }`}
             onClick={() => scrollToIndex(index)}
             aria-label={`Voir service ${index + 1}`}
           />
         ))}
       </div>
-
-      {/* Swipe hint - only on first load */}
-      <p className="text-center text-xs text-gray-400 mt-3 font-futura">
-        Glissez pour explorer
-      </p>
     </div>
   );
 };
@@ -447,32 +374,23 @@ export default function HomePage() {
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
-        {/* Background Marquee Text */}
-        <HeroBackgroundMarquee text="ASSK STUDIO • GRAPHISME • WEB • 3D" />
-        
-        {/* Mobile background image */}
-        <div className="absolute inset-0 lg:hidden">
+        {/* Background Banner Image */}
+        <div className="absolute inset-0">
           <img 
-            src={HERO_BG_MOBILE} 
+            src={HERO_BANNER_URL} 
             alt="" 
-            className="w-full h-full object-cover opacity-10"
+            className="w-full h-full object-cover"
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white" />
-        </div>
-        
-        {/* Animated background elements - desktop only */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none hidden sm:block" aria-hidden="true">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-[#0047FF]/10 rounded-full animate-[spin_60s_linear_infinite]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-[#0047FF]/5 rounded-full animate-[spin_45s_linear_infinite_reverse]" />
+          {/* Blue overlay filter */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/80" />
+          <div className="absolute inset-0 bg-[#0047FF]/10" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6 animate-fadeInUp" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6 animate-fadeInUp backdrop-blur-sm" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
                 <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 animate-pulse" aria-hidden="true" />
                 <span>Studio Créatif Graphisme & 3D</span>
               </div>
@@ -503,15 +421,13 @@ export default function HomePage() {
                   as="a" 
                   href="#realisations" 
                   strength={0.3}
-                  className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-500 hover:bg-[#0047FF] hover:text-white active:scale-95" 
+                  className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white/80 backdrop-blur-sm text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-500 hover:bg-[#0047FF] hover:text-white active:scale-95" 
                   data-cursor-text="Voir" 
                   aria-label="Voir nos réalisations"
                 >
                   Nos réalisations
                 </MagneticButton>
               </div>
-
-              {/* Stats removed - new stats section below */}
             </div>
 
             {/* Hero Image/Logo */}
@@ -545,53 +461,6 @@ export default function HomePage() {
           ))}
         </Marquee>
       </div>
-
-      {/* ===== STATS BANNER - COMPACT ===== */}
-      <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-12 bg-[#0047FF]/10" id="stats-section">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 items-center">
-            {/* Stat 1 */}
-            <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
-                <AnimatedCounter end={75} suffix="%" duration={2000} />
-              </p>
-              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
-                jugent sur l'identité visuelle
-              </p>
-            </div>
-            
-            {/* Stat 2 */}
-            <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
-                x<AnimatedCounter end={2} duration={1500} />.<AnimatedCounter end={6} duration={1800} />
-              </p>
-              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
-                plus d'engagement
-              </p>
-            </div>
-
-            {/* Stat 3 */}
-            <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
-                <AnimatedCounter end={72} suffix="%" duration={2200} />
-              </p>
-              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
-                jugent sur les supports print
-              </p>
-            </div>
-
-            {/* Stat 4 */}
-            <div className="text-center">
-              <p className="font-anton text-2xl sm:text-3xl text-[#0047FF] leading-none">
-                <AnimatedCounter end={94} suffix="%" duration={2500} />
-              </p>
-              <p className="font-futura text-gray-600 text-[10px] sm:text-xs mt-1 leading-tight">
-                premières impressions = design
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ===== SERVICES SECTION ===== */}
       <section id="services" className="py-16 sm:py-24 lg:py-32 bg-white" data-testid="services-section" aria-labelledby="services-title">

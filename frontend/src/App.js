@@ -10,6 +10,7 @@ import HomePage from "@/pages/HomePage";
 import PortfolioPage from "@/pages/PortfolioPage";
 import ContactPage from "@/pages/ContactPage";
 import BlogPage from "@/pages/BlogPage";
+import BlogPostPage from "@/pages/BlogPostPage";
 import AboutPage from "@/pages/AboutPage";
 import GraphismePage from "@/pages/GraphismePage";
 import SiteWebPage from "@/pages/SiteWebPage";
@@ -126,6 +127,7 @@ function AnimatedRoutes() {
             <Route path="/realisations" element={<PortfolioPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/a-propos" element={<AboutPage />} />
             <Route path="/graphisme" element={<GraphismePage />} />
             <Route path="/sites-web" element={<SiteWebPage />} />

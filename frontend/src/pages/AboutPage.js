@@ -166,34 +166,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Experience */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-[#0047FF]/5">
-        <div className="max-w-4xl mx-auto">
-          <header className="text-center mb-12 sm:mb-16">
-            <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-widest mb-3">Parcours</p>
-            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0047FF]">Expériences</h2>
-          </header>
-
-          <div className="space-y-6">
-            {experiences.map((exp, index) => (
-              <div 
-                key={index}
-                className="group p-6 sm:p-8 bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_20px_60px_-15px_rgba(0,71,255,0.15)] transition-all duration-300"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                  <div>
-                    <h3 className="font-anton text-xl text-[#0047FF]">{exp.title}</h3>
-                    <p className="font-futura text-[#0047FF]/70 text-sm">{exp.company}</p>
-                  </div>
-                  <span className="font-futura text-[#0047FF]/50 text-sm">{exp.period}</span>
-                </div>
-                <p className="font-futura text-[#0047FF]/60 text-sm">{exp.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Contact CTA */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-[#0047FF]">
         <div className="max-w-4xl mx-auto text-center">

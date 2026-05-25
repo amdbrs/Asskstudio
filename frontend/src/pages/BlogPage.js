@@ -13,6 +13,7 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const defaultPosts = [
   {
     id: '1',
+    slug: 'graphiste-clermont-ferrand',
     title: "Graphiste Clermont-Ferrand : Comment choisir le bon designer pour votre entreprise",
     excerpt: "Vous cherchez un graphiste à Clermont-Ferrand ? Découvrez nos conseils pour sélectionner le designer qui transformera votre identité visuelle et boostera votre image de marque en Auvergne.",
     image_url: "https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?w=800&q=80",
@@ -24,6 +25,7 @@ const defaultPosts = [
   },
   {
     id: '2',
+    slug: 'creation-site-web-vichy',
     title: "Création de site web à Vichy : Guide complet 2025",
     excerpt: "Entreprise à Vichy ? Découvrez pourquoi un site web professionnel est essentiel et comment notre agence web locale peut vous accompagner dans votre transformation digitale.",
     image_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
@@ -35,6 +37,7 @@ const defaultPosts = [
   },
   {
     id: '3',
+    slug: 'impression-3d-moulins',
     title: "Impression 3D à Moulins : Services et possibilités",
     excerpt: "Basé dans l'Allier, notre service d'impression 3D filament propose des créations sur-mesure : figurines, prototypes, objets personnalisés. Découvrez nos réalisations.",
     image_url: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
@@ -46,6 +49,7 @@ const defaultPosts = [
   },
   {
     id: '4',
+    slug: 'logo-entreprise-auvergne-erreurs',
     title: "Logo entreprise Auvergne : 5 erreurs à éviter absolument",
     excerpt: "Création de logo pour votre entreprise auvergnate ? Évitez ces erreurs courantes qui peuvent nuire à votre image de marque et découvrez nos conseils de designer professionnel.",
     image_url: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
@@ -57,6 +61,7 @@ const defaultPosts = [
   },
   {
     id: '5',
+    slug: 'prix-site-vitrine-2025',
     title: "Prix d'un site vitrine en 2025 : Tarifs et conseils",
     excerpt: "Combien coûte un site vitrine professionnel ? Découvrez nos tarifs transparents et comparez les offres pour faire le meilleur choix pour votre entreprise locale.",
     image_url: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80",
@@ -68,6 +73,7 @@ const defaultPosts = [
   },
   {
     id: '6',
+    slug: 'art-toys-personnalises',
     title: "Art Toys personnalisés : Du concept à la figurine collector",
     excerpt: "Passionné de figurines ? Découvrez notre processus de création d'Art Toys sur-mesure : modélisation 3D, impression et finitions pour des pièces uniques.",
     image_url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
@@ -79,6 +85,7 @@ const defaultPosts = [
   },
   {
     id: '7',
+    slug: 'identite-visuelle-pme',
     title: "Identité visuelle PME : Pourquoi investir dans votre image",
     excerpt: "Artisan, commerçant ou TPE en Auvergne ? Découvrez comment une identité visuelle professionnelle peut transformer votre activité et attirer plus de clients.",
     image_url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80",
@@ -90,6 +97,7 @@ const defaultPosts = [
   },
   {
     id: '8',
+    slug: 'ecommerce-auvergne',
     title: "E-commerce Auvergne : Vendre en ligne depuis Clermont-Ferrand",
     excerpt: "Lancez votre boutique en ligne depuis l'Auvergne ! Guide pratique pour créer un e-commerce performant et vendre vos produits locaux partout en France.",
     image_url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
@@ -265,11 +273,10 @@ export default function BlogPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {filteredPosts.map((post, index) => (
                 <ScrollReveal key={post.id} animation="fadeUp" delay={index * 100}>
-                  <article
-                    className="group h-full bg-white border border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_20px_60px_-15px_rgba(0,71,255,0.15)] transition-all duration-300"
+                  <Link
+                    to={`/blog/${post.slug}`}
+                    className="group block h-full bg-white border border-[#0047FF]/10 hover:border-[#0047FF] hover:shadow-[0_20px_60px_-15px_rgba(0,71,255,0.15)] transition-all duration-300"
                     data-testid={`blog-post-${post.id}`}
-                    itemScope
-                    itemType="https://schema.org/BlogPosting"
                   >
                     {/* Image */}
                     <div className="relative aspect-[16/10] overflow-hidden">
@@ -278,7 +285,6 @@ export default function BlogPage() {
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
-                        itemProp="image"
                       />
                       <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
                         <span className="inline-flex items-center gap-1 px-2 sm:px-3 py-1 bg-[#0047FF] text-white text-[10px] sm:text-xs font-futura uppercase">
@@ -293,7 +299,7 @@ export default function BlogPage() {
                       <div className="flex items-center gap-3 sm:gap-4 text-[#0047FF]/50 text-[10px] sm:text-xs font-futura mb-2 sm:mb-3">
                         <span className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
-                          <time itemProp="datePublished" dateTime={post.created_at}>
+                          <time dateTime={post.created_at}>
                             {formatDate(post.created_at)}
                           </time>
                         </span>
@@ -303,28 +309,22 @@ export default function BlogPage() {
                         </span>
                       </div>
 
-                      <h2 
-                        className="font-anton text-base sm:text-lg lg:text-xl text-[#0047FF] group-hover:text-[#0047FF] transition-colors line-clamp-2"
-                        itemProp="headline"
-                      >
+                      <h2 className="font-anton text-base sm:text-lg lg:text-xl text-[#0047FF] group-hover:text-[#0047FF] transition-colors line-clamp-2">
                         {post.title}
                       </h2>
                       
-                      <p 
-                        className="font-futura text-gray-600 text-xs sm:text-sm mt-2 sm:mt-3 line-clamp-3"
-                        itemProp="description"
-                      >
+                      <p className="font-futura text-gray-600 text-xs sm:text-sm mt-2 sm:mt-3 line-clamp-3">
                         {post.excerpt}
                       </p>
 
                       <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-[#0047FF]/10">
-                        <button className="group/btn inline-flex items-center gap-2 font-futura text-xs sm:text-sm text-[#0047FF] hover:gap-3 transition-all">
+                        <span className="inline-flex items-center gap-2 font-futura text-xs sm:text-sm text-[#0047FF] group-hover:gap-3 transition-all">
                           Lire l'article
-                          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover/btn:translate-x-1" />
-                        </button>
+                          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
+                        </span>
                       </div>
                     </div>
-                  </article>
+                  </Link>
                 </ScrollReveal>
               ))}
             </div>
