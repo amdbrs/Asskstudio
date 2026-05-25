@@ -16,7 +16,7 @@ import { StackingWhyUsCards } from '@/components/StackingWhyUsCards';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
-const HERO_BANNER_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/t01eevyp_IMG_2167.jpg';
+const HERO_BANNER_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/mz2obg6m_pexels-jakubzerdzicki-19124461.jpg';
 
 // Fallback portfolio data with publicly accessible images
 const FALLBACK_PORTFOLIO = [
@@ -373,27 +373,35 @@ export default function HomePage() {
       <Header />
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
-        {/* Background decorations */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }} />
+      <section className="relative min-h-[100svh] bg-[#0a0a0a] flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
+        {/* Background Banner Image */}
+        <div className="absolute inset-0">
+          <img 
+            src={HERO_BANNER_URL} 
+            alt="" 
+            className="w-full h-full object-cover opacity-60"
+            aria-hidden="true"
+          />
+          {/* Gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
+          {/* Blue accent glow */}
+          <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[#0047FF]/20 blur-[150px]" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6 animate-fadeInUp" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/20 backdrop-blur-sm text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6 animate-fadeInUp border border-[#0047FF]/30" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
                 <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 animate-pulse" aria-hidden="true" />
                 <span>Studio Créatif Graphisme & 3D</span>
               </div>
               
-              <h1 className="font-anton text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#0047FF] leading-[0.95] uppercase tracking-tight animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }} data-testid="hero-title">
+              <h1 className="font-anton text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white leading-[0.95] uppercase tracking-tight animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }} data-testid="hero-title">
                 On crée.<br />
-                <span className="text-[#0047FF]/30">Tu marques.</span>
+                <span className="text-[#0047FF]">Tu marques.</span>
               </h1>
               
-              <p className="font-futura text-gray-700 text-base sm:text-lg lg:text-xl mt-6 sm:mt-8 max-w-lg mx-auto lg:mx-0 leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+              <p className="font-futura text-gray-300 text-base sm:text-lg lg:text-xl mt-6 sm:mt-8 max-w-lg mx-auto lg:mx-0 leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
                 Studio créatif spécialisé en identité visuelle, sites web, modélisation 3D et création d'art toys uniques.
               </p>
               
@@ -414,7 +422,7 @@ export default function HomePage() {
                   as={Link}
                   to="/realisations"
                   strength={0.3}
-                  className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-500 hover:bg-[#0047FF] hover:text-white active:scale-95" 
+                  className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-white font-anton text-base sm:text-lg uppercase border-2 border-white/30 transition-all duration-500 hover:bg-white hover:text-[#0a0a0a] active:scale-95" 
                   data-cursor-text="Voir" 
                   aria-label="Voir nos réalisations"
                 >
@@ -423,22 +431,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Hero Logo */}
-            <div className="relative hidden lg:flex items-center justify-center animate-fadeInUp" style={{ animationDelay: '0.3s', animationFillMode: 'both' }} aria-hidden="true">
-              <MouseParallax intensity={25} className="relative w-[300px] xl:w-[400px] h-[300px] xl:h-[400px]">
-                <div className="relative w-full h-full animate-heartbeat">
-                  <div className="absolute inset-0 bg-[#0047FF] rounded-full opacity-10 animate-ping-slow" />
-                  <img 
-                    src={LOGO_URL} 
-                    alt="Logo ASSK Studio" 
-                    className="relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-105" 
-                    width="400"
-                    height="400"
-                    loading="eager"
-                  />
-                </div>
-              </MouseParallax>
-            </div>
+            {/* Empty space to show banner */}
+            <div className="hidden lg:block" aria-hidden="true" />
           </div>
         </div>
 
