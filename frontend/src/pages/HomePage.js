@@ -374,25 +374,16 @@ export default function HomePage() {
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative min-h-[100svh] bg-white flex items-center overflow-hidden pt-16" aria-label="Présentation ASSK Studio">
-        {/* Background Banner Image - Better integration */}
-        <div className="absolute inset-0">
-          <img 
-            src={HERO_BANNER_URL} 
-            alt="" 
-            className="w-full h-full object-cover object-center"
-            aria-hidden="true"
-            style={{ objectPosition: '50% 30%' }}
-          />
-          {/* Gradient overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/70 lg:via-white/85 lg:to-transparent" />
-          {/* Subtle blue tint */}
-          <div className="absolute inset-0 bg-[#0047FF]/5" />
+        {/* Background decorations */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#0047FF]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }} />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/80 backdrop-blur-sm text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6 animate-fadeInUp border border-[#0047FF]/20" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#0047FF]/10 text-[#0047FF] font-futura text-xs sm:text-sm mb-4 sm:mb-6 animate-fadeInUp" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
                 <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 animate-pulse" aria-hidden="true" />
                 <span>Studio Créatif Graphisme & 3D</span>
               </div>
@@ -423,7 +414,7 @@ export default function HomePage() {
                   as={Link}
                   to="/realisations"
                   strength={0.3}
-                  className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white/90 backdrop-blur-sm text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-500 hover:bg-[#0047FF] hover:text-white active:scale-95" 
+                  className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#0047FF] font-anton text-base sm:text-lg uppercase border-2 border-[#0047FF] transition-all duration-500 hover:bg-[#0047FF] hover:text-white active:scale-95" 
                   data-cursor-text="Voir" 
                   aria-label="Voir nos réalisations"
                 >
@@ -432,8 +423,22 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Empty space on desktop to let the photo show through */}
-            <div className="hidden lg:block" aria-hidden="true" />
+            {/* Hero Logo */}
+            <div className="relative hidden lg:flex items-center justify-center animate-fadeInUp" style={{ animationDelay: '0.3s', animationFillMode: 'both' }} aria-hidden="true">
+              <MouseParallax intensity={25} className="relative w-[300px] xl:w-[400px] h-[300px] xl:h-[400px]">
+                <div className="relative w-full h-full animate-heartbeat">
+                  <div className="absolute inset-0 bg-[#0047FF] rounded-full opacity-10 animate-ping-slow" />
+                  <img 
+                    src={LOGO_URL} 
+                    alt="Logo ASSK Studio" 
+                    className="relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-105" 
+                    width="400"
+                    height="400"
+                    loading="eager"
+                  />
+                </div>
+              </MouseParallax>
+            </div>
           </div>
         </div>
 
