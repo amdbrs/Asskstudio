@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { Send, CheckCircle, Palette, Globe, Box, Clock } from 'lucide-react';
 import { toast } from 'sonner';
+import emailjs from '@emailjs/browser';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = 'service_6binlv4';
+const EMAILJS_TEMPLATE_ID = 'template_usg6x09';
+const EMAILJS_PUBLIC_KEY = 'QZmr_SPJPnY27moIb';
 
 const projectTypes = [
   { 
@@ -70,7 +74,7 @@ export const QuoteForm = ({ onSuccess }) => {
     setLoading(true);
 
     try {
-      // Format the message for the contact API
+      // Format the message for EmailJS
       const selectedProjects = formData.projectTypes
         .map(id => projectTypes.find(p => p.id === id)?.label)
         .join(', ');
@@ -91,25 +95,24 @@ Description du projet:
 ${formData.description}
       `.trim();
 
-      const response = await fetch(`${API}/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
+      // Send via EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
           subject: `Demande de devis - ${selectedProjects}`,
           message: message
-        })
-      });
+        },
+        EMAILJS_PUBLIC_KEY
+      );
 
-      if (response.ok) {
-        setSubmitted(true);
-        toast.success('Demande envoyée ! Réponse sous 24h.');
-        if (onSuccess) onSuccess();
-      } else {
-        throw new Error('Erreur serveur');
-      }
+      setSubmitted(true);
+      toast.success('Demande envoyée ! Réponse sous 24h.');
+      if (onSuccess) onSuccess();
     } catch (error) {
+      console.error('EmailJS error:', error);
       toast.error('Erreur lors de l\'envoi. Réessayez plus tard.');
     } finally {
       setLoading(false);
