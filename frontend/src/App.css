@@ -145,6 +145,7 @@
 * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* GPU acceleration for animated elements */
@@ -166,39 +167,92 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Mobile-specific smooth scrolling */
+/* ===== MOBILE PERFORMANCE OPTIMIZATIONS ===== */
 @media (max-width: 1024px) {
     html, body {
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-y: contain;
+        overflow-x: hidden;
     }
     
-    /* Smoother momentum scrolling on iOS */
+    /* Disable heavy animations on mobile for better performance */
+    .animate-float,
+    .animate-ping-slow,
+    .animate-pulse,
+    .animate-heartbeat {
+        animation: none !important;
+    }
+    
+    /* Reduce transition duration on mobile */
     * {
-        -webkit-overflow-scrolling: touch;
+        transition-duration: 0.2s !important;
     }
     
-    /* Horizontal scroll containers */
-    .scrollbar-hide {
+    /* Simpler transitions for cards */
+    .services-card,
+    .group {
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out !important;
+    }
+    
+    /* Optimize touch scrolling */
+    .scrollbar-hide,
+    [class*="overflow-x-auto"],
+    [class*="overflow-y-auto"] {
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
-        overscroll-behavior-x: contain;
+        overscroll-behavior: contain;
+        touch-action: pan-x pan-y;
+    }
+    
+    /* Disable hover effects on mobile (they cause lag) */
+    .group:hover,
+    a:hover,
+    button:hover {
+        transform: none !important;
+    }
+    
+    /* Active states instead of hover on mobile */
+    .group:active,
+    a:active,
+    button:active {
+        transform: scale(0.98) !important;
+        opacity: 0.9;
+    }
+    
+    /* Reduce blur effects (expensive on mobile) */
+    .blur-3xl {
+        filter: blur(40px) !important;
+    }
+    
+    .backdrop-blur-sm {
+        backdrop-filter: blur(4px) !important;
+    }
+    
+    /* Simplify shadows on mobile */
+    [class*="shadow-"] {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
     }
 }
 
-/* Touch optimizations */
+/* Touch optimizations for iOS */
 @supports (-webkit-touch-callout: none) {
-    /* iOS specific */
     html {
         height: -webkit-fill-available;
     }
     
     body {
         min-height: -webkit-fill-available;
+        min-height: 100dvh;
+    }
+    
+    /* Fix iOS momentum scroll */
+    .scrollbar-hide {
+        -webkit-overflow-scrolling: touch;
     }
 }
 
+/* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;

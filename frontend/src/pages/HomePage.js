@@ -224,10 +224,11 @@ const ServiceCard = ({ service, index }) => {
   );
 };
 
-// Services Carousel for Mobile - Simplified for better fluidity
+// Services Carousel for Mobile - Optimized for fluidity
 const ServicesCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const trackRef = useRef(null);
+  const scrollTimeout = useRef(null);
 
   const services = [
     { id: 'graphisme', title: 'GRAPHISME', description: 'Logo, identité visuelle, supports print & digital', icon: Palette, link: '/graphisme' },
@@ -235,12 +236,16 @@ const ServicesCarousel = () => {
     { id: '3d', title: '3D', description: 'Modélisation, impression 3D, art toys', icon: Box, link: '/modelisation-3d' }
   ];
 
+  // Debounced scroll handler for better performance
   const handleScroll = () => {
-    if (!trackRef.current) return;
-    const { scrollLeft, clientWidth } = trackRef.current;
-    const cardWidth = clientWidth * 0.75;
-    const newIndex = Math.round(scrollLeft / cardWidth);
-    setActiveIndex(Math.max(0, Math.min(newIndex, services.length - 1)));
+    if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    scrollTimeout.current = setTimeout(() => {
+      if (!trackRef.current) return;
+      const { scrollLeft, clientWidth } = trackRef.current;
+      const cardWidth = clientWidth * 0.75;
+      const newIndex = Math.round(scrollLeft / cardWidth);
+      setActiveIndex(Math.max(0, Math.min(newIndex, services.length - 1)));
+    }, 50);
   };
 
   const scrollToIndex = (index) => {
@@ -258,29 +263,22 @@ const ServicesCarousel = () => {
       {/* Carousel Track - Native scroll for maximum fluidity */}
       <div
         ref={trackRef}
-        className="flex gap-4 overflow-x-auto pb-4 pt-2 px-[12.5%]"
+        className="flex gap-4 overflow-x-auto pb-4 pt-2 px-[12.5%] snap-x snap-mandatory"
         style={{ 
           scrollbarWidth: 'none', 
           msOverflowStyle: 'none',
-          scrollSnapType: 'x mandatory',
-          WebkitOverflowScrolling: 'touch'
+          WebkitOverflowScrolling: 'touch',
+          touchAction: 'pan-x'
         }}
         onScroll={handleScroll}
       >
-        <style>{`.scrollbar-hide::-webkit-scrollbar { display: none; }`}</style>
         {services.map((service, index) => {
           const IconComponent = service.icon;
-          const isActive = index === activeIndex;
           return (
             <Link
               key={service.id}
               to={service.link}
-              className={`services-card flex-shrink-0 w-[75vw] p-6 bg-white border-2 transition-all duration-300
-                ${isActive 
-                  ? 'border-[#0047FF] shadow-lg' 
-                  : 'border-[#0047FF]/10'
-                }`}
-              style={{ scrollSnapAlign: 'center' }}
+              className="services-card flex-shrink-0 w-[75vw] p-6 bg-white border-2 border-[#0047FF]/20 snap-center active:scale-[0.98]"
               data-testid={`mobile-service-${service.id}`}
             >
               <div className="flex flex-col items-center text-center">
@@ -303,7 +301,7 @@ const ServicesCarousel = () => {
         {services.map((_, index) => (
           <button
             key={index}
-            className={`rounded-full transition-all duration-300 ${
+            className={`rounded-full ${
               index === activeIndex 
                 ? 'w-6 h-2 bg-[#0047FF]' 
                 : 'w-2 h-2 bg-[#0047FF]/20'

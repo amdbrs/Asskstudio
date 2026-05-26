@@ -28,16 +28,14 @@ export const AnimatedProcessSection = ({ steps }) => {
         {/* Mobile/Tablet view - Horizontal Timeline */}
         <div className="lg:hidden overflow-hidden">
           <div 
-            className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide scroll-smooth"
+            className="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory"
             style={{ 
               scrollbarWidth: 'none', 
               msOverflowStyle: 'none',
-              scrollSnapType: 'x mandatory',
               WebkitOverflowScrolling: 'touch',
               paddingLeft: 'calc(50% - 140px)',
               paddingRight: 'calc(50% - 140px)',
-              scrollPaddingLeft: 'calc(50% - 140px)',
-              scrollPaddingRight: 'calc(50% - 140px)'
+              touchAction: 'pan-x'
             }}
           >
             {steps.map((step, index) => {
@@ -46,15 +44,14 @@ export const AnimatedProcessSection = ({ steps }) => {
               return (
                 <article 
                   key={index} 
-                  className="relative flex-shrink-0 w-[280px] h-[180px]"
-                  style={{ scrollSnapAlign: 'center' }}
+                  className="relative flex-shrink-0 w-[280px] h-[180px] snap-center"
                 >
                   {/* Connector line */}
                   {index < steps.length - 1 && (
                     <div className="absolute top-8 left-[calc(100%-8px)] w-8 h-0.5 bg-[#0047FF]/20 z-0" />
                   )}
                   
-                  <div className="relative p-5 bg-white border-2 border-[#0047FF]/20 h-full flex flex-col">
+                  <div className="relative p-5 bg-white border-2 border-[#0047FF]/20 h-full flex flex-col active:scale-[0.98]">
                     {/* Step number */}
                     <div className="absolute -top-3 left-5 px-2 bg-white">
                       <span className="font-anton text-sm text-[#0047FF]/40">{step.step}</span>
