@@ -2,7 +2,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
+const LOGO_DARK = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
+const LOGO_LIGHT = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/agj8ovh9_assk-logo.png';
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -43,6 +44,14 @@ export const Header = () => {
 
   const isActive = (path) => location.pathname === path;
   const isHomePage = location.pathname === '/';
+  
+  // Use light logo when on homepage and not scrolled (dark hero background)
+  const useLightLogo = isHomePage && !scrolled;
+  const currentLogo = useLightLogo ? LOGO_LIGHT : LOGO_DARK;
+  
+  // Text color based on background
+  const textColor = useLightLogo ? 'text-white' : 'text-[#0047FF]';
+  const textColorMuted = useLightLogo ? 'text-white/60' : 'text-[#0047FF]/60';
 
   return (
     <>
@@ -65,7 +74,7 @@ export const Header = () => {
               data-testid="logo-link"
             >
               <img
-                src={LOGO_URL}
+                src={currentLogo}
                 alt="ASSK Studio - Logo"
                 className={`w-auto transition-all duration-300 group-hover:scale-105 ${scrolled ? 'h-8' : 'h-10'}`}
               />
@@ -79,20 +88,20 @@ export const Header = () => {
                   to={link.path}
                   className={`relative font-futura font-medium text-sm uppercase tracking-wider transition-colors duration-200 ${
                     isActive(link.path)
-                      ? 'text-[#0047FF]'
-                      : 'text-[#0047FF]/60 hover:text-[#0047FF]'
+                      ? textColor
+                      : `${textColorMuted} hover:${textColor}`
                   }`}
                   data-testid={`nav-${link.name.toLowerCase()}`}
                 >
                   {link.name}
                   {isActive(link.path) && (
-                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#0047FF]" />
+                    <span className={`absolute -bottom-1 left-0 w-full h-0.5 ${useLightLogo ? 'bg-white' : 'bg-[#0047FF]'}`} />
                   )}
                 </Link>
               ))}
             </nav>
 
-            {/* Mobile Menu Button - Animated Hamburger (j) */}
+            {/* Mobile Menu Button - Animated Hamburger */}
             <button
               className="md:hidden w-10 h-10 flex items-center justify-center relative z-50"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -102,18 +111,24 @@ export const Header = () => {
             >
               <div className="w-6 h-5 relative flex flex-col justify-between">
                 <span 
-                  className={`block h-0.5 bg-[#0047FF] transition-all duration-300 origin-center ${
-                    mobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                  className={`block h-0.5 transition-all duration-300 origin-center ${
+                    mobileMenuOpen 
+                      ? 'rotate-45 translate-y-2 bg-[#0047FF]' 
+                      : useLightLogo ? 'bg-white' : 'bg-[#0047FF]'
                   }`} 
                 />
                 <span 
-                  className={`block h-0.5 bg-[#0047FF] transition-all duration-300 ${
-                    mobileMenuOpen ? 'opacity-0 scale-0' : ''
+                  className={`block h-0.5 transition-all duration-300 ${
+                    mobileMenuOpen 
+                      ? 'opacity-0 scale-0 bg-[#0047FF]' 
+                      : useLightLogo ? 'bg-white' : 'bg-[#0047FF]'
                   }`} 
                 />
                 <span 
-                  className={`block h-0.5 bg-[#0047FF] transition-all duration-300 origin-center ${
-                    mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                  className={`block h-0.5 transition-all duration-300 origin-center ${
+                    mobileMenuOpen 
+                      ? '-rotate-45 -translate-y-2 bg-[#0047FF]' 
+                      : useLightLogo ? 'bg-white' : 'bg-[#0047FF]'
                   }`} 
                 />
               </div>
