@@ -14,6 +14,16 @@ const FOOTBALL_IMAGES = [
     id: '2',
     title: 'Maillot moderne',
     image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/kzekcg6b_t-shirt-football.png'
+  },
+  {
+    id: '3',
+    title: 'Maillot vintage - Face',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/slxa2qke_8e9c388d-ae74-47e6-98e6-b3aa23f8bc70.jpg'
+  },
+  {
+    id: '4',
+    title: 'Maillot vintage - Dos',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/fcyycolu_TSHIRT-foot-dos.jpg'
   }
 ];
 
