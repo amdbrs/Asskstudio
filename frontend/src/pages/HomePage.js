@@ -36,6 +36,15 @@ const CLIENT_PROJECTS = [
     image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/agi6m675_tshirt-coachella.png',
     link: '/coachella-2k24',
     color: 'from-pink-500 to-red-500'
+  },
+  {
+    id: 'liberty-van',
+    title: 'Liberty Van',
+    category: 'Identité Visuelle',
+    description: 'Location de vans - Allier 03',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/nq51eqoq_Business-Card-Mockup.png',
+    link: '/liberty-van',
+    color: 'from-cyan-500 to-teal-500'
   }
 ];
 
