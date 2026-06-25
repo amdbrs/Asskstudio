@@ -511,64 +511,76 @@ export default function HomePage() {
           <button 
             onClick={() => {
               const carousel = document.getElementById('projects-carousel');
-              if (carousel) carousel.scrollBy({ left: -400, behavior: 'smooth' });
+              if (carousel) {
+                const cardWidth = 520;
+                carousel.scrollTo({ 
+                  left: carousel.scrollLeft - cardWidth, 
+                  behavior: 'smooth' 
+                });
+              }
             }}
-            className="hidden lg:flex absolute left-4 xl:left-8 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-white border-2 border-[#0047FF]/20 hover:border-[#0047FF] hover:bg-[#0047FF] items-center justify-center transition-all duration-300 group shadow-lg"
+            className="hidden lg:flex absolute left-4 xl:left-8 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-white/90 backdrop-blur-sm border-2 border-[#0047FF]/20 hover:border-[#0047FF] hover:bg-[#0047FF] items-center justify-center transition-all duration-500 ease-out group shadow-lg hover:shadow-xl hover:scale-105"
             aria-label="Projet précédent"
           >
-            <ArrowLeft className="w-6 h-6 text-[#0047FF] group-hover:text-white transition-colors" />
+            <ArrowLeft className="w-6 h-6 text-[#0047FF] group-hover:text-white transition-colors duration-300" />
           </button>
           <button 
             onClick={() => {
               const carousel = document.getElementById('projects-carousel');
-              if (carousel) carousel.scrollBy({ left: 400, behavior: 'smooth' });
+              if (carousel) {
+                const cardWidth = 520;
+                carousel.scrollTo({ 
+                  left: carousel.scrollLeft + cardWidth, 
+                  behavior: 'smooth' 
+                });
+              }
             }}
-            className="hidden lg:flex absolute right-4 xl:right-8 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-white border-2 border-[#0047FF]/20 hover:border-[#0047FF] hover:bg-[#0047FF] items-center justify-center transition-all duration-300 group shadow-lg"
+            className="hidden lg:flex absolute right-4 xl:right-8 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-white/90 backdrop-blur-sm border-2 border-[#0047FF]/20 hover:border-[#0047FF] hover:bg-[#0047FF] items-center justify-center transition-all duration-500 ease-out group shadow-lg hover:shadow-xl hover:scale-105"
             aria-label="Projet suivant"
           >
-            <ArrowRight className="w-6 h-6 text-[#0047FF] group-hover:text-white transition-colors" />
+            <ArrowRight className="w-6 h-6 text-[#0047FF] group-hover:text-white transition-colors duration-300" />
           </button>
 
           {/* Scrollable Carousel */}
           <div 
             id="projects-carousel"
-            className="flex gap-6 overflow-x-auto scrollbar-hide px-4 sm:px-6 lg:px-20 xl:px-32 pb-4 snap-x snap-mandatory"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            className="flex gap-6 overflow-x-auto scrollbar-hide px-4 sm:px-6 lg:px-20 xl:px-32 pb-4 snap-x snap-mandatory scroll-smooth"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollBehavior: 'smooth' }}
           >
             {CLIENT_PROJECTS.map((project) => (
               <Link 
                 key={project.id}
                 to={project.link}
-                className="group flex-shrink-0 w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[500px] relative overflow-hidden bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.2)] snap-center"
+                className="group flex-shrink-0 w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[500px] relative overflow-hidden bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF]/30 transition-all duration-700 ease-out hover:-translate-y-3 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.25)] snap-center"
               >
                 {/* Image */}
                 <div className="aspect-[16/10] overflow-hidden">
                   <img 
                     src={project.image_url} 
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                     loading="lazy"
                   />
                   {/* Gradient Overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-60 group-hover:opacity-80 transition-opacity duration-500`} />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-60 group-hover:opacity-80 transition-opacity duration-700 ease-out`} />
                 </div>
                 
                 {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                  <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-futura text-xs uppercase tracking-wider mb-3">
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 transition-transform duration-500 ease-out group-hover:translate-y-[-4px]">
+                  <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-futura text-xs uppercase tracking-wider mb-3 transition-all duration-500 group-hover:bg-white/30">
                     {project.category}
                   </span>
-                  <h3 className="font-anton text-2xl sm:text-3xl lg:text-4xl text-white mb-2 group-hover:translate-x-2 transition-transform duration-300">
+                  <h3 className="font-anton text-2xl sm:text-3xl lg:text-4xl text-white mb-2 transition-transform duration-500 ease-out group-hover:translate-x-2">
                     {project.title}
                   </h3>
-                  <p className="font-futura text-white/70 text-sm sm:text-base">
+                  <p className="font-futura text-white/70 text-sm sm:text-base transition-colors duration-500 group-hover:text-white/90">
                     {project.description}
                   </p>
                   
                   {/* Arrow indicator */}
-                  <div className="mt-4 flex items-center gap-2 text-white/60 group-hover:text-white transition-colors">
+                  <div className="mt-4 flex items-center gap-2 text-white/60 group-hover:text-white transition-all duration-500">
                     <span className="font-futura text-sm uppercase tracking-wider">Voir le projet</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
+                    <ArrowRight className="w-4 h-4 transition-transform duration-500 ease-out group-hover:translate-x-3" />
                   </div>
                 </div>
               </Link>
@@ -576,7 +588,7 @@ export default function HomePage() {
           </div>
 
           {/* Dots Indicator - Mobile */}
-          <div className="flex justify-center gap-2 mt-6 lg:hidden px-4">
+          <div className="flex justify-center gap-3 mt-6 lg:hidden px-4">
             {CLIENT_PROJECTS.map((project, index) => (
               <button
                 key={project.id}
@@ -585,7 +597,7 @@ export default function HomePage() {
                   const cardWidth = carousel?.firstChild?.offsetWidth || 300;
                   if (carousel) carousel.scrollTo({ left: index * (cardWidth + 24), behavior: 'smooth' });
                 }}
-                className="w-2 h-2 rounded-full bg-[#0047FF]/30 hover:bg-[#0047FF] transition-colors"
+                className="w-2.5 h-2.5 rounded-full bg-[#0047FF]/20 hover:bg-[#0047FF] transition-all duration-300 hover:scale-125"
                 aria-label={`Aller au projet ${index + 1}`}
               />
             ))}

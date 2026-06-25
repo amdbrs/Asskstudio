@@ -8,9 +8,18 @@
 .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
+}
+
+/* Smooth scroll for carousel */
+#projects-carousel {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
 }
 
 /* ===== SLIDE UP ANIMATION ===== */
