@@ -15,6 +15,7 @@ import AboutPage from "@/pages/AboutPage";
 import GraphismePage from "@/pages/GraphismePage";
 import SiteWebPage from "@/pages/SiteWebPage";
 import Modelisation3DPage from "@/pages/Modelisation3DPage";
+import CoachellaPage from "@/pages/CoachellaPage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import NotFoundPage from "@/pages/NotFoundPage";
@@ -132,6 +133,7 @@ function AnimatedRoutes() {
             <Route path="/graphisme" element={<GraphismePage />} />
             <Route path="/sites-web" element={<SiteWebPage />} />
             <Route path="/modelisation-3d" element={<Modelisation3DPage />} />
+            <Route path="/coachella-2k24" element={<CoachellaPage />} />
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="*" element={<NotFoundPage />} />
