@@ -45,6 +45,15 @@ const CLIENT_PROJECTS = [
     image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/nq51eqoq_Business-Card-Mockup.png',
     link: '/liberty-van',
     color: 'from-cyan-500 to-teal-500'
+  },
+  {
+    id: 'entreprise-lesly',
+    title: 'Entreprise Lesly',
+    category: 'Identité Visuelle',
+    description: 'Peintre & Décorateur',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/x4fbkh4y_mockup%20cdv1.png',
+    link: '/entreprise-lesly',
+    color: 'from-blue-700 to-blue-900'
   }
 ];
 
@@ -468,20 +477,20 @@ export default function HomePage() {
       </section>
 
       {/* ===== PROJETS CLIENTS CAROUSEL ===== */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" data-testid="projets-clients-section">
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="projets-clients-section">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection animation="fadeUp">
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-px w-12 sm:w-20 bg-white/30" />
-              <p className="font-futura text-white/70 text-xs sm:text-sm uppercase tracking-[0.2em] text-center">
+              <div className="h-px w-12 sm:w-20 bg-[#0047FF]/30" />
+              <p className="font-futura text-[#0047FF] text-xs sm:text-sm uppercase tracking-[0.2em] text-center">
                 Portfolio
               </p>
-              <div className="h-px w-12 sm:w-20 bg-white/30" />
+              <div className="h-px w-12 sm:w-20 bg-[#0047FF]/30" />
             </div>
-            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white text-center mb-4">
+            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF] text-center mb-4">
               Projets Clients
             </h2>
-            <p className="font-futura text-white/70 text-sm sm:text-base lg:text-lg text-center max-w-2xl mx-auto mb-12">
+            <p className="font-futura text-gray-600 text-sm sm:text-base lg:text-lg text-center max-w-2xl mx-auto mb-12">
               Découvrez nos dernières réalisations en graphisme, web et événementiel.
             </p>
           </AnimatedSection>
@@ -492,7 +501,7 @@ export default function HomePage() {
               <AnimatedSection key={project.id} animation="fadeUp" delay={index * 150}>
                 <Link 
                   to={project.link}
-                  className="group block relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]"
+                  className="group block relative overflow-hidden bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.2)]"
                 >
                   {/* Image */}
                   <div className="aspect-[16/10] overflow-hidden">
@@ -534,7 +543,7 @@ export default function HomePage() {
             <div className="text-center mt-12">
               <Link
                 to="/contact"
-                className="group inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-white text-[#0047FF] font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)]"
+                className="group inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-[#0047FF] text-white font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(0,71,255,0.4)]"
               >
                 Démarrer votre projet
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
