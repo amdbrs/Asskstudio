@@ -8,7 +8,6 @@ import { toast } from 'sonner';
 import { useScrollAnimation, AnimatedSection } from '@/hooks/useScrollAnimation';
 import { MouseParallax, TiltCard, ParallaxLayer } from '@/hooks/useParallax';
 import { MagneticButton } from '@/components/MagneticButton';
-import { HorizontalScrollCarousel } from '@/components/HorizontalScrollCarousel';
 import { ScrollIndicator } from '@/components/ScrollIndicator';
 import { AnimatedProcessSection } from '@/components/AnimatedProcessSection';
 import { QuoteForm } from '@/components/QuoteForm';
@@ -18,87 +17,27 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 const HERO_BANNER_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/mz2obg6m_pexels-jakubzerdzicki-19124461.jpg';
 
-// Fallback portfolio data with publicly accessible images
-const FALLBACK_PORTFOLIO = [
+// Sellerie Garcia - Projet Client Showcase
+const SELLERIE_GARCIA_IMAGES = [
   {
     id: '1',
-    title: 'Sellerie Garcia',
-    description: 'Site vitrine artisan sellier - Automobile, moto, mobilier',
-    category: 'Site Web',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/xbxushaa_IMG_0412.png',
-    link: 'https://selleriegarcia.fr'
+    title: 'Carte de visite - Recto',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/0mi6c65b_carte-visite-garcia.jpg'
   },
   {
     id: '2',
-    title: 'Liberty Van',
-    description: 'Entreprise de location de Vans dans l\'Allier 03',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/1aifryat_IMG_0347.png',
-    link: 'https://amdbrs.com/liberty-van'
+    title: 'Carte de visite - Verso',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/mkavvv36_dssdq.jpg'
   },
   {
     id: '3',
-    title: 'Club Football Laforest',
-    description: 'Création logo et t-shirts vintage/moderne pour le club',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9zz84ry3_IMG_0348.jpeg',
-    link: 'https://amdbrs.com/club-football-laforest'
+    title: 'Flyer promotionnel',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/3oqqdatm_poster-post-insta-garcia.jpg'
   },
   {
     id: '4',
-    title: 'IRIS',
-    description: 'Identité visuelle marque créateur prêt-à-porter',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/lq95pan1_IMG_0349.png',
-    link: 'https://amdbrs.com/iris'
-  },
-  {
-    id: '5',
-    title: 'Entreprise Lesly',
-    description: 'Logo, carte de visite et signalétique - Peintre & Décorateur',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/drjnh37d_IMG_0350.png',
-    link: 'https://amdbrs.com/entreprise-lesly'
-  },
-  {
-    id: '6',
-    title: 'Sneakers Design',
-    description: 'Visuels graphiques de paires de chaussures favorites',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/zlk12w3k_IMG_0356.png',
-    link: 'https://amdbrs.com/print-1'
-  },
-  {
-    id: '7',
-    title: 'Kates Agency',
-    description: 'Logo pour une agence au pair aux États-Unis',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/nzex1bji_IMG_0157.png',
-    link: 'https://amdbrs.com/kates-agency'
-  },
-  {
-    id: '8',
-    title: 'Manga Posters',
-    description: 'Posters de personnages manga que j\'apprécie',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/yrpzu4yj_IMG_0352.png',
-    link: 'https://amdbrs.com/brook-one-piece'
-  },
-  {
-    id: '9',
-    title: 'Posters en vrac',
-    description: 'Sélection de posters réalisés lors de projets pro ou perso',
-    category: 'Graphisme',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/228szjo1_IMG_0353.png',
-    link: 'https://amdbrs.com/posters-en-vrac'
-  },
-  {
-    id: '10',
-    title: 'Rappeur Figurine',
-    description: 'Figurines de rappeurs virtuels avec boîte de collection',
-    category: '3D',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/t8ve9seo_IMG_0333.jpg',
-    link: 'https://amdbrs.com/figurine-rap-3d-ia'
+    title: 'Flyer détaillé',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/xq67ay38_poster-post-insta-garcia2.jpg'
   }
 ];
 
@@ -316,7 +255,6 @@ const ServicesCarousel = () => {
 };
 
 export default function HomePage() {
-  const [portfolio, setPortfolio] = useState([]);
   const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
   
@@ -326,20 +264,6 @@ export default function HomePage() {
 
   useEffect(() => {
     fetch(`${API}/seed`, { method: 'POST' }).catch(() => {});
-    fetch(`${API}/portfolio`)
-      .then(r => r.json())
-      .then(data => {
-        // If we got data from API, use it; otherwise use fallback
-        if (data && data.length > 0) {
-          setPortfolio(data);
-        } else {
-          setPortfolio(FALLBACK_PORTFOLIO);
-        }
-      })
-      .catch(() => {
-        // API not available (e.g., on Vercel), use fallback
-        setPortfolio(FALLBACK_PORTFOLIO);
-      });
   }, []);
 
   const handleContactSubmit = async (e) => {
@@ -415,16 +339,6 @@ export default function HomePage() {
                 >
                   Démarrer un projet
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-                </MagneticButton>
-                <MagneticButton 
-                  as={Link}
-                  to="/realisations"
-                  strength={0.3}
-                  className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-white font-anton text-base sm:text-lg uppercase border-2 border-white/30 transition-all duration-500 hover:bg-white hover:text-[#0a0a0a] active:scale-95" 
-                  data-cursor-text="Voir" 
-                  aria-label="Voir nos réalisations"
-                >
-                  Nos réalisations
                 </MagneticButton>
               </div>
             </div>
@@ -546,8 +460,62 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== PORTFOLIO CAROUSEL SECTION ===== */}
-      <HorizontalScrollCarousel items={portfolio} />
+      {/* ===== PROJET CLIENT - SELLERIE GARCIA ===== */}
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" data-testid="projet-client-section">
+        <div className="max-w-7xl mx-auto">
+          <AnimatedSection animation="fadeUp">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="h-px w-12 sm:w-20 bg-white/30" />
+              <p className="font-futura text-white/70 text-xs sm:text-sm uppercase tracking-[0.2em] text-center">
+                Projet Client
+              </p>
+              <div className="h-px w-12 sm:w-20 bg-white/30" />
+            </div>
+            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white text-center mb-4">
+              Sellerie Garcia
+            </h2>
+            <p className="font-futura text-white/70 text-sm sm:text-base lg:text-lg text-center max-w-2xl mx-auto mb-12">
+              Identité visuelle complète pour un artisan sellier garnisseur : logo, cartes de visite, flyers et site web.
+            </p>
+          </AnimatedSection>
+
+          {/* Image Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-12">
+            {SELLERIE_GARCIA_IMAGES.map((item, index) => (
+              <AnimatedSection key={item.id} animation="fadeUp" delay={index * 100}>
+                <div className="group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-500">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={item.image_url} 
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p className="font-futura text-white text-sm">{item.title}</p>
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <AnimatedSection animation="fadeUp" delay={400}>
+            <div className="text-center">
+              <a
+                href="https://selleriegarcia.fr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-white text-[#0047FF] font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)]"
+              >
+                Voir le site web
+                <ExternalLink className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </a>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
 
       {/* ===== WHY US SECTION - STACKING ON MOBILE ===== */}
       <StackingWhyUsCards items={whyUs} />
