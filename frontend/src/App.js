@@ -19,6 +19,7 @@ import CoachellaPage from "@/pages/CoachellaPage";
 import SellerieGarciaPage from "@/pages/SellerieGarciaPage";
 import LibertyVanPage from "@/pages/LibertyVanPage";
 import EntrepriseLeslyPage from "@/pages/EntrepriseLeslyPage";
+import ClubFootballPage from "@/pages/ClubFootballPage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import NotFoundPage from "@/pages/NotFoundPage";
@@ -140,6 +141,7 @@ function AnimatedRoutes() {
             <Route path="/sellerie-garcia" element={<SellerieGarciaPage />} />
             <Route path="/liberty-van" element={<LibertyVanPage />} />
             <Route path="/entreprise-lesly" element={<EntrepriseLeslyPage />} />
+            <Route path="/club-football-laforest" element={<ClubFootballPage />} />
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="*" element={<NotFoundPage />} />

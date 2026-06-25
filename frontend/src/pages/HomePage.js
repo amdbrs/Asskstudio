@@ -54,6 +54,15 @@ const CLIENT_PROJECTS = [
     image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/x4fbkh4y_mockup%20cdv1.png',
     link: '/entreprise-lesly',
     color: 'from-blue-700 to-blue-900'
+  },
+  {
+    id: 'club-football-laforest',
+    title: 'Club Football Laforest',
+    category: 'Logo & Textile',
+    description: 'Stage de football',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/b013fktk_REPLACE-THIS-SCREEN11112111131.jpg',
+    link: '/club-football-laforest',
+    color: 'from-teal-600 to-teal-800'
   }
 ];
 
