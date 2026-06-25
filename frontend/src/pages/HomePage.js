@@ -17,27 +17,25 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 const HERO_BANNER_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/mz2obg6m_pexels-jakubzerdzicki-19124461.jpg';
 
-// Sellerie Garcia - Projet Client Showcase
-const SELLERIE_GARCIA_IMAGES = [
+// Client Projects for Carousel
+const CLIENT_PROJECTS = [
   {
-    id: '1',
-    title: 'Carte de visite - Recto',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/0mi6c65b_carte-visite-garcia.jpg'
+    id: 'sellerie-garcia',
+    title: 'Sellerie Garcia',
+    category: 'Identité Visuelle & Site Web',
+    description: 'Artisan sellier garnisseur',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/0mi6c65b_carte-visite-garcia.jpg',
+    link: '/sellerie-garcia',
+    color: 'from-emerald-800 to-emerald-900'
   },
   {
-    id: '2',
-    title: 'Carte de visite - Verso',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/mkavvv36_dssdq.jpg'
-  },
-  {
-    id: '3',
-    title: 'Flyer promotionnel',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/3oqqdatm_poster-post-insta-garcia.jpg'
-  },
-  {
-    id: '4',
-    title: 'Flyer détaillé',
-    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/xq67ay38_poster-post-insta-garcia2.jpg'
+    id: 'coachella-2k24',
+    title: 'Coachella 2K24',
+    category: 'Direction Artistique',
+    description: 'Soirée à thème festival',
+    image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/agi6m675_tshirt-coachella.png',
+    link: '/coachella-2k24',
+    color: 'from-pink-500 to-red-500'
   }
 ];
 
@@ -460,58 +458,78 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== PROJET CLIENT - SELLERIE GARCIA ===== */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" data-testid="projet-client-section">
+      {/* ===== PROJETS CLIENTS CAROUSEL ===== */}
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-[#0047FF]" data-testid="projets-clients-section">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection animation="fadeUp">
             <div className="flex items-center justify-center gap-4 mb-6">
               <div className="h-px w-12 sm:w-20 bg-white/30" />
               <p className="font-futura text-white/70 text-xs sm:text-sm uppercase tracking-[0.2em] text-center">
-                Projet Client
+                Portfolio
               </p>
               <div className="h-px w-12 sm:w-20 bg-white/30" />
             </div>
             <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white text-center mb-4">
-              Sellerie Garcia
+              Projets Clients
             </h2>
             <p className="font-futura text-white/70 text-sm sm:text-base lg:text-lg text-center max-w-2xl mx-auto mb-12">
-              Identité visuelle complète pour un artisan sellier garnisseur : logo, cartes de visite, flyers et site web.
+              Découvrez nos dernières réalisations en graphisme, web et événementiel.
             </p>
           </AnimatedSection>
 
-          {/* Image Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-12">
-            {SELLERIE_GARCIA_IMAGES.map((item, index) => (
-              <AnimatedSection key={item.id} animation="fadeUp" delay={index * 100}>
-                <div className="group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-500">
-                  <div className="aspect-square overflow-hidden">
+          {/* Projects Grid/Carousel */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {CLIENT_PROJECTS.map((project, index) => (
+              <AnimatedSection key={project.id} animation="fadeUp" delay={index * 150}>
+                <Link 
+                  to={project.link}
+                  className="group block relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]"
+                >
+                  {/* Image */}
+                  <div className="aspect-[16/10] overflow-hidden">
                     <img 
-                      src={item.image_url} 
-                      alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      src={project.image_url} 
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
                     />
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-60 group-hover:opacity-80 transition-opacity duration-500`} />
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="font-futura text-white text-sm">{item.title}</p>
+                  
+                  {/* Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-futura text-xs uppercase tracking-wider mb-3">
+                      {project.category}
+                    </span>
+                    <h3 className="font-anton text-2xl sm:text-3xl lg:text-4xl text-white mb-2 group-hover:translate-x-2 transition-transform duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="font-futura text-white/70 text-sm sm:text-base">
+                      {project.description}
+                    </p>
+                    
+                    {/* Arrow indicator */}
+                    <div className="mt-4 flex items-center gap-2 text-white/60 group-hover:text-white transition-colors">
+                      <span className="font-futura text-sm uppercase tracking-wider">Voir le projet</span>
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               </AnimatedSection>
             ))}
           </div>
 
           {/* CTA */}
           <AnimatedSection animation="fadeUp" delay={400}>
-            <div className="text-center">
-              <a
-                href="https://selleriegarcia.fr"
-                target="_blank"
-                rel="noopener noreferrer"
+            <div className="text-center mt-12">
+              <Link
+                to="/contact"
                 className="group inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-white text-[#0047FF] font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)]"
               >
-                Voir le site web
-                <ExternalLink className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
+                Démarrer votre projet
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           </AnimatedSection>
         </div>
