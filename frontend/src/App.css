@@ -3,6 +3,16 @@
     overflow: hidden;
 }
 
+
+/* ===== HIDE SCROLLBAR FOR CAROUSEL ===== */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
 /* ===== SLIDE UP ANIMATION ===== */
 @keyframes slideUp {
     from {

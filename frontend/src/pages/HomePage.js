@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
-import { ArrowRight, Palette, Box, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Printer, Star, Check, Sparkles, Globe, Layout, Code, Heart, ChevronDown, HelpCircle, MapPin, MessageSquare, Lightbulb, Pencil, Rocket } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Palette, Box, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Printer, Star, Check, Sparkles, Globe, Layout, Code, Heart, ChevronDown, HelpCircle, MapPin, MessageSquare, Lightbulb, Pencil, Rocket } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { toast } from 'sonner';
@@ -486,8 +486,8 @@ export default function HomePage() {
       </section>
 
       {/* ===== PROJETS CLIENTS CAROUSEL ===== */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-white" data-testid="projets-clients-section">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16 sm:py-24 lg:py-32 bg-white overflow-hidden" data-testid="projets-clients-section">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
           <AnimatedSection animation="fadeUp">
             <div className="flex items-center justify-center gap-4 mb-6">
               <div className="h-px w-12 sm:w-20 bg-[#0047FF]/30" />
@@ -499,55 +499,101 @@ export default function HomePage() {
             <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-[#0047FF] text-center mb-4">
               Projets Clients
             </h2>
-            <p className="font-futura text-gray-600 text-sm sm:text-base lg:text-lg text-center max-w-2xl mx-auto mb-12">
+            <p className="font-futura text-gray-600 text-sm sm:text-base lg:text-lg text-center max-w-2xl mx-auto mb-8">
               Découvrez nos dernières réalisations en graphisme, web et événementiel.
             </p>
           </AnimatedSection>
+        </div>
 
-          {/* Projects Grid/Carousel */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {CLIENT_PROJECTS.map((project, index) => (
-              <AnimatedSection key={project.id} animation="fadeUp" delay={index * 150}>
-                <Link 
-                  to={project.link}
-                  className="group block relative overflow-hidden bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.2)]"
-                >
-                  {/* Image */}
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <img 
-                      src={project.image_url} 
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    {/* Gradient Overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-60 group-hover:opacity-80 transition-opacity duration-500`} />
-                  </div>
+        {/* Carousel Container */}
+        <div className="relative">
+          {/* Navigation Arrows - Desktop */}
+          <button 
+            onClick={() => {
+              const carousel = document.getElementById('projects-carousel');
+              if (carousel) carousel.scrollBy({ left: -400, behavior: 'smooth' });
+            }}
+            className="hidden lg:flex absolute left-4 xl:left-8 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-white border-2 border-[#0047FF]/20 hover:border-[#0047FF] hover:bg-[#0047FF] items-center justify-center transition-all duration-300 group shadow-lg"
+            aria-label="Projet précédent"
+          >
+            <ArrowLeft className="w-6 h-6 text-[#0047FF] group-hover:text-white transition-colors" />
+          </button>
+          <button 
+            onClick={() => {
+              const carousel = document.getElementById('projects-carousel');
+              if (carousel) carousel.scrollBy({ left: 400, behavior: 'smooth' });
+            }}
+            className="hidden lg:flex absolute right-4 xl:right-8 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-white border-2 border-[#0047FF]/20 hover:border-[#0047FF] hover:bg-[#0047FF] items-center justify-center transition-all duration-300 group shadow-lg"
+            aria-label="Projet suivant"
+          >
+            <ArrowRight className="w-6 h-6 text-[#0047FF] group-hover:text-white transition-colors" />
+          </button>
+
+          {/* Scrollable Carousel */}
+          <div 
+            id="projects-carousel"
+            className="flex gap-6 overflow-x-auto scrollbar-hide px-4 sm:px-6 lg:px-20 xl:px-32 pb-4 snap-x snap-mandatory"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {CLIENT_PROJECTS.map((project) => (
+              <Link 
+                key={project.id}
+                to={project.link}
+                className="group flex-shrink-0 w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[500px] relative overflow-hidden bg-white border-2 border-[#0047FF]/10 hover:border-[#0047FF]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_-15px_rgba(0,71,255,0.2)] snap-center"
+              >
+                {/* Image */}
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img 
+                    src={project.image_url} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-60 group-hover:opacity-80 transition-opacity duration-500`} />
+                </div>
+                
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                  <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-futura text-xs uppercase tracking-wider mb-3">
+                    {project.category}
+                  </span>
+                  <h3 className="font-anton text-2xl sm:text-3xl lg:text-4xl text-white mb-2 group-hover:translate-x-2 transition-transform duration-300">
+                    {project.title}
+                  </h3>
+                  <p className="font-futura text-white/70 text-sm sm:text-base">
+                    {project.description}
+                  </p>
                   
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-futura text-xs uppercase tracking-wider mb-3">
-                      {project.category}
-                    </span>
-                    <h3 className="font-anton text-2xl sm:text-3xl lg:text-4xl text-white mb-2 group-hover:translate-x-2 transition-transform duration-300">
-                      {project.title}
-                    </h3>
-                    <p className="font-futura text-white/70 text-sm sm:text-base">
-                      {project.description}
-                    </p>
-                    
-                    {/* Arrow indicator */}
-                    <div className="mt-4 flex items-center gap-2 text-white/60 group-hover:text-white transition-colors">
-                      <span className="font-futura text-sm uppercase tracking-wider">Voir le projet</span>
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
-                    </div>
+                  {/* Arrow indicator */}
+                  <div className="mt-4 flex items-center gap-2 text-white/60 group-hover:text-white transition-colors">
+                    <span className="font-futura text-sm uppercase tracking-wider">Voir le projet</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
                   </div>
-                </Link>
-              </AnimatedSection>
+                </div>
+              </Link>
             ))}
           </div>
 
-          {/* CTA */}
+          {/* Dots Indicator - Mobile */}
+          <div className="flex justify-center gap-2 mt-6 lg:hidden px-4">
+            {CLIENT_PROJECTS.map((project, index) => (
+              <button
+                key={project.id}
+                onClick={() => {
+                  const carousel = document.getElementById('projects-carousel');
+                  const cardWidth = carousel?.firstChild?.offsetWidth || 300;
+                  if (carousel) carousel.scrollTo({ left: index * (cardWidth + 24), behavior: 'smooth' });
+                }}
+                className="w-2 h-2 rounded-full bg-[#0047FF]/30 hover:bg-[#0047FF] transition-colors"
+                aria-label={`Aller au projet ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
           <AnimatedSection animation="fadeUp" delay={400}>
             <div className="text-center mt-12">
               <Link
