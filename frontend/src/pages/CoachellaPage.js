@@ -122,14 +122,11 @@ export default function CoachellaPage() {
           </header>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {COACHELLA_IMAGES.map((item) => {
-              const IconComponent = item.icon;
-              return (
+            {COACHELLA_IMAGES.map((item) => (
                 <div 
                   key={item.id}
                   className="group relative overflow-hidden bg-white border-2 border-pink-100 hover:border-pink-400 hover:shadow-[0_30px_60px_-15px_rgba(236,72,153,0.2)] transition-all duration-500 hover:-translate-y-2"
                 >
-                  {/* Image */}
                   <div className="aspect-square overflow-hidden bg-gradient-to-br from-pink-50 to-white">
                     <img 
                       src={item.image_url} 
@@ -138,22 +135,8 @@ export default function CoachellaPage() {
                       loading="lazy"
                     />
                   </div>
-                  
-                  {/* Content */}
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 bg-gradient-to-r from-pink-500/10 to-red-500/10 group-hover:from-pink-500 group-hover:to-red-500 flex items-center justify-center transition-all duration-300">
-                        <IconComponent className="w-5 h-5 text-pink-500 group-hover:text-white transition-colors" />
-                      </div>
-                      <h3 className="font-anton text-xl sm:text-2xl text-pink-600">{item.title}</h3>
-                    </div>
-                    <p className="font-futura text-pink-400 text-sm">
-                      {item.description}
-                    </p>
-                  </div>
                 </div>
-              );
-            })}
+            ))}
           </div>
         </div>
       </section>

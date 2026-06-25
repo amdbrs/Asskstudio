@@ -130,14 +130,11 @@ export default function SellerieGarciaPage() {
           </header>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {SELLERIE_IMAGES.map((item) => {
-              const IconComponent = item.icon;
-              return (
+            {SELLERIE_IMAGES.map((item) => (
                 <div 
                   key={item.id}
                   className="group relative overflow-hidden bg-white border-2 border-emerald-100 hover:border-emerald-500 hover:shadow-[0_30px_60px_-15px_rgba(6,78,59,0.2)] transition-all duration-500 hover:-translate-y-2"
                 >
-                  {/* Image */}
                   <div className="aspect-square overflow-hidden bg-gradient-to-br from-emerald-50 to-white">
                     <img 
                       src={item.image_url} 
@@ -146,22 +143,8 @@ export default function SellerieGarciaPage() {
                       loading="lazy"
                     />
                   </div>
-                  
-                  {/* Content */}
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 bg-emerald-100 group-hover:bg-emerald-700 flex items-center justify-center transition-all duration-300">
-                        <IconComponent className="w-5 h-5 text-emerald-700 group-hover:text-white transition-colors" />
-                      </div>
-                      <h3 className="font-anton text-xl sm:text-2xl text-emerald-900">{item.title}</h3>
-                    </div>
-                    <p className="font-futura text-emerald-600 text-sm">
-                      {item.description}
-                    </p>
-                  </div>
                 </div>
-              );
-            })}
+            ))}
           </div>
         </div>
       </section>
