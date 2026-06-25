@@ -5,12 +5,12 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## Core Requirements
 - Modern landing page with hero banner image
-- Portfolio section with client projects (horizontal scroll carousel)
+- ~~Portfolio section~~ (REMOVED per user request - June 2026)
 - Admin dashboard for portfolio management
-- Functional contact form with multi-step devis request (connected to Resend API)
+- Functional contact form with multi-step devis request (EmailJS - Frontend only)
 - Mobile responsive design
 - Framer Motion page transitions
-- Custom cursor (black dot)
+- Custom cursor (adaptive: white on dark, black on light)
 - WhatsApp floating button
 - Blog with dedicated article pages
 
@@ -20,9 +20,9 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## Tech Stack
 - **Frontend**: React.js, Tailwind CSS, Framer Motion
-- **Backend**: FastAPI, Motor (Async MongoDB)
-- **Database**: MongoDB
-- **External Services**: Resend (Email delivery)
+- **Backend**: FastAPI (DEPRECATED - Not needed for Vercel deployment)
+- **Database**: MongoDB (Optional - only for admin features)
+- **External Services**: EmailJS (Email delivery - Frontend only), Google Analytics
 - **Fonts**: Anton (headings), Futura (body)
 
 ## Design System (Blue/White Theme)
@@ -45,7 +45,19 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ## What's Been Implemented
 
-### May 25, 2026 - Major Updates
+### June 25, 2026 - Latest Updates
+- [x] CTAs already present on all 3 service pages (Graphisme, Site Web, 3D) - Confirmed working
+- [x] Portfolio/Réalisations page content cleared - Now shows "Portfolio en construction" with CTAs
+- [x] "Réalisations" removed from Header menu
+
+### June 2026 - Major Updates  
+- [x] Migrated email system from Resend/Backend to **EmailJS (Frontend-only)**
+- [x] Adaptive cursor color (white on dark backgrounds, black on light)
+- [x] Adaptive logo in Header (white version on dark backgrounds)
+- [x] Google Analytics integrated (G-ESES6LW1WF)
+- [x] Mobile fluidity optimizations (touch-action, snap-carousel)
+
+### May 25, 2026 - Updates
 - [x] Hero banner image with blue filter overlay
 - [x] Removed background marquee text from hero
 - [x] Removed stats banner section
@@ -57,10 +69,9 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 
 ### April 2026 - Core Features
 - [x] Blue curtain page transitions with ASSK logo (Framer Motion)
-- [x] Custom black dot cursor (DotCursor.js)
+- [x] Custom dot cursor (DotCursor.js)
 - [x] WhatsApp floating button with chat popup
-- [x] Multi-step QuoteForm connected to user email via Resend API
-- [x] Horizontal scroll carousel for portfolio (drag & drop support)
+- [x] Multi-step QuoteForm connected via EmailJS
 - [x] Preloader with ASSK branding
 - [x] SEO optimization with react-helmet-async
 - [x] Blog with local SEO articles (Clermont-Ferrand, Vichy, Moulins)
@@ -73,11 +84,13 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 ## Prioritized Backlog
 
 ### P0 - Completed ✅
-All core features implemented
+- All core features implemented
+- CTAs on service pages - DONE
+- Portfolio content cleared - DONE
 
 ### P1 - High Priority
-- [ ] Deploy backend to Render/Railway for production
-- [ ] Connect Vercel frontend to deployed backend
+- [ ] Confirm with user: Remove backend entirely? (Not needed for Vercel deployment)
+- [ ] Remove "Réalisations" link from Footer navigation
 
 ### P2 - Medium Priority  
 - [ ] Admin dashboard for blog management
@@ -92,24 +105,32 @@ All core features implemented
 ## File Structure
 ```
 /app/
-├── backend/
-│   ├── server.py
-│   └── .env (RESEND_API_KEY, MONGO_URL)
+├── backend/              # DEPRECATED - EmailJS replaces Resend
+│   └── server.py
 └── frontend/
     ├── src/
     │   ├── App.js
     │   ├── pages/
     │   │   ├── HomePage.js
     │   │   ├── BlogPage.js
-    │   │   ├── BlogPostPage.js (NEW)
+    │   │   ├── BlogPostPage.js
+    │   │   ├── GraphismePage.js (CTAs ✓)
+    │   │   ├── SiteWebPage.js (CTAs ✓)
+    │   │   ├── Modelisation3DPage.js (CTAs ✓)
+    │   │   ├── PortfolioPage.js (Cleared)
     │   │   └── ...
     │   └── components/
-    │       ├── AnimatedProcessSection.js
+    │       ├── QuoteForm.js (EmailJS integration)
+    │       ├── DotCursor.js (Adaptive color)
+    │       ├── Header.js (Adaptive logo)
     │       └── ...
+    ├── public/
+    │   └── index.html (Google Analytics)
     └── package.json
 ```
 
 ## Important Notes
 - **Theme**: Blue/white theme - do NOT change to dark
 - **Vercel**: Fix ESLint warnings before finishing tasks
-- **Email**: Contact form → amaurydebarros1607@gmail.com via Resend
+- **Email**: Contact form → EmailJS (Service: service_6binlv4, Template: template_usg6x09)
+- **Backend**: DEPRECATED - All features work frontend-only now
