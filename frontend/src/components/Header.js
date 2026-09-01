@@ -46,7 +46,8 @@ export const Header = () => {
   const isHomePage = location.pathname === '/';
   
   // Use light logo when on homepage and not scrolled (dark hero background)
-  const useLightLogo = isHomePage && !scrolled;
+  // BUT always use dark logo when mobile menu is open
+  const useLightLogo = isHomePage && !scrolled && !mobileMenuOpen;
   const currentLogo = useLightLogo ? LOGO_LIGHT : LOGO_DARK;
   
   // Text color based on background
