@@ -130,10 +130,10 @@ const localBusinessSchema = {
   }
 };
 
-export const SEO = ({ page = 'home', customTitle, customDescription, includeLocalBusiness = false }) => {
+export const SEO = ({ page = 'home', title: propTitle, description: propDescription, customTitle, customDescription, includeLocalBusiness = false }) => {
   const data = seoData[page] || seoData.home;
-  const title = customTitle || data.title;
-  const description = customDescription || data.description;
+  const title = propTitle || customTitle || data.title;
+  const description = propDescription || customDescription || data.description;
   
   return (
     <Helmet>

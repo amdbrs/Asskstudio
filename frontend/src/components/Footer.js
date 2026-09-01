@@ -54,7 +54,7 @@ export const Footer = () => {
             <nav className="space-y-3">
               {[
                 { name: 'Accueil', path: '/' },
-                { name: 'À Propos', path: '/about' },
+                { name: 'À Propos', path: '/a-propos' },
                 { name: 'Blog', path: '/blog' },
                 { name: 'Contact', path: '/contact' }
               ].map((link) => (

@@ -1,0 +1,40 @@
+{
+  "summary": "Frontend-only verification after Vercel deploy fixes. CI=true production build passes (yarn build, exit 0, compiled successfully, no ESLint-as-error failures) - so the reported Vercel build blocker (apostrophe escape) is resolved. All requested routes (/, /contact, /blog, /blended-worlds, /sellerie-garcia) render with zero console/page errors. Header + footer Shop links point to https://asskshop.bigcartel.com with target=_blank/rel=noopener (desktop + mobile menu). Footer Blog link navigates to /blog. Homepage 'Projets Clients' carousel has 6 cards, prev/next arrows scroll (0 -> 466 -> 0) and card click navigates to /sellerie-garcia. Blog list -> blog post deep route renders. Contact multi-step quote wizard advances step 1 -> step 2 correctly. Found 3 real defects: footer 'À Propos' -> /about hits 404, SEO component prop-API mismatch making 11 pages inherit the homepage title/description, and package.json homepage='.' which will break asset loading on multi-segment routes (e.g. /blog/:slug) in the Vercel deployment.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Footer navigation", "issue": "'À Propos' links to /about, but the route defined in App.js is /a-propos -> renders 404 page", "selector": "[data-testid=\"main-footer\"] a[href=\"/about\"]", "priority": "HIGH"},
+      {"component": "SEO / react-helmet-async", "issue": "SEO component signature is ({page, customTitle, customDescription}) but 11 pages pass title=/description= props. Those props are ignored, so /contact, /blog, /blog/:slug, /blended-worlds, /sellerie-garcia, /coachella-2k24, /liberty-van, /entreprise-lesly, /club-football-laforest, /realisations all render the homepage title 'ASSK Studio | Graphiste Freelance...' and homepage description/keywords. Verified live: /blended-worlds title is the generic home title.", "selector": "src/components/SEO.js:133", "priority": "HIGH"},
+      {"component": "HomePage", "issue": "HomePage.js renders no <SEO> component at all; title/meta come only from public/index.html (no og/twitter tags, no LocalBusiness schema on home)", "selector": "src/pages/HomePage.js", "priority": "MEDIUM"},
+      {"component": "Projects carousel / QuoteForm / Footer links", "issue": "Missing data-testid on carousel prev/next arrows (only aria-label), carousel cards, dots, footer links and quote-form step options - reduces test robustness", "selector": "button[aria-label=\"Projet suivant\"], #projects-carousel > a", "priority": "LOW"},
+      {"component": "Header", "issue": "data-testid generated from link name contains a space and accent: 'nav-à propos' / 'mobile-nav-à propos'. Prefer slugified testids.", "selector": "[data-testid=\"nav-à propos\"]", "priority": "LOW"}
+    ],
+    "integration_issues": [
+      {"flow": "Vercel production deployment / asset loading", "issue": "package.json has \"homepage\": \".\" so build/index.html references ./static/js/main.*.js. With the SPA rewrite to /index.html, a hard load of a 2-segment route such as /blog/graphiste-clermont-ferrand resolves assets to /blog/static/... -> 404 -> blank page. Set homepage to \"/\" (or remove it) for Vercel.", "affected_selectors": ["/app/frontend/package.json", "/app/frontend/vercel.json"]}
+    ],
+    "design_issues": [
+      {"screen": "Contact - quote wizard", "issues": ["'Continuer' button in disabled state uses very light blue on white (low contrast); acceptable but borderline"]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix Footer 'À Propos' href: /about -> /a-propos (or add an /about redirect route)",
+    "Fix SEO prop API: accept title/description (or update all 11 call sites to customTitle/customDescription) - currently all inner pages share the homepage SEO metadata",
+    "Add <SEO page=\"home\" /> to HomePage",
+    "Change package.json homepage from '.' to '/' so hashed assets load on nested routes after Vercel deploy",
+    "Add data-testid attributes to carousel controls/cards and quote-form options"
+  ],
+  "critical_code_review_comments": [
+    "SEO.js accepts page/customTitle/customDescription while most pages pass title/description - silent prop drop, no runtime error, so it went unnoticed. Consider PropTypes/TS or a single normalized prop.",
+    "homepage='.' in CRA + SPA rewrites is a known deployment footgun for nested routes; only 1-segment routes accidentally work.",
+    "Header nav uses link.name for data-testid, producing non-slug testids with accents/spaces.",
+    "HomePage.js is large (>600 lines) with inline carousel logic using document.getElementById; extract into a reusable Carousel component with refs instead of direct DOM queries."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "85%"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Pure frontend app, no backend. CI=true build verified passing (log /tmp/build.log). Verified: all 5 requested routes, Shop external links (header desktop+mobile, footer), footer Blog link, homepage carousel arrows/cards, blog->post deep route, contact wizard step1->step2. Not tested: EmailJS actual submission (would send a real email), /a-propos, /graphisme, /sites-web, /modelisation-3d, remaining project pages. Open bugs: footer /about 404, SEO prop mismatch, package.json homepage='.'.",
+  "rca_of_the_issue": "Vercel build failure itself is fixed (CI=true build compiles clean). However the deployment can still render blank pages for nested routes because CRA emits relative asset paths due to package.json homepage='.'; combined with the vercel.json SPA rewrite, /blog/<slug> requests /blog/static/js/main.js which 404s."
+}

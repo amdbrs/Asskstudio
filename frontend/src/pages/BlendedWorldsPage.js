@@ -24,7 +24,7 @@ export default function BlendedWorldsPage() {
     <div className="min-h-screen bg-white" data-testid="blended-worlds-page">
       <SEO 
         title="Blended Worlds - Projet Créatif | ASSK Studio"
-        description="Blended Worlds : l'alliance entre le monde numérique et le réel en combinant des éléments pixelisés à des objets de la vie courante."
+        description="Blended Worlds : alliance entre le monde numérique et le réel en combinant des éléments pixelisés à des objets de la vie courante."
       />
       
       <Header />
