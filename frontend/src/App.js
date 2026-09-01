@@ -20,6 +20,7 @@ import SellerieGarciaPage from "@/pages/SellerieGarciaPage";
 import LibertyVanPage from "@/pages/LibertyVanPage";
 import EntrepriseLeslyPage from "@/pages/EntrepriseLeslyPage";
 import ClubFootballPage from "@/pages/ClubFootballPage";
+import BlendedWorldsPage from "@/pages/BlendedWorldsPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 // Components
@@ -137,6 +138,7 @@ function AnimatedRoutes() {
             <Route path="/liberty-van" element={<LibertyVanPage />} />
             <Route path="/entreprise-lesly" element={<EntrepriseLeslyPage />} />
             <Route path="/club-football-laforest" element={<ClubFootballPage />} />
+            <Route path="/blended-worlds" element={<BlendedWorldsPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </motion.div>

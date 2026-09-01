@@ -61,6 +61,15 @@ const CLIENT_PROJECTS = [
     image_url: 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/b013fktk_REPLACE-THIS-SCREEN11112111131.jpg',
     link: '/club-football-laforest',
     color: 'from-teal-600 to-teal-800'
+  },
+  {
+    id: 'blended-worlds',
+    title: 'Blended Worlds',
+    category: 'Projet Créatif',
+    description: 'Numérique × Réel',
+    image_url: 'https://customer-assets-jai6qajn.emergentagent.net/job_leave-your-mark/artifacts/dk5j9s9q_2b44aa9f-6833-4e8e-a99b-8626e8e18dbf_rw_1920.png',
+    link: '/blended-worlds',
+    color: 'from-amber-400 to-orange-500'
   }
 ];
 
