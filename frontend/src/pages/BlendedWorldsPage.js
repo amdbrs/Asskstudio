@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
-import { ArrowRight, Sparkles, Grid3X3, Flower2, Monitor } from 'lucide-react';
+import { ArrowRight, Sparkles, Grid3X3, Flower2, Monitor, Music } from 'lucide-react';
+
+const POSTER_BANNER_URL = 'https://customer-assets-jai6qajn.emergentagent.net/job_leave-your-mark/artifacts/n3lf6b18_b5913da9-b747-483b-81f8-6f0bea71ee9a.webp';
 
 const BITFLOWER_IMAGES = [
   {
@@ -27,42 +29,32 @@ export default function BlendedWorldsPage() {
       
       <Header />
       
-      {/* Hero Section - Yellow/Orange pixel theme */}
-      <section className="relative pt-28 pb-16 sm:pt-32 sm:pb-24 px-4 sm:px-6 lg:px-12 bg-gradient-to-br from-amber-400 via-yellow-400 to-orange-400 overflow-hidden">
-        {/* Pixel pattern background */}
-        <div className="absolute inset-0 pointer-events-none opacity-10">
-          <div className="absolute top-10 left-10 w-4 h-4 bg-white" />
-          <div className="absolute top-10 left-16 w-4 h-4 bg-white" />
-          <div className="absolute top-16 left-10 w-4 h-4 bg-white" />
-          <div className="absolute top-20 right-20 w-6 h-6 bg-white" />
-          <div className="absolute top-20 right-28 w-6 h-6 bg-white" />
-          <div className="absolute bottom-20 left-1/4 w-4 h-4 bg-white" />
-          <div className="absolute bottom-16 left-1/4 w-4 h-4 bg-white translate-x-4" />
-          <div className="absolute top-1/3 right-10 w-8 h-8 bg-white" />
-        </div>
-        
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 right-10 w-72 h-72 bg-white/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-10 left-10 w-96 h-96 bg-orange-300/30 rounded-full blur-3xl animate-pulse delay-1000" />
-        </div>
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 text-white font-futura text-xs sm:text-sm mb-6 border border-white/30">
-              <Grid3X3 className="w-4 h-4" />
-              <span>Projet Créatif</span>
+      {/* Hero Section with Poster Banner */}
+      <section className="relative pt-20 sm:pt-24 overflow-hidden">
+        {/* Banner Image */}
+        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] lg:aspect-[3/1]">
+          <img 
+            src={POSTER_BANNER_URL}
+            alt="Blended Worlds - Pixel Melody, Pixel Essence, Pixel Flower"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          
+          {/* Title Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 lg:p-16">
+            <div className="max-w-7xl mx-auto">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white font-futura text-xs sm:text-sm mb-4 border border-white/30">
+                <Grid3X3 className="w-4 h-4" />
+                <span>Projet Créatif</span>
+              </div>
+              <h1 className="font-anton text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white leading-tight">
+                Blended Worlds
+              </h1>
+              <p className="font-futura text-white/80 text-base sm:text-lg lg:text-xl mt-4 max-w-2xl">
+                L&apos;alliance entre le monde numérique et le réel en combinant des éléments 
+                pixelisés à des objets de la vie courante.
+              </p>
             </div>
-            
-            <h1 className="font-anton text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white leading-tight">
-              Blended Worlds
-              <br />
-              <span className="text-white/70">Numérique × Réel</span>
-            </h1>
-            
-            <p className="font-futura text-white/90 text-base sm:text-lg lg:text-xl mt-6 max-w-2xl leading-relaxed">
-              L&apos;alliance entre le monde numérique et le réel en combinant des éléments 
-              pixelisés à des objets de la vie courante. Une fusion artistique unique.
-            </p>
           </div>
         </div>
       </section>
@@ -165,6 +157,68 @@ export default function BlendedWorldsPage() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual: Pixel Melody */}
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-gradient-to-br from-purple-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <header className="text-center mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-600 font-futura text-xs sm:text-sm mb-4">
+              <Sparkles className="w-4 h-4" />
+              <span>Visuel #3</span>
+            </div>
+            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl text-purple-600">
+              Pixel Melody
+            </h2>
+            <p className="font-futura text-gray-600 text-base sm:text-lg mt-4 max-w-xl mx-auto">
+              Un vinyle qui libère des notes de musique pixelisées. 
+              Quand le son analogique rencontre l&apos;esthétique digitale.
+            </p>
+          </header>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            <div className="group relative overflow-hidden bg-gradient-to-br from-purple-50 to-white border-2 border-purple-100 hover:border-purple-400 hover:shadow-[0_30px_60px_-15px_rgba(147,51,234,0.2)] transition-all duration-500 hover:-translate-y-2">
+              <div className="aspect-square overflow-hidden">
+                <img 
+                  src="https://customer-assets-jai6qajn.emergentagent.net/job_leave-your-mark/artifacts/bjnyz0qe_fe112235-450f-4c02-a17c-9d8132d6154c_rw_1920.jpg" 
+                  alt="Pixel Melody - Dos"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div className="group relative overflow-hidden bg-gradient-to-br from-purple-50 to-white border-2 border-purple-100 hover:border-purple-400 hover:shadow-[0_30px_60px_-15px_rgba(147,51,234,0.2)] transition-all duration-500 hover:-translate-y-2">
+              <div className="aspect-square overflow-hidden">
+                <img 
+                  src="https://customer-assets-jai6qajn.emergentagent.net/job_leave-your-mark/artifacts/a98lg519_530c2a39-1107-4c68-b74f-87b1170300b7_rw_1920.jpg" 
+                  alt="Pixel Melody - Face"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Poster Full Width */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <header className="text-center mb-12">
+            <p className="font-futura text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] mb-3">Collection complète</p>
+            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl text-gray-800">
+              Les 3 visuels
+            </h2>
+          </header>
+          <div className="overflow-hidden border-2 border-gray-100 hover:border-gray-300 transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)]">
+            <img 
+              src={POSTER_BANNER_URL}
+              alt="Blended Worlds - Collection complète"
+              className="w-full h-auto"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>

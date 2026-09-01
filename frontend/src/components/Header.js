@@ -38,7 +38,7 @@ export const Header = () => {
   const navLinks = [
     { name: 'Studio', path: '/' },
     { name: 'À propos', path: '/a-propos' },
-    { name: 'Blog', path: '/blog' },
+    { name: 'Shop', path: 'https://asskshop.bigcartel.com', external: true },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -84,21 +84,34 @@ export const Header = () => {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`relative font-futura font-medium text-sm uppercase tracking-wider transition-colors duration-200 ${
-                    isActive(link.path)
-                      ? textColor
-                      : `${textColorMuted} hover:${textColor}`
-                  }`}
-                  data-testid={`nav-${link.name.toLowerCase()}`}
-                >
-                  {link.name}
-                  {isActive(link.path) && (
-                    <span className={`absolute -bottom-1 left-0 w-full h-0.5 ${useLightLogo ? 'bg-white' : 'bg-[#0047FF]'}`} />
-                  )}
-                </Link>
+                link.external ? (
+                  <a
+                    key={link.path}
+                    href={link.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`relative font-futura font-medium text-sm uppercase tracking-wider transition-colors duration-200 ${textColorMuted} hover:${textColor}`}
+                    data-testid={`nav-${link.name.toLowerCase()}`}
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`relative font-futura font-medium text-sm uppercase tracking-wider transition-colors duration-200 ${
+                      isActive(link.path)
+                        ? textColor
+                        : `${textColorMuted} hover:${textColor}`
+                    }`}
+                    data-testid={`nav-${link.name.toLowerCase()}`}
+                  >
+                    {link.name}
+                    {isActive(link.path) && (
+                      <span className={`absolute -bottom-1 left-0 w-full h-0.5 ${useLightLogo ? 'bg-white' : 'bg-[#0047FF]'}`} />
+                    )}
+                  </Link>
+                )
               ))}
             </nav>
 
@@ -162,27 +175,46 @@ export const Header = () => {
             {/* Nav Links */}
             <div className="flex-1 space-y-2">
               {navLinks.map((link, index) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`block py-4 font-anton text-2xl uppercase transition-all duration-300 ${
-                    isActive(link.path)
-                      ? 'text-[#0047FF]'
-                      : 'text-[#0047FF]/60 hover:text-[#0047FF] hover:translate-x-2'
-                  }`}
-                  style={{ 
-                    transitionDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms',
-                    opacity: mobileMenuOpen ? 1 : 0,
-                    transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(20px)'
-                  }}
-                  data-testid={`mobile-nav-${link.name.toLowerCase()}`}
-                >
-                  {link.name}
-                  {isActive(link.path) && (
-                    <span className="block w-12 h-1 bg-[#0047FF] mt-2" />
-                  )}
-                </Link>
+                link.external ? (
+                  <a
+                    key={link.path}
+                    href={link.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block py-4 font-anton text-2xl uppercase transition-all duration-300 text-[#0047FF]/60 hover:text-[#0047FF] hover:translate-x-2"
+                    style={{ 
+                      transitionDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms',
+                      opacity: mobileMenuOpen ? 1 : 0,
+                      transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(20px)'
+                    }}
+                    data-testid={`mobile-nav-${link.name.toLowerCase()}`}
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block py-4 font-anton text-2xl uppercase transition-all duration-300 ${
+                      isActive(link.path)
+                        ? 'text-[#0047FF]'
+                        : 'text-[#0047FF]/60 hover:text-[#0047FF] hover:translate-x-2'
+                    }`}
+                    style={{ 
+                      transitionDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms',
+                      opacity: mobileMenuOpen ? 1 : 0,
+                      transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(20px)'
+                    }}
+                    data-testid={`mobile-nav-${link.name.toLowerCase()}`}
+                  >
+                    {link.name}
+                    {isActive(link.path) && (
+                      <span className="block w-12 h-1 bg-[#0047FF] mt-2" />
+                    )}
+                  </Link>
+                )
               ))}
             </div>
             
