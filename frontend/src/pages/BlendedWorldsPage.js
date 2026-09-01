@@ -63,16 +63,6 @@ export default function BlendedWorldsPage() {
               L&apos;alliance entre le monde numérique et le réel en combinant des éléments 
               pixelisés à des objets de la vie courante. Une fusion artistique unique.
             </p>
-
-            <div className="flex flex-wrap gap-4 mt-8">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-amber-600 font-anton text-base sm:text-lg uppercase transition-all duration-300 hover:gap-5 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.4)]"
-              >
-                Commander ce design
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -133,6 +123,48 @@ export default function BlendedWorldsPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Visual: Pixel Essence */}
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 bg-gradient-to-br from-blue-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <header className="text-center mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-600 font-futura text-xs sm:text-sm mb-4">
+              <Sparkles className="w-4 h-4" />
+              <span>Visuel #2</span>
+            </div>
+            <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl text-blue-600">
+              Pixel Essence
+            </h2>
+            <p className="font-futura text-gray-600 text-base sm:text-lg mt-4 max-w-xl mx-auto">
+              Des cœurs pixelisés emprisonnés dans une bouteille en verre. 
+              L&apos;essence du digital capturée dans un objet du réel.
+            </p>
+          </header>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            <div className="group relative overflow-hidden bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100 hover:border-blue-400 hover:shadow-[0_30px_60px_-15px_rgba(59,130,246,0.2)] transition-all duration-500 hover:-translate-y-2">
+              <div className="aspect-square overflow-hidden">
+                <img 
+                  src="https://customer-assets-jai6qajn.emergentagent.net/job_leave-your-mark/artifacts/drdrmkqc_f1b34d2b-0936-4f4d-8e9f-1a95d3f73195_rw_1920.png" 
+                  alt="Pixel Essence - Dos"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div className="group relative overflow-hidden bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100 hover:border-blue-400 hover:shadow-[0_30px_60px_-15px_rgba(59,130,246,0.2)] transition-all duration-500 hover:-translate-y-2">
+              <div className="aspect-square overflow-hidden">
+                <img 
+                  src="https://customer-assets-jai6qajn.emergentagent.net/job_leave-your-mark/artifacts/212bwgm2_5700fddf-5ce6-4ed0-a18e-4097fb228cdc_rw_1920.png" 
+                  alt="Pixel Essence - Face"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
