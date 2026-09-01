@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { AlignJustify, X } from 'lucide-react';
 
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 
@@ -96,7 +96,7 @@ export const Header = () => {
               aria-label="Toggle menu"
               data-testid="mobile-menu-button"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <AlignJustify className="w-6 h-6" />}
             </button>
           </div>
         </nav>
