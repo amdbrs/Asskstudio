@@ -6,24 +6,30 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 ## Core Requirements
 - Modern landing page with hero banner image
 - ~~Portfolio section~~ (REMOVED per user request - June 2026)
-- Admin dashboard for portfolio management
+- ~~Admin dashboard for portfolio management~~ (REMOVED - Backend deleted)
 - Functional contact form with multi-step devis request (EmailJS - Frontend only)
 - Mobile responsive design
 - Framer Motion page transitions
 - Custom cursor (adaptive: white on dark, black on light)
 - WhatsApp floating button
 - Blog with dedicated article pages
+- **Client Projects Carousel** - Horizontal scrollable showcase
 
 ## User Personas
 - **Potential Clients**: Looking for graphic design, web development, or 3D printing services
-- **Admin (Amaury)**: Managing portfolio content and viewing contact messages
 
 ## Tech Stack
 - **Frontend**: React.js, Tailwind CSS, Framer Motion
-- **Backend**: FastAPI (DEPRECATED - Not needed for Vercel deployment)
-- **Database**: MongoDB (Optional - only for admin features)
+- **Backend**: ~~FastAPI~~ **REMOVED** - Pure frontend architecture
+- **Database**: ~~MongoDB~~ **NOT NEEDED** - Static content
 - **External Services**: EmailJS (Email delivery - Frontend only), Google Analytics
 - **Fonts**: Anton (headings), Futura (body)
+
+## Security Status
+- ✅ Backend removed (was containing hardcoded credentials)
+- ✅ No server-side vulnerabilities
+- ✅ EmailJS handles emails securely
+- ⚠️ EmailJS keys are in frontend (acceptable for public contact forms)
 
 ## Design System (Blue/White Theme)
 - **Background**: #ffffff (white)
@@ -87,14 +93,16 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - All core features implemented
 - CTAs on service pages - DONE
 - Portfolio content cleared - DONE
+- **Backend REMOVED** - Security audit passed
+- **Client Projects Carousel** - 5 projects with smooth scroll
 
-### P1 - High Priority
-- [ ] Confirm with user: Remove backend entirely? (Not needed for Vercel deployment)
-- [ ] Remove "Réalisations" link from Footer navigation
+### P1 - Completed ✅
+- ~~Confirm with user: Remove backend entirely~~ DONE
+- ~~Remove "Réalisations" link from Footer navigation~~ DONE
 
-### P2 - Medium Priority  
-- [ ] Admin dashboard for blog management
-- [ ] Dynamic blog articles from database
+### P2 - Future Enhancements  
+- [ ] Add more client projects to carousel
+- [ ] Blog articles management (if needed)
 
 ### P3 - Low Priority / Future
 - [ ] Client testimonials section
@@ -105,20 +113,24 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 ## File Structure
 ```
 /app/
-├── backend/              # DEPRECATED - EmailJS replaces Resend
-│   └── server.py
 └── frontend/
     ├── src/
     │   ├── App.js
     │   ├── pages/
-    │   │   ├── HomePage.js
+    │   │   ├── HomePage.js (Client Projects Carousel)
     │   │   ├── BlogPage.js
     │   │   ├── BlogPostPage.js
+    │   │   ├── ContactPage.js
+    │   │   ├── AboutPage.js
     │   │   ├── GraphismePage.js (CTAs ✓)
     │   │   ├── SiteWebPage.js (CTAs ✓)
     │   │   ├── Modelisation3DPage.js (CTAs ✓)
     │   │   ├── PortfolioPage.js (Cleared)
-    │   │   └── ...
+    │   │   ├── SellerieGarciaPage.js
+    │   │   ├── CoachellaPage.js
+    │   │   ├── LibertyVanPage.js
+    │   │   ├── EntrepriseLeslyPage.js
+    │   │   └── ClubFootballPage.js
     │   └── components/
     │       ├── QuoteForm.js (EmailJS integration)
     │       ├── DotCursor.js (Adaptive color)
@@ -133,4 +145,5 @@ Create a portfolio and agency website for "Assk Studio" (Amaury De Barros). Mode
 - **Theme**: Blue/white theme - do NOT change to dark
 - **Vercel**: Fix ESLint warnings before finishing tasks
 - **Email**: Contact form → EmailJS (Service: service_6binlv4, Template: template_usg6x09)
-- **Backend**: DEPRECATED - All features work frontend-only now
+- **Backend**: ❌ REMOVED - Pure frontend architecture
+- **Security**: ✅ Audit passed after backend removal

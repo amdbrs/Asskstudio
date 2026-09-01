@@ -7,8 +7,6 @@ import { SEO } from '@/components/SEO';
 import { Helmet } from 'react-helmet-async';
 import { ScrollReveal } from '@/components/ScrollReveal';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-
 // Articles SEO optimisés pour les recherches locales Auvergne
 const defaultPosts = [
   {
@@ -112,22 +110,10 @@ const defaultPosts = [
 const categories = ["Tous", "Graphisme", "Sites Web", "3D", "Branding"];
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState(defaultPosts);
+  const [posts] = useState(defaultPosts);
   const [filteredPosts, setFilteredPosts] = useState(defaultPosts);
   const [selectedCategory, setSelectedCategory] = useState("Tous");
   const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    fetch(`${API}/blog`)
-      .then(r => r.json())
-      .then(data => {
-        if (data && data.length > 0) {
-          setPosts(data);
-          setFilteredPosts(data);
-        }
-      })
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     let filtered = posts;

@@ -20,8 +20,6 @@ import SellerieGarciaPage from "@/pages/SellerieGarciaPage";
 import LibertyVanPage from "@/pages/LibertyVanPage";
 import EntrepriseLeslyPage from "@/pages/EntrepriseLeslyPage";
 import ClubFootballPage from "@/pages/ClubFootballPage";
-import AdminLoginPage from "@/pages/AdminLoginPage";
-import AdminDashboard from "@/pages/AdminDashboard";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 // Components
@@ -30,9 +28,6 @@ import { GrainOverlay } from "@/components/GrainOverlay";
 import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
 import { DotCursor } from "@/components/DotCursor";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-
-// Context
-import { AuthProvider } from "@/context/AuthContext";
 
 // Blue curtain transition component - optimized for fluidity
 const BlueCurtain = () => {
@@ -142,8 +137,6 @@ function AnimatedRoutes() {
             <Route path="/liberty-van" element={<LibertyVanPage />} />
             <Route path="/entreprise-lesly" element={<EntrepriseLeslyPage />} />
             <Route path="/club-football-laforest" element={<ClubFootballPage />} />
-            <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </motion.div>
@@ -173,14 +166,12 @@ function App() {
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       <DotCursor />
       <GrainOverlay />
-      <AuthProvider>
-        <BrowserRouter>
-          <AnimatedRoutes />
-          <FloatingQuoteButton />
-          <WhatsAppButton />
-          <Toaster position="top-right" />
-        </BrowserRouter>
-      </AuthProvider>
+      <BrowserRouter>
+        <AnimatedRoutes />
+        <FloatingQuoteButton />
+        <WhatsAppButton />
+        <Toaster position="top-right" />
+      </BrowserRouter>
     </HelmetProvider>
   );
 }

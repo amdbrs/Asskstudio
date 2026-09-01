@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight, ArrowLeft, Palette, Box, PenTool, Layers, FileText, Printer, Globe, Layout, Code, MapPin, MessageSquare, Lightbulb, Pencil, Rocket, Star, Sparkles, ChevronDown, Mail, Phone, Instagram } from 'lucide-react';
 import Marquee from 'react-fast-marquee';
-import { ArrowRight, ArrowLeft, Palette, Box, Mail, Phone, Instagram, Send, ExternalLink, PenTool, Layers, FileText, Printer, Star, Check, Sparkles, Globe, Layout, Code, Heart, ChevronDown, HelpCircle, MapPin, MessageSquare, Lightbulb, Pencil, Rocket } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { toast } from 'sonner';
 import { useScrollAnimation, AnimatedSection } from '@/hooks/useScrollAnimation';
 import { MouseParallax, TiltCard, ParallaxLayer } from '@/hooks/useParallax';
 import { MagneticButton } from '@/components/MagneticButton';
@@ -13,7 +12,6 @@ import { AnimatedProcessSection } from '@/components/AnimatedProcessSection';
 import { QuoteForm } from '@/components/QuoteForm';
 import { StackingWhyUsCards } from '@/components/StackingWhyUsCards';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/9qutly5o_assk-logo.png';
 const HERO_BANNER_URL = 'https://customer-assets.emergentagent.com/job_leave-your-mark/artifacts/mz2obg6m_pexels-jakubzerdzicki-19124461.jpg';
 
@@ -280,40 +278,9 @@ const ServicesCarousel = () => {
 };
 
 export default function HomePage() {
-  const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [loading, setLoading] = useState(false);
-  
   const stats1 = useCountUp(50, 2000);
   const stats2 = useCountUp(98, 2000);
   const stats3 = useCountUp(10, 2000);
-
-  useEffect(() => {
-    fetch(`${API}/seed`, { method: 'POST' }).catch(() => {});
-  }, []);
-
-  const handleContactSubmit = async (e) => {
-    e.preventDefault();
-    if (!contactForm.name || !contactForm.email || !contactForm.subject || !contactForm.message) {
-      toast.error('Veuillez remplir tous les champs');
-      return;
-    }
-    setLoading(true);
-    try {
-      const response = await fetch(`${API}/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contactForm)
-      });
-      if (response.ok) {
-        toast.success('Message envoyé avec succès !');
-        setContactForm({ name: '', email: '', subject: '', message: '' });
-      }
-    } catch {
-      toast.error('Erreur lors de l\'envoi');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden" data-testid="home-page">
